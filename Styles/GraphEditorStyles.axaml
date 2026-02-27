@@ -1,0 +1,62 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        
+        <Style Selector="Border.ToolBar">
+	        <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 16"/>
+            <Setter Property="Padding" Value="2 0"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Background" Value="#282828"/>
+        </Style>
+
+        <Style Selector="Border.ToolBar Button">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="2 0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="RenderTransform" Value="none"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.15"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.ToolBar Button:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="#3D3D3D"/>
+        </Style>
+
+        <Style Selector="Border.ToolBar Button:pressed /template/ ContentPresenter">
+			<Setter Property="Background" Value="#3D3D3D"/>
+        </Style>
+
+        <!--Tool button Icon-->
+        <Style Selector="Button.Tool Path">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="Width" Value="31"/>
+			<Setter Property="Height" Value="30"/>
+            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="Stretch" Value="None"/>
+        </Style>
+
+        <Style Selector="Button.Tool.selected Path">
+			<Setter Property="Stroke" Value="Orange"/>
+        </Style>
+
+        <!--Layout Mode button Icon-->
+        <Style Selector="Button.LayoutMode Path">
+			<Setter Property="Width" Value="31"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Fill" Value="White"/>
+        </Style>
+
+        <Style Selector="Button.LayoutMode.selected Path">
+            <Setter Property="Fill" Value="Orange"/>
+        </Style>
+</Styles>

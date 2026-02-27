@@ -1,0 +1,44 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="using:GraphOptimizer.Views"
+        xmlns:vm="using:GraphOptimizer.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="500"
+        x:Class="GraphOptimizer.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        FontFamily="Inter"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="GraphOptimizer">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+
+    <Border Padding="16" Background="#1C1C1C">
+        <Grid RowDefinitions="48, *"  ColumnDefinitions="3*, 7*" Background="#1C1C1C">
+		    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" CornerRadius="12" Background="#282828">
+                <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button Content="Зберегти" Background="Transparent" Foreground="#FFFFFF" Margin="16 0 0 0" FontSize="12" FontWeight="Medium"></Button>
+                        <Button Content="Відкрити" Background="Transparent" Foreground="#FFFFFF" FontSize="12"  FontWeight="Medium"></Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <Button Content="Зберегти" Background="Transparent" FontFamily="{StaticResource InterFont}" Foreground="#FFFFFF" Margin="0 0 16 0" FontSize="12"></Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <views:GraphMatrixView DataContext="{Binding Matrix}" Grid.Row="1" Grid.Column="0" Margin="0 16 0 0"/>
+            <views:GraphEditorView DataContext="{Binding Editor}" Grid.Row="1" Grid.Column="1" Margin="16 16 0 0"/>
+        </Grid>
+    </Border>
+
+    <Window.Styles>
+
+    </Window.Styles>
+</Window>

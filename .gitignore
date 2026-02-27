@@ -1,0 +1,33 @@
+# Build results
+[Dd]ebug/
+[Release]/
+bin/
+obj/
+
+# IDE - Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDE - Rider / IntelliJ
+.idea/
+*.iws
+
+# IDE - VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# NuGet Packages
+*.nuget.props
+*.nuget.targets
+packages/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/

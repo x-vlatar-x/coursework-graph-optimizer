@@ -1,0 +1,290 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:GraphOptimizer.Models"
+             xmlns:graphcore="using:GraphOptimizer.ViewModels.GraphCore"
+             xmlns:vm="using:GraphOptimizer.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:GraphEditorViewModel"
+             x:Class="GraphOptimizer.Views.GraphEditorView">
+    
+    <Border Classes="PanelCard">
+	    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*">
+            <TextBlock Classes="PanelTitle">Графічне подання</TextBlock>
+            <Grid Grid.Row="1" Grid.Column="0" Margin="0 16 0 0">
+                <Border CornerRadius="6"
+                        Background="#1C1C1C"
+                        ClipToBounds="True"
+                        PointerMoved="OnPointerMovedInCanvas"
+                        PointerEntered="OnPointerEnteredCanvas"
+                        PointerExited="OnPointerExitedCanvas"
+                        PointerPressed="OnPointerPressedCanvas"
+                        PointerReleased="OnPointerReleasedCanvas"
+                        Classes.move_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
+                        Classes.vertex_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
+                        Classes.edge_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
+                        Classes.mouse_inside="{Binding Cursor.IsInCanvas}">
+                    <Grid>
+                        <ItemsControl ItemsSource="{Binding Graph.Edges}" IsHitTestVisible="False">
+					        <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas Background="Transparent" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!--<Line Classes="Edge"
+                                          StartPoint="{Binding Vertex1, Converter={StaticResource VertexToPointConverter}}"
+                                          EndPoint="{Binding Vertex2, Converter={StaticResource VertexToPointConverter}}" />-->
+                                    <Line Classes="Edge"
+                                          Classes.selected="{Binding IsSelected}"
+                                          StartPoint="{Binding StartPoint}"
+                                          EndPoint="{Binding EndPoint}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <ItemsControl ItemsSource="{Binding Graph.Vertices}" IsHitTestVisible="False">
+					        <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas Background="{x:Null}"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Classes="Vertex"
+                                          Classes.selected="{Binding IsSelected}">
+                                        <Grid.RenderTransform>
+										    <TranslateTransform X="{Binding X, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}" 
+                                                                Y="{Binding Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}"/>
+                                        </Grid.RenderTransform>
+										
+                                        <Border Classes="Aura"/>
+                                        <Border Classes="Base"/>
+                                        <Border Classes="Core"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Canvas Background="{x:Null}">
+                            <Line Classes="PhantomEdge"
+                                  Classes.connecting="{Binding Session.IsEdgeConnecting}"
+                                  StartPoint="{Binding Session.SelectedVertexVM, Converter={StaticResource VertexToPointConverter}}"
+                                  EndPoint="{Binding Cursor.Position}" />
+                            <Grid Classes="PhantomVertex" Canvas.Left="0" Canvas.Top="0">
+                                <Grid.RenderTransform>
+						            <TranslateTransform X="{Binding Cursor.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}" 
+                                                        Y="{Binding Cursor.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}"/>
+                                </Grid.RenderTransform>
+
+                                <Border Classes="Aura"/>
+                                <Border Classes="Base"/>
+                                <Border Classes="Core"/>
+                            </Grid>
+                        </Canvas>
+                    </Grid>
+                </Border>
+			    <Border Classes="ToolBar">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Classes="Tool"
+                                Classes.selected="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
+                                Command="{Binding SetSelectedTool}"
+                                CommandParameter="{x:Static vm:EditorTool.Move}">
+                            <Grid>
+                                <Path Data="{StaticResource CursorIconGeometry}"/>
+                            </Grid>
+                        </Button>
+                        <Button Classes="Tool"
+                                Classes.selected="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
+                                Command="{Binding SetSelectedTool}"
+                                CommandParameter="{x:Static vm:EditorTool.Vertex}">
+                            <Grid>
+                                <Path Data="{StaticResource VertexIconGeometry}"/>
+                            </Grid>
+                        </Button>
+                        <Button Classes="Tool"
+                                Classes.selected="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
+                                Command="{Binding SetSelectedTool}"
+                                CommandParameter="{x:Static vm:EditorTool.Edge}">
+                            <Grid>
+                                <Path Data="{StaticResource EdgeIconGeometry}"/>
+                            </Grid>
+                        </Button>
+
+                        <Button Classes="LayoutMode"  
+                                Classes.selected="{Binding CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Freeform}"
+                                Command="{Binding SetLayoutMode}"
+                                CommandParameter="{x:Static vm:EditorLayoutMode.Freeform}"
+                                Margin="30 0 0 0">
+						    <Grid>
+                                <Path Data="{StaticResource FreeformIconGeometry}"/>
+                            </Grid>
+                        </Button>
+                        <Button Classes="LayoutMode"
+                                Classes.selected="{Binding CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Circular}"
+                                Command="{Binding SetLayoutMode}"
+                                CommandParameter="{x:Static vm:EditorLayoutMode.Circular}">
+                            <Grid>
+                                <Path Data="{StaticResource CircularIconGeometry}"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+    <UserControl.Styles>
+        <Style Selector="Border.vertex_tool">
+			<Setter Property="Cursor" Value="None"/>
+        </Style>
+
+        <!--EDGE START-->
+        <Style Selector="Line.Edge">
+		    <Setter Property="Stroke" Value="#CCCCCC"/>
+            <Setter Property="StrokeThickness" Value="4"/>
+        </Style>
+
+        <Style Selector="Border.move_tool Line.Edge:pointerover">
+			<Setter Property="Stroke" Value="#D77777"/>
+        </Style>
+
+        <Style Selector="Border.move_tool Line.Edge.selected">
+			<Setter Property="Stroke" Value="#D22D2D"/>
+        </Style>
+        <!--EDGE END-->
+
+        <!--VERTEX START-->
+        <Style Selector="Grid.Vertex">
+			<Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+        </Style>
+
+        <Style Selector="Grid.Vertex Border.Aura">
+            <Setter Property="CornerRadius" Value="10"/>
+			<Setter Property="BoxShadow">
+                <BoxShadows>0 0 4 2 #FFA000</BoxShadows>
+                <!--<BoxShadows>0 0 4 2 #FFDCA0</BoxShadows>-->
+            </Setter>
+        </Style>
+
+        <Style Selector="Grid.Vertex Border.Base">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="#FFA000"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+
+        <Style Selector="Grid.Vertex Border.Core">
+            <Setter Property="Width" Value="4"/>
+            <Setter Property="Height" Value="4"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="#FFA000"/>
+            <!--<Setter Property="Background" Value="#FFDCA0"/>-->
+			<Setter Property="BoxShadow">
+                <BoxShadows>0 0 4 2 #FFA000</BoxShadows>
+                <!--<BoxShadows>0 0 2 2 #FFDCA0</BoxShadows>-->
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.move_tool Grid.Vertex:pointerover Border.Aura, 
+                         Border.edge_tool Grid.Vertex:pointerover Border.Aura">
+			<Setter Property="BoxShadow">
+                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
+                <BoxShadows>0 0 4 2 #FF6831</BoxShadows>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.move_tool Grid.Vertex:pointerover Border.Base, 
+                         Border.edge_tool Grid.Vertex:pointerover Border.Base">
+            <!--<Setter Property="Background" Value="#FF0000"/>-->
+            <Setter Property="Background" Value="#FF6831"/>
+        </Style>
+
+        <Style Selector="Border.move_tool Grid.Vertex:pointerover Border.Core, 
+                         Border.edge_tool Grid.Vertex:pointerover Border.Core">
+            <Setter Property="Background" Value="#FF6831"/>
+			<Setter Property="BoxShadow">
+                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
+                <BoxShadows>0 0 4 2 #FF6831</BoxShadows>
+            </Setter>
+        </Style>
+
+        
+        <Style Selector="Border.move_tool Grid.Vertex.selected Border.Aura, 
+                         Border.edge_tool Grid.Vertex.selected Border.Aura">
+            <Setter Property="BoxShadow">
+                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
+                <BoxShadows>0 0 4 2 #FF0000</BoxShadows>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.move_tool Grid.Vertex.selected Border.Base, 
+                         Border.edge_tool Grid.Vertex.selected Border.Base">
+            <!--<Setter Property="Background" Value="#FF0000"/>-->
+            <Setter Property="Background" Value="#FF0000"/>
+        </Style>
+
+        <Style Selector="Border.move_tool Grid.Vertex.selected Border.Core, 
+                         Border.edge_tool Grid.Vertex.selected Border.Core">
+            <!--<Setter Property="Background" Value="#FF3232"/>-->
+            <Setter Property="Background" Value="#FF0000"/>
+			<Setter Property="BoxShadow">
+                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
+                <BoxShadows>0 0 4 2 #FF0000</BoxShadows>
+            </Setter>
+        </Style>
+        <!--VERTEX END-->
+
+        <!--PHANTOM VERTEX START-->
+        <Style Selector="Grid.PhantomVertex">
+			<Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+        </Style>
+
+        <Style Selector="Grid.PhantomVertex Border.Aura">
+            <Setter Property="CornerRadius" Value="10"/>
+			<Setter Property="BoxShadow">
+                <BoxShadows>0 0 4 2 #FF6831</BoxShadows>
+            </Setter>
+        </Style>
+
+        <Style Selector="Grid.PhantomVertex Border.Base">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="#FF6831"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+
+        <Style Selector="Grid.PhantomVertex Border.Core">
+            <Setter Property="Width" Value="2"/>
+            <Setter Property="Height" Value="2"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="#FF6831"/>
+			<Setter Property="BoxShadow">
+                <BoxShadows>0 0 2 2 #FF6831</BoxShadows>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.vertex_tool.mouse_inside Grid.PhantomVertex">
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+        <!--PHANTOM VERTEX END-->
+
+        <!--PHANTOM EDGE START-->
+        <Style Selector="Line.PhantomEdge">
+		    <Setter Property="Stroke" Value="#D77777"/>
+            <Setter Property="StrokeThickness" Value="4"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+        </Style>
+
+        <Style Selector="Border.edge_tool Line.PhantomEdge.connecting">
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+        <!--PHANTOM EDGE END-->
+    </UserControl.Styles>
+</UserControl>
