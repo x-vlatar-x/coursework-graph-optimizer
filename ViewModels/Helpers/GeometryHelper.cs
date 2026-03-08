@@ -1,6 +1,8 @@
 ﻿using Avalonia;
+using GraphOptimizer.Models;
 using GraphOptimizer.ViewModels.GraphCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 
@@ -19,7 +21,7 @@ namespace GraphOptimizer.ViewModels.Helpers
                 return (dx * dx) + (dy * dy) <= 12 * 12;
             });
         }
-        
+
         public static EdgeViewModel? FindEdgeAtPoint(GraphViewModel graphVM, Point mousePosition)
         {
             double tolerance = 4.0;
@@ -57,6 +59,44 @@ namespace GraphOptimizer.ViewModels.Helpers
 
                 return (dX * dX + dY * dY) <= toleranceSq;
             });
+        }
+
+        public static IGraphObject? FindObjectAtPoint(GraphViewModel graphVM, Point mousePosition)
+        {
+            var foundVertex = FindVertexAtPoint(graphVM, mousePosition);
+            return foundVertex != null ? foundVertex : FindEdgeAtPoint(graphVM, mousePosition);
+        }
+
+        public static List<IGraphObject> FindObjectsInRect(GraphViewModel graphVM, Point startPoint, Point endPoint)
+        {
+            List<IGraphObject> objectsVM = [];
+
+            double left = Math.Min(startPoint.X, endPoint.X);
+            double right = Math.Max(startPoint.X, endPoint.X);
+            double top = Math.Min(startPoint.Y, endPoint.Y);
+            double bottom = Math.Max(startPoint.Y, endPoint.Y);
+
+            foreach (var vertexVM in graphVM.Vertices)
+            {
+                if (vertexVM.X >= left && vertexVM.X <= right
+                    && vertexVM.Y >= top && vertexVM.Y <= bottom)
+                {
+                    objectsVM.Add(vertexVM);
+                }
+            }
+
+            foreach (var edgeVM in graphVM.Edges)
+            {
+                if ((edgeVM.VertexVM1.X >= left && edgeVM.VertexVM1.X <= right
+                    && edgeVM.VertexVM1.Y >= top && edgeVM.VertexVM1.Y <= bottom)
+                    && (edgeVM.VertexVM2.X >= left && edgeVM.VertexVM2.X <= right
+                    && edgeVM.VertexVM2.Y >= top && edgeVM.VertexVM2.Y <= bottom))
+                {
+                    objectsVM.Add(edgeVM);
+                }
+            }
+
+            return objectsVM;
         }
     }
 }

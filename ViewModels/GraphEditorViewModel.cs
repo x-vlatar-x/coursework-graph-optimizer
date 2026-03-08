@@ -16,24 +16,24 @@ namespace GraphOptimizer.ViewModels
         //public ObservableCollection<Vertex> Vertices => MyGraph.Vertices;
         //public ObservableCollection<Edge> Edges => MyGraph.Edges;
 
-        public GraphViewModel Graph { get; init; }
+        public GraphViewModel GraphVM { get; init; }
 
         //public MouseState Cursor {  get; init; } = new MouseState();
         //public EditorContext Session { get; init; } = new EditorContext();
         public EditorContext EditorContext { get; init; } = new EditorContext();
 
-        public GraphEditorViewModel(GraphViewModel graph)
+        public GraphEditorViewModel(GraphViewModel graphVM)
         {
-            Graph = graph;
+            GraphVM = graphVM;
 
-            var vertex1 = Graph.AddNewVertex(100, 50);
-            var vertex2 = Graph.AddNewVertex(50, 100);
-            var edge1 = Graph.AddNewEdge(vertex1, vertex2);
-            var vertex3 = Graph.AddNewVertex(140, 90);
-            var vertex4 = Graph.AddNewVertex(100, 200);
+            var vertex1 = GraphVM.AddNewVertex(100, 50);
+            var vertex2 = GraphVM.AddNewVertex(50, 100);
+            var edge1 = GraphVM.AddNewEdge(vertex1, vertex2);
+            var vertex3 = GraphVM.AddNewVertex(140, 90);
+            var vertex4 = GraphVM.AddNewVertex(100, 200);
 
-            var edge2 = Graph.AddNewEdge(vertex2, vertex3);
-            var edge3 = Graph.AddNewEdge(vertex3, vertex4);
+            var edge2 = GraphVM.AddNewEdge(vertex2, vertex3);
+            var edge3 = GraphVM.AddNewEdge(vertex3, vertex4);
         }
 
         private EditorTool _selectedTool = EditorTool.Move;
@@ -52,16 +52,19 @@ namespace GraphOptimizer.ViewModels
 
         public void SetSelectedTool(EditorTool tool)
         {
-            if (SelectedTool != tool && Session.SelectedVertexVM != null) {
-                Session.SelectedVertexVM.IsSelected = false;
-                Session.SelectedVertexVM = null;
-            }
-            if (SelectedTool != tool && Session.SelectedEdgeVM != null)
-            {
-                Session.SelectedEdgeVM.IsSelected = false;
-                Session.SelectedEdgeVM = null;
-            }
+            //if (SelectedTool != tool && Session.SelectedVertexVM != null) {
+            //    Session.SelectedVertexVM.IsSelected = false;
+            //    Session.SelectedVertexVM = null;
+            //}
+            //if (SelectedTool != tool && Session.SelectedEdgeVM != null)
+            //{
+            //    Session.SelectedEdgeVM.IsSelected = false;
+            //    Session.SelectedEdgeVM = null;
+            //}
             SelectedTool = tool;
+            EditorContext.StopSelecting();
+            EditorContext.StopHovering();
+            EditorContext.ClearSelection();
         }
 
         public void SetLayoutMode(EditorLayoutMode mode)
@@ -88,22 +91,37 @@ namespace GraphOptimizer.ViewModels
             switch (SelectedTool)
             {
                 case EditorTool.Move:
+                    if (!EditorContext.IsSelecting)
+                    {
+                        var hoveredObjectVM = GeometryHelper.FindObjectAtPoint(GraphVM, position);
+                        if (hoveredObjectVM != null)
+                        {
+                            EditorContext.StartHovering(hoveredObjectVM);
+                        } else
+                        {
+                            EditorContext.StopHovering();
+                        }
+                    } 
+                    if (EditorContext.SelectedObjects.Count > 0 && EditorContext.IsDragging)
+                    {
+                        EditorContext.Drag(position);
+                    }
+                    break;
+                case EditorTool.Vertex:
+                    break;
+                case EditorTool.Edge:
+                    var hoveredVertexVM = GeometryHelper.FindVertexAtPoint(GraphVM, position);
+                    if (hoveredVertexVM != null)
+                    {
+                        EditorContext.StartHovering(hoveredVertexVM);
+                    } else
+                    {
+                        EditorContext.StopHovering();
+                    }
+                    break;
+                default:
+                    break;
             }
-
-            //switch (SelectedTool)
-            //{
-            //    case EditorTool.Move:
-            //        Session.UpdateDrag(position, canvasSize);
-            //        break;
-            //    case EditorTool.Vertex:
-            //        Cursor.UpdatePosition(position);
-            //        break;
-            //    case EditorTool.Edge:
-            //        Cursor.UpdatePosition(position);
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         public void HandleLeftClick(Point position)
@@ -112,22 +130,42 @@ namespace GraphOptimizer.ViewModels
             {
                 case EditorTool.Move:
                     {
-                        //var pressedVertexVM = GeometryHelper.FindVertexAtPoint(Graph, position);
-
-                        //var pressedEdgeVM = pressedVertexVM == null
-                        //    ? GeometryHelper.FindEdgeAtPoint(Graph, position)
-                        //    : null;
-                        
+                        var pressedObjectVM = GeometryHelper.FindObjectAtPoint(GraphVM, position);
+                        if (pressedObjectVM != null)
+                        {
+                            if (pressedObjectVM.IsSelected)
+                            {
+                                EditorContext.StartDragging(position);
+                            }
+                            else
+                            {
+                                EditorContext.ClearSelection();
+                                EditorContext.Select(pressedObjectVM);
+                            }
+                        } 
+                        else
+                        {
+                            EditorContext.ClearSelection();
+                            EditorContext.StartSelecting(position);
+                        }
                     }
                     break;
                 case EditorTool.Vertex:
                     {
-
+                        GraphVM.AddNewVertex(position);
+                        SetSelectedTool(EditorTool.Move);
                     }
                     break;
                 case EditorTool.Edge:
                     {
-
+                        if (EditorContext.ActiveVertex == null)
+                        {
+                            var pressedVertexVM = GeometryHelper.FindVertexAtPoint(GraphVM, position);
+                            if (pressedVertexVM != null)
+                            {
+                                EditorContext.StartConnecting(pressedVertexVM);
+                            }
+                        }
                     }
                     break;
                 default:
@@ -206,6 +244,49 @@ namespace GraphOptimizer.ViewModels
 
         public void HandlePointerReleased(Point position)
         {
+            switch (SelectedTool)
+            {
+                case EditorTool.Move:
+                    {
+                        if (EditorContext.IsSelecting)
+                        {
+                            EditorContext.StopSelecting();
+                            EditorContext.Select(GeometryHelper.FindObjectsInRect(GraphVM, EditorContext.StartPoint, EditorContext.MousePosition));
+                        }
+                        
+                        var pressedObjectVM = GeometryHelper.FindObjectAtPoint(GraphVM, position);
+                        if (EditorContext.IsDragging)
+                        {
+                            if (!EditorContext.WasDragged && pressedObjectVM != null)
+                            {
+                                EditorContext.ClearSelection();
+                                EditorContext.Select(pressedObjectVM);
+                            }
+                            EditorContext.StopDragging();
+                        } else if (pressedObjectVM != null)
+                        {
+                            EditorContext.Select(pressedObjectVM);
+                        }
+                    }
+                    break;
+                case EditorTool.Vertex:
+                    break;
+                case EditorTool.Edge:
+                    {
+                        if (EditorContext.IsConnecting && EditorContext.ActiveVertex != null)
+                        {
+                            var pressedVertexVM = GeometryHelper.FindVertexAtPoint(GraphVM, position);
+                            if (pressedVertexVM != null)
+                            {
+                                GraphVM.AddNewEdge(EditorContext.ActiveVertex, pressedVertexVM);
+                            }
+                            EditorContext.StopConnecting();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
             //switch (SelectedTool)
             //{
             //    case EditorTool.Move:

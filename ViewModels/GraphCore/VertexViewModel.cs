@@ -32,6 +32,5 @@ namespace GraphOptimizer.ViewModels.GraphCore
             get => _isSelected;
             set => SetProperty(ref _isSelected, value);
         }
-
     }
 }

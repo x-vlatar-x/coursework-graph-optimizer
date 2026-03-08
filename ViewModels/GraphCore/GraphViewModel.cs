@@ -1,4 +1,5 @@
-﻿using GraphOptimizer.Models;
+﻿using Avalonia;
+using GraphOptimizer.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -21,6 +22,11 @@ namespace GraphOptimizer.ViewModels.GraphCore
             Vertices.Add(vertexViewModel);
 
             return vertexViewModel;
+        }
+
+        public VertexViewModel AddNewVertex(Point position)
+        {
+            return AddNewVertex(position.X, position.Y);
         }
 
         public EdgeViewModel? AddNewEdge(VertexViewModel vertex1, VertexViewModel vertex2)

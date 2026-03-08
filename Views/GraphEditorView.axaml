@@ -24,9 +24,9 @@
                         Classes.move_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
                         Classes.vertex_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
                         Classes.edge_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
-                        Classes.mouse_inside="{Binding Cursor.IsInCanvas}">
+                        Classes.mouse_inside="{Binding EditorContext.IsMouseOverCanvas}">
                     <Grid>
-                        <ItemsControl ItemsSource="{Binding Graph.Edges}" IsHitTestVisible="False">
+                        <ItemsControl ItemsSource="{Binding GraphVM.Edges}" IsHitTestVisible="False">
 					        <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <Canvas Background="Transparent" />
@@ -40,13 +40,14 @@
                                           EndPoint="{Binding Vertex2, Converter={StaticResource VertexToPointConverter}}" />-->
                                     <Line Classes="Edge"
                                           Classes.selected="{Binding IsSelected}"
+                                          Classes.hovered="{Binding IsHovered}"
                                           StartPoint="{Binding StartPoint}"
                                           EndPoint="{Binding EndPoint}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <ItemsControl ItemsSource="{Binding Graph.Vertices}" IsHitTestVisible="False">
+                        <ItemsControl ItemsSource="{Binding GraphVM.Vertices}" IsHitTestVisible="False">
 					        <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <Canvas Background="{x:Null}"/>
@@ -56,7 +57,8 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Classes="Vertex"
-                                          Classes.selected="{Binding IsSelected}">
+                                          Classes.selected="{Binding IsSelected}"
+                                          Classes.hovered="{Binding IsHovered}">
                                         <Grid.RenderTransform>
 										    <TranslateTransform X="{Binding X, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}" 
                                                                 Y="{Binding Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}"/>
@@ -69,21 +71,31 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Canvas Background="{x:Null}">
+                        <Canvas Background="{x:Null}" IsHitTestVisible="False">
                             <Line Classes="PhantomEdge"
-                                  Classes.connecting="{Binding Session.IsEdgeConnecting}"
-                                  StartPoint="{Binding Session.SelectedVertexVM, Converter={StaticResource VertexToPointConverter}}"
-                                  EndPoint="{Binding Cursor.Position}" />
+                                  Classes.connecting="{Binding EditorContext.IsConnecting}"
+                                  StartPoint="{Binding EditorContext.StartPoint}"
+                                  EndPoint="{Binding EditorContext.MousePosition}" />
                             <Grid Classes="PhantomVertex" Canvas.Left="0" Canvas.Top="0">
                                 <Grid.RenderTransform>
-						            <TranslateTransform X="{Binding Cursor.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}" 
-                                                        Y="{Binding Cursor.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}"/>
+						            <TranslateTransform X="{Binding EditorContext.MousePosition.X, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}" 
+                                                        Y="{Binding EditorContext.MousePosition.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}"/>
                                 </Grid.RenderTransform>
 
                                 <Border Classes="Aura"/>
                                 <Border Classes="Base"/>
                                 <Border Classes="Core"/>
                             </Grid>
+                            <Rectangle Canvas.Left="{Binding EditorContext.SelectionRect.X}"
+                                       Canvas.Top="{Binding EditorContext.SelectionRect.Y}"
+                                       Width="{Binding EditorContext.SelectionRect.Width}"
+                                       Height="{Binding EditorContext.SelectionRect.Height}"
+                                       IsVisible="{Binding EditorContext.IsSelecting}"
+                                       Fill="#22FFA500" 
+                                       Stroke="Orange"
+                                       StrokeThickness="1"
+                                       StrokeDashArray="4,2"
+                                       IsHitTestVisible="False"/>
                         </Canvas>
                     </Grid>
                 </Border>
@@ -148,13 +160,14 @@
             <Setter Property="StrokeThickness" Value="4"/>
         </Style>
 
-        <Style Selector="Border.move_tool Line.Edge:pointerover">
-			<Setter Property="Stroke" Value="#D77777"/>
+        <Style Selector="Border.move_tool Line.Edge.hovered">
+			<Setter Property="Stroke" Value="#D22D2D"/>
         </Style>
 
         <Style Selector="Border.move_tool Line.Edge.selected">
 			<Setter Property="Stroke" Value="#D22D2D"/>
         </Style>
+
         <!--EDGE END-->
 
         <!--VERTEX START-->
@@ -189,22 +202,22 @@
             </Setter>
         </Style>
 
-        <Style Selector="Border.move_tool Grid.Vertex:pointerover Border.Aura, 
-                         Border.edge_tool Grid.Vertex:pointerover Border.Aura">
+        <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Aura, 
+                         Border.edge_tool Grid.Vertex.hovered Border.Aura">
 			<Setter Property="BoxShadow">
                 <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
                 <BoxShadows>0 0 4 2 #FF6831</BoxShadows>
             </Setter>
         </Style>
 
-        <Style Selector="Border.move_tool Grid.Vertex:pointerover Border.Base, 
-                         Border.edge_tool Grid.Vertex:pointerover Border.Base">
+        <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Base, 
+                         Border.edge_tool Grid.Vertex.hovered Border.Base">
             <!--<Setter Property="Background" Value="#FF0000"/>-->
             <Setter Property="Background" Value="#FF6831"/>
         </Style>
 
-        <Style Selector="Border.move_tool Grid.Vertex:pointerover Border.Core, 
-                         Border.edge_tool Grid.Vertex:pointerover Border.Core">
+        <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Core, 
+                         Border.edge_tool Grid.Vertex.hovered Border.Core">
             <Setter Property="Background" Value="#FF6831"/>
 			<Setter Property="BoxShadow">
                 <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
