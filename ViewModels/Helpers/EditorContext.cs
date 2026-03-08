@@ -8,62 +8,6 @@ namespace GraphOptimizer.ViewModels.Helpers
 {
     public class EditorContext: ViewModelBase
     {
-        //private VertexViewModel? _selectedVertexVM = null;
-        //public VertexViewModel? SelectedVertexVM
-        //{
-        //    get => _selectedVertexVM;
-        //    set => SetProperty(ref _selectedVertexVM, value);
-        //}
-
-        //private EdgeViewModel? _selectedEdgeVM = null;
-        //public EdgeViewModel? SelectedEdgeVM
-        //{
-        //    get => _selectedEdgeVM;
-        //    set => SetProperty(ref _selectedEdgeVM, value);
-        //}
-
-        //private Point _offset;
-
-        //private VertexViewModel? _draggedVertexVM;
-        //public VertexViewModel? DraggedVertexVM
-        //{
-        //    get => _draggedVertexVM;
-        //    set => SetProperty(ref _draggedVertexVM, value);
-        //}
-
-        //public void StartDragging(VertexViewModel vertexVM, Point mousePosition)
-        //{
-        //    _draggedVertexVM = vertexVM;
-        //    _offset = new Point(vertexVM.X - mousePosition.X, vertexVM.Y - mousePosition.Y);
-        //}
-
-        //public void UpdateDrag(Point mousePosition, Size canvasSize) {
-        //    //if (DraggedVertexVM != null) {
-
-        //    if (DraggedVertexVM == null)
-        //    {
-        //        return;
-        //    }
-
-        //    DraggedVertexVM.X = Math.Clamp(mousePosition.X + _offset.X, 0, canvasSize.Width);
-        //    DraggedVertexVM.Y = Math.Clamp(mousePosition.Y + _offset.Y, 0, canvasSize.Height);
-        //}
-
-        //public void StopDragging()
-        //{
-        //    _draggedVertexVM = null;
-        //}
-
-        //private bool _isEdgeConnecting = false;
-        //public bool IsEdgeConnecting { 
-        //    get => _isEdgeConnecting; 
-        //    set => SetProperty(ref _isEdgeConnecting, value);
-        //}
-
-        //// Вспомогательное свойство для XAML
-        //public bool IsDraggingEdge => FirstSelectedVertex != null;
-        //public bool IsDraggingVertex => DraggedVertex != null;
-
         // Mouse state
         private Point _mousePosition;
         public Point MousePosition

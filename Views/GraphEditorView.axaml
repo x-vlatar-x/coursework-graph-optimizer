@@ -35,9 +35,6 @@
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <!--<Line Classes="Edge"
-                                          StartPoint="{Binding Vertex1, Converter={StaticResource VertexToPointConverter}}"
-                                          EndPoint="{Binding Vertex2, Converter={StaticResource VertexToPointConverter}}" />-->
                                     <Line Classes="Edge"
                                           Classes.selected="{Binding IsSelected}"
                                           Classes.hovered="{Binding IsHovered}"

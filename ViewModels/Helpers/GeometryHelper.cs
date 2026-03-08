@@ -14,7 +14,6 @@ namespace GraphOptimizer.ViewModels.Helpers
         {
             return graphVM.Vertices.LastOrDefault(vertex =>
             {
-                //Math.Pow(vertex.X - mousePosition.X, 2) + Math.Pow(vertex.Y - mousePosition.Y, 2) <= Math.Pow(12, 2);
                 double dx = vertex.X - mousePosition.X;
                 double dy = vertex.Y - mousePosition.Y;
 
