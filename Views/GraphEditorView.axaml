@@ -14,7 +14,7 @@
             <TextBlock Classes="PanelTitle">Графічне подання</TextBlock>
             <Grid Grid.Row="1" Grid.Column="0" Margin="0 16 0 0">
                 <Border CornerRadius="6"
-                        Background="#1C1C1C"
+                        Background="#00000000"
                         ClipToBounds="True"
                         PointerMoved="OnPointerMovedInCanvas"
                         PointerEntered="OnPointerEnteredCanvas"

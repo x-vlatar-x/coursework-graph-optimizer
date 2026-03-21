@@ -52,15 +52,6 @@ namespace GraphOptimizer.ViewModels
 
         public void SetSelectedTool(EditorTool tool)
         {
-            //if (SelectedTool != tool && Session.SelectedVertexVM != null) {
-            //    Session.SelectedVertexVM.IsSelected = false;
-            //    Session.SelectedVertexVM = null;
-            //}
-            //if (SelectedTool != tool && Session.SelectedEdgeVM != null)
-            //{
-            //    Session.SelectedEdgeVM.IsSelected = false;
-            //    Session.SelectedEdgeVM = null;
-            //}
             SelectedTool = tool;
             EditorContext.StopSelecting();
             EditorContext.StopHovering();
@@ -74,13 +65,11 @@ namespace GraphOptimizer.ViewModels
 
         public void HandlePointerEntered()
         {
-            //Cursor.IsInCanvas = true;
             EditorContext.IsMouseOverCanvas = true;
         }
 
         public void HandlePointerExited()
         {
-            //Cursor.IsInCanvas = false;
             EditorContext.IsMouseOverCanvas = false;
         }
 
@@ -171,75 +160,6 @@ namespace GraphOptimizer.ViewModels
                 default:
                     break;
             }
-            //int vertexSize = 20;
-            //switch (SelectedTool)
-            //{
-            //    case EditorTool.Move:
-            //    {
-            //        var pressedVertexVM = GeometryHelper.FindVertexAtPoint(Graph, position);
-
-            //        var pressedEdgeVM = pressedVertexVM == null 
-            //            ? GeometryHelper.FindEdgeAtPoint(Graph, position) 
-            //            : null;
-
-            //        if (Session.SelectedVertexVM != null && Session.SelectedVertexVM != pressedVertexVM)
-            //        {
-            //            Session.SelectedVertexVM.IsSelected = false;
-            //            Session.SelectedVertexVM = null;
-            //        }
-
-            //        if (Session.SelectedEdgeVM != null && Session.SelectedEdgeVM != pressedEdgeVM)
-            //        {
-            //            Session.SelectedEdgeVM.IsSelected = false;
-            //            Session.SelectedEdgeVM = null;
-            //        }
-
-            //        if (pressedVertexVM != null)
-            //        {
-            //            Session.SelectedVertexVM = pressedVertexVM;
-            //            Session.SelectedVertexVM.IsSelected = true;
-            //            Session.StartDragging(pressedVertexVM, position);
-            //        }
-            //        else if (pressedEdgeVM != null)
-            //        {
-            //            Session.SelectedEdgeVM = pressedEdgeVM;
-            //            Session.SelectedEdgeVM.IsSelected = true;
-            //        }
-            //        break;
-            //    }
-            //    case EditorTool.Vertex:
-            //    {
-            //        Graph.AddNewVertex(position.X, position.Y);
-            //        SelectedTool = EditorTool.Move;
-            //        break;
-            //    }
-            //    case EditorTool.Edge:
-            //    { 
-            //        var pressedVertexVM = GeometryHelper.FindVertexAtPoint(Graph, position);
-                    
-            //        if (Session.SelectedVertexVM != null && Session.SelectedVertexVM != pressedVertexVM)
-            //        {
-            //            Session.SelectedVertexVM.IsSelected = false;
-            //            Session.SelectedVertexVM = null;
-            //        }
-
-            //            if (pressedVertexVM != null)
-            //        {
-            //            if (Session.SelectedVertexVM != null)
-            //            {
-            //                Session.SelectedVertexVM.IsSelected = false;
-            //            }
-            //            Session.SelectedVertexVM = pressedVertexVM;
-            //            Session.SelectedVertexVM.IsSelected = true;
-            //            Session.IsEdgeConnecting = true;
-            //        }
-            //        break;
-            //    }
-            //    default:
-            //    {
-            //        break;
-            //    }
-            //}
         }
 
         public void HandlePointerReleased(Point position)
@@ -287,27 +207,6 @@ namespace GraphOptimizer.ViewModels
                 default:
                     break;
             }
-            //switch (SelectedTool)
-            //{
-            //    case EditorTool.Move:
-            //        Session.StopDragging();
-            //        break;
-            //    case EditorTool.Edge:
-            //        if (Session.SelectedVertexVM != null)
-            //        {
-            //            var pressedVertexVM = GeometryHelper.FindVertexAtPoint(Graph, position);
-            //            if (pressedVertexVM != null)
-            //            {
-            //                Graph.AddNewEdge(Session.SelectedVertexVM, pressedVertexVM);
-            //            }
-            //            Session.SelectedVertexVM.IsSelected = false;
-            //            Session.SelectedVertexVM = null;
-            //            Session.IsEdgeConnecting = false;
-            //        }
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
     }
 }

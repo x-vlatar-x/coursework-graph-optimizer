@@ -19,22 +19,38 @@
 
     <!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
 
-    <Border Padding="16" Background="#1C1C1C">
-        <Grid RowDefinitions="48, *"  ColumnDefinitions="3*, 7*" Background="#1C1C1C">
-		    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" CornerRadius="12" Background="#282828">
-                <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Button Content="Зберегти" Background="Transparent" Foreground="#FFFFFF" Margin="16 0 0 0" FontSize="12" FontWeight="Medium"></Button>
-                        <Button Content="Відкрити" Background="Transparent" Foreground="#FFFFFF" FontSize="12"  FontWeight="Medium"></Button>
-                    </StackPanel>
-                    <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        <Button Content="Зберегти" Background="Transparent" FontFamily="{StaticResource InterFont}" Foreground="#FFFFFF" Margin="0 0 16 0" FontSize="12"></Button>
-                    </StackPanel>
-                </Grid>
+    <!--<Border Padding="16" Background="#1C1C1C">-->
+    <Border Padding="16">
+        <Border.Background>
+			<RadialGradientBrush Center="50%,50%"
+                                 GradientOrigin="60%,-10%"
+                                 Radius="1">
+                <GradientStop Color="#880097" Offset="0"/>
+                <GradientStop Color="#1C4DB0" Offset="0.5"/>
+                <GradientStop Color="#002061" Offset="1"/>
+            </RadialGradientBrush>
+        </Border.Background>
+        <Grid RowDefinitions="48, *"  ColumnDefinitions="3*, 7*">
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Classes="PanelCardShadow">
+		        <Border Classes="PanelCard" Padding="0">
+                    <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Button Content="Зберегти" Background="Transparent" Foreground="#FFFFFF" Margin="16 0 0 0" FontSize="12" FontWeight="Medium"></Button>
+                            <Button Content="Відкрити" Background="Transparent" Foreground="#FFFFFF" FontSize="12"  FontWeight="Medium"></Button>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <Button Content="Зберегти" Background="Transparent" FontFamily="{StaticResource InterFont}" Foreground="#FFFFFF" Margin="0 0 16 0" FontSize="12"></Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>	
             </Border>
 
-            <views:GraphMatrixView DataContext="{Binding Matrix}" Grid.Row="1" Grid.Column="0" Margin="0 16 0 0"/>
-            <views:GraphEditorView DataContext="{Binding Editor}" Grid.Row="1" Grid.Column="1" Margin="16 16 0 0"/>
+            <Border Grid.Row="1" Grid.Column="0" Margin="0 16 0 0" Classes="PanelCardShadow">
+                <views:GraphMatrixView DataContext="{Binding Matrix}"/>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="1" Margin="16 16 0 0" Classes="PanelCardShadow">
+                <views:GraphEditorView DataContext="{Binding Editor}"/>
+            </Border>
         </Grid>
     </Border>
 

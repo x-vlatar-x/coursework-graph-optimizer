@@ -8,7 +8,8 @@
             <Setter Property="Padding" Value="2 0"/>
             <Setter Property="Height" Value="48"/>
             <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Background" Value="#282828"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="BoxShadow" Value="0 0 5 0 #4D000000"/>
         </Style>
 
         <Style Selector="Border.ToolBar Button">
