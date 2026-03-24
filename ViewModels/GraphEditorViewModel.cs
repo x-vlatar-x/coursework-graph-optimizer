@@ -13,13 +13,8 @@ namespace GraphOptimizer.ViewModels
     public enum EditorTool { Move, Vertex, Edge }
     public partial class GraphEditorViewModel: ViewModelBase
     {
-        //public ObservableCollection<Vertex> Vertices => MyGraph.Vertices;
-        //public ObservableCollection<Edge> Edges => MyGraph.Edges;
-
         public GraphViewModel GraphVM { get; init; }
 
-        //public MouseState Cursor {  get; init; } = new MouseState();
-        //public EditorContext Session { get; init; } = new EditorContext();
         public EditorContext EditorContext { get; init; } = new EditorContext();
 
         public GraphEditorViewModel(GraphViewModel graphVM)
@@ -34,6 +29,43 @@ namespace GraphOptimizer.ViewModels
 
             var edge2 = GraphVM.AddNewEdge(vertex2, vertex3);
             var edge3 = GraphVM.AddNewEdge(vertex3, vertex4);
+
+
+            var vertex5 = GraphVM.AddNewVertex(140, 90);
+            var vertex6 = GraphVM.AddNewVertex(100, 200);
+            var vertex7 = GraphVM.AddNewVertex(100, 200);
+            var vertex8 = GraphVM.AddNewVertex(100, 200);
+            var vertex9 = GraphVM.AddNewVertex(100, 200);
+            var vertex10 = GraphVM.AddNewVertex(100, 200);
+            var vertex11 = GraphVM.AddNewVertex(100, 200);
+            var vertex12 = GraphVM.AddNewVertex(100, 200);
+            var vertex13 = GraphVM.AddNewVertex(100, 200);
+            var vertex14 = GraphVM.AddNewVertex(100, 200);
+            var vertex15 = GraphVM.AddNewVertex(100, 200);
+            var vertex16 = GraphVM.AddNewVertex(100, 200);
+            var vertex17 = GraphVM.AddNewVertex(100, 200);
+            var vertex18 = GraphVM.AddNewVertex(100, 200);
+            var vertex19 = GraphVM.AddNewVertex(100, 200);
+            var vertex20 = GraphVM.AddNewVertex(100, 200);
+            var vertex21 = GraphVM.AddNewVertex(100, 200);
+
+            GraphVM.AddNewEdge(vertex3, vertex5);
+            GraphVM.AddNewEdge(vertex3, vertex6);
+            GraphVM.AddNewEdge(vertex3, vertex7);
+            GraphVM.AddNewEdge(vertex3, vertex8);
+            GraphVM.AddNewEdge(vertex3, vertex9);
+            GraphVM.AddNewEdge(vertex3, vertex10);
+            GraphVM.AddNewEdge(vertex3, vertex11);
+            GraphVM.AddNewEdge(vertex3, vertex12);
+            GraphVM.AddNewEdge(vertex3, vertex13);
+            GraphVM.AddNewEdge(vertex3, vertex14);
+            GraphVM.AddNewEdge(vertex3, vertex15);
+            GraphVM.AddNewEdge(vertex3, vertex16);
+            GraphVM.AddNewEdge(vertex3, vertex17);
+            GraphVM.AddNewEdge(vertex3, vertex18);
+            GraphVM.AddNewEdge(vertex3, vertex19);
+            GraphVM.AddNewEdge(vertex3, vertex20);
+            GraphVM.AddNewEdge(vertex3, vertex21);
         }
 
         private EditorTool _selectedTool = EditorTool.Move;

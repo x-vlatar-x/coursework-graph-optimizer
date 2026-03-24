@@ -1,0 +1,220 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:GraphOptimizer.Models"
+             xmlns:graphcore="using:GraphOptimizer.ViewModels.GraphCore"
+             xmlns:vm="using:GraphOptimizer.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="450"
+             x:DataType="vm:GraphTableViewModel"
+             x:Class="GraphOptimizer.Views.GraphTableView">
+
+    <Border Classes="PanelCard">
+        <Grid RowDefinitions="Auto, *" Margin="16 0 8 16">
+            <Border Grid.Row="0" Classes="PanelTitle">
+                <TextBlock>Список суміжності</TextBlock>
+            </Border>
+            <ScrollViewer Grid.Row="1" Classes="VerticesList">
+			    <ItemsControl ItemsSource="{Binding GraphVM.Vertices}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Classes="VertexEntry" 
+                                    Classes.expanded="{Binding IsExpanded}">
+                                <StackPanel Orientation="Vertical">
+                                    <Border Classes="VertexHeader">
+                                        <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto">
+								            <TextBlock Name="VertexId" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Model.Id, StringFormat='\{0\} вершина'}"/>
+								            <TextBlock Name="EdgeCount" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="{Binding EdgeCount, StringFormat='Суміжні вершини: \{0\}'}"/>
+                                            <Button Name="ExpandButton" Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" Click="OnExpandButtonClick">
+									            <Grid>
+										            <Path Classes="Down" VerticalAlignment="Center" HorizontalAlignment="Center" Data="{StaticResource ArrowDropDownIconGeometry}"/>
+										            <Path Classes="Up" VerticalAlignment="Center" HorizontalAlignment="Center" Data="{StaticResource ArrowDropUpIconGeometry}"/>
+                                                </Grid>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                    <Border Classes="VertexDetails">
+                                        <ScrollViewer Classes="NeighborsList">
+                                            <ItemsControl ItemsSource="{Binding Neighbors}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Margin="0 0 -8 -8"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+										            <DataTemplate>
+											            <Border Classes="Neighbor"
+                                                                PointerPressed="OnNeighborPressed">
+                                                            <Grid>
+												                <TextBlock Name="NeighborId" Text="{Binding Model.Id}"/>
+																<Path VerticalAlignment="Center" HorizontalAlignment="Center" Data="{StaticResource CrossIconGeometry}"/>
+                                                            </Grid>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>										
+                                        </ScrollViewer>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+
+    <UserControl.Styles>
+		<Style Selector="Border.VertexEntry">
+		    <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12 0 12 0"/>
+            <Setter Property="Margin" Value="0 0 8 8"/>
+        </Style>
+        
+        <Style Selector="ScrollBar /template/ RepeatButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList">
+            <Setter Property="AllowAutoHide" Value="False"/>
+			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="Padding" Value="0 0 0 8"/>
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical">
+			<Setter Property="Margin" Value="-6 0 -5 0"/>
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical /template/ Rectangle#TrackRect">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical /template/ Thumb">
+			<Setter Property="Width" Value="4"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Background" Value="#40FFFFFF"/>
+        </Style>
+
+        <!--VERTEX HEADER START-->
+        <Style Selector="Border.VertexHeader">
+		    <Setter Property="Padding" Value="0 6"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader TextBlock#VertexId">
+			<Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader TextBlock#EdgeCount">
+			<Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#99FFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path.Up">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path.Down">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.expanded Button#ExpandButton Path.Up">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.expanded Button#ExpandButton Path.Down">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        <!--VERTEX HEADER END-->
+        
+        <!--VERTEX DETAILS START-->
+        <Style Selector="Border.VertexDetails">
+			<Setter Property="MaxHeight" Value="0"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Padding" Value="0 0 0 12"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="MaxHeight" Duration="0:0:0.2"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.expanded Border.VertexDetails">
+			<Setter Property="MaxHeight" Value="116"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="ScrollViewer.NeighborsList">
+            <Setter Property="AllowAutoHide" Value="False"/>
+			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="MaxHeight" Value="95"/>
+        </Style>
+
+         <Style Selector="ScrollViewer.NeighborsList ScrollBar:vertical /template/ Rectangle#TrackRect">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="ScrollViewer.NeighborsList ScrollBar:vertical /template/ Thumb">
+			<Setter Property="Width" Value="4"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Background" Value="#40FFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Margin" Value="0 0 8 8"/>
+            <Setter Property="Padding" Value="12 0"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor:pointerover">
+			<Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#33FFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor TextBlock#NeighborId">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor Path">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Margin" Value="-12 0"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor:pointerover TextBlock#NeighborId">
+			<Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor:pointerover Path">
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+        <!--VERTEX DETAILS END-->
+    </UserControl.Styles>
+</UserControl>

@@ -1,11 +1,15 @@
 ﻿using GraphOptimizer.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GraphOptimizer.ViewModels.GraphCore
 {
-    public class VertexViewModel(Vertex model, double x, double y): ViewModelBase, IGraphObject
+    public class VertexViewModel(IAdjacencyContext adjacencyContext, Vertex model, double x, double y) : ViewModelBase, IGraphObject
     {
+        private readonly IAdjacencyContext _adjacencyContext = adjacencyContext;
         public Vertex Model { get; init; } = model;
 
+        // Editor state
         private double _x = x;
         public double X
         {
@@ -31,6 +35,37 @@ namespace GraphOptimizer.ViewModels.GraphCore
         public bool IsSelected {
             get => _isSelected;
             set => SetProperty(ref _isSelected, value);
+        }
+
+        // List state
+        private bool _isExpanded = false;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetProperty(ref _isExpanded, value);
+        }
+
+        public void ToggleExpansion()
+        {
+            IsExpanded = !IsExpanded;
+            NotifyNeighborsChanged();
+        }
+
+        public int EdgeCount => _adjacencyContext.GetEdgesForVertex(this).Count();
+
+        public IEnumerable<VertexViewModel> Neighbors => _adjacencyContext.GetNeighborsForVertex(this);
+
+        public void NotifyEdgeCountChanged()
+        {
+            OnPropertyChanged(nameof(EdgeCount));
+        }
+
+        public void NotifyNeighborsChanged()
+        {
+            if (IsExpanded)
+            {
+                OnPropertyChanged(nameof(Neighbors));
+            }
         }
     }
 }

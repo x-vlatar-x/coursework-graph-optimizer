@@ -39,6 +39,7 @@ namespace GraphOptimizer.Models
                 RemoveEdge(edge);
             }
         }
+
         public void RemoveEdge(Edge edge)
         {
             Edges.Remove(edge);

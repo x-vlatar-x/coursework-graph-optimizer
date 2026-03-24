@@ -4,7 +4,6 @@
 	    <Setter Property="CornerRadius" Value="12"/>
         <Setter Property="BorderBrush" Value="#4DFFFFFF"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="16"/>
         <Setter Property="Background" Value="#1AFFFFFF"/>
     </Style>
 
@@ -14,10 +13,15 @@
         <Setter Property="BoxShadow" Value="0 0 10 0 #4D000000"/>
     </Style>
 
-    <Style Selector="TextBlock.PanelTitle">
+    <Style Selector="Border.PanelTitle">
+        <Setter Property="Margin" Value="0 24 0 16"/>
+    </Style>
+
+    <Style Selector="Border.PanelTitle TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Foreground" Value="#FFC8FF"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
 </Styles>

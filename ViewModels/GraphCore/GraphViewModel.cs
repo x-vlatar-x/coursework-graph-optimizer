@@ -1,11 +1,12 @@
 ﻿using Avalonia;
 using GraphOptimizer.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace GraphOptimizer.ViewModels.GraphCore
 {
-    public class GraphViewModel(Graph model) : ViewModelBase
+    public class GraphViewModel(Graph model) : ViewModelBase, IAdjacencyContext
     {
         public Graph Model { get; init; } = model;
         //public ObservableCollection<IGraphObject> GraphObjects { get; } = [];
@@ -16,7 +17,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
         {
             var vertexModel = Model.AddNewVertex();
 
-            var vertexViewModel = new VertexViewModel(vertexModel, x, y);
+            var vertexViewModel = new VertexViewModel(this, vertexModel, x, y);
 
             //GraphObjects.Add(vertexViewModel);
             Vertices.Add(vertexViewModel);
@@ -29,19 +30,24 @@ namespace GraphOptimizer.ViewModels.GraphCore
             return AddNewVertex(position.X, position.Y);
         }
 
-        public EdgeViewModel? AddNewEdge(VertexViewModel vertex1, VertexViewModel vertex2)
+        public EdgeViewModel? AddNewEdge(VertexViewModel vertexVM1, VertexViewModel vertexVM2)
         {
-            if (HasEdge(vertex1, vertex2))
+            if (HasEdge(vertexVM1, vertexVM2))
             {
                 return null;
             }
 
-            var edgeModel = Model.AddNewEdge(vertex1.Model, vertex2.Model);
+            var edgeModel = Model.AddNewEdge(vertexVM1.Model, vertexVM2.Model);
 
-            var edgeViewModel = new EdgeViewModel(edgeModel, vertex1, vertex2);
+            var edgeViewModel = new EdgeViewModel(edgeModel, vertexVM1, vertexVM2);
 
             //GraphObjects.Add(edgeViewModel);
             Edges.Add(edgeViewModel);
+
+            vertexVM1.NotifyEdgeCountChanged();
+            vertexVM2.NotifyEdgeCountChanged();
+            vertexVM1.NotifyNeighborsChanged();
+            vertexVM2.NotifyNeighborsChanged();
 
             return edgeViewModel;
         }
@@ -66,6 +72,25 @@ namespace GraphOptimizer.ViewModels.GraphCore
             Edges.Remove(edgeVM);
 
             Model.RemoveEdge(edgeVM.Model);
+
+            edgeVM.VertexVM1.NotifyEdgeCountChanged();
+            edgeVM.VertexVM2.NotifyEdgeCountChanged();
+            edgeVM.VertexVM1.NotifyNeighborsChanged();
+            edgeVM.VertexVM2.NotifyNeighborsChanged();
+        }
+
+        public void RemoveEdge(VertexViewModel vertexVM1, VertexViewModel vertexVM2)
+        {
+            var edgeVM = Edges.First(edge =>
+                (edge.VertexVM1 == vertexVM1 && edge.VertexVM2 == vertexVM2)
+                || (edge.VertexVM1 == vertexVM2 && edge.VertexVM2 == vertexVM1));
+
+            if (edgeVM == null)
+            {
+                return;
+            }
+
+            RemoveEdge(edgeVM);
         }
 
         public bool HasEdge(VertexViewModel vertex1, VertexViewModel vertex2)
@@ -79,6 +104,16 @@ namespace GraphOptimizer.ViewModels.GraphCore
                 (edgeVM.VertexVM1 == vertex1 && edgeVM.VertexVM2 == vertex2) ||
                 (edgeVM.VertexVM1 == vertex2 && edgeVM.VertexVM2 == vertex1)
             );
+        }
+
+        public IEnumerable<EdgeViewModel> GetEdgesForVertex(VertexViewModel vertexVM)
+        {
+            return Edges.Where(edgeVM => edgeVM.VertexVM1 == vertexVM || edgeVM.VertexVM2 == vertexVM);
+        }
+
+        public IEnumerable<VertexViewModel> GetNeighborsForVertex(VertexViewModel vertexVM)
+        {
+            return GetEdgesForVertex(vertexVM).Select(edgeVM => edgeVM.VertexVM1 == vertexVM ? edgeVM.VertexVM2 : edgeVM.VertexVM1);
         }
     }
 }

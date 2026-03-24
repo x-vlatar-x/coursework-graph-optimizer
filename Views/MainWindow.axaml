@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="500"
+        MinWidth="1020" MinHeight="580"
         x:Class="GraphOptimizer.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         FontFamily="Inter"
@@ -46,7 +47,7 @@
             </Border>
 
             <Border Grid.Row="1" Grid.Column="0" Margin="0 16 0 0" Classes="PanelCardShadow">
-                <views:GraphMatrixView DataContext="{Binding Matrix}"/>
+                <views:GraphTableView DataContext="{Binding Table}"/>
             </Border>
             <Border Grid.Row="1" Grid.Column="1" Margin="16 16 0 0" Classes="PanelCardShadow">
                 <views:GraphEditorView DataContext="{Binding Editor}"/>
