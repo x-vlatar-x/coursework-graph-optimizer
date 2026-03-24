@@ -10,7 +10,7 @@
              x:Class="GraphOptimizer.Views.GraphTableView">
 
     <Border Classes="PanelCard">
-        <Grid RowDefinitions="Auto, *" Margin="16 0 8 16">
+        <Grid RowDefinitions="Auto, *" Margin="0 0 8 16">
             <Border Grid.Row="0" Classes="PanelTitle">
                 <TextBlock>Список суміжності</TextBlock>
             </Border>
@@ -27,10 +27,16 @@
 								            <TextBlock Name="EdgeCount" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="{Binding EdgeCount, StringFormat='Суміжні вершини: \{0\}'}"/>
                                             <Button Name="ExpandButton" Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" Click="OnExpandButtonClick">
 									            <Grid>
-										            <Path Classes="Down" VerticalAlignment="Center" HorizontalAlignment="Center" Data="{StaticResource ArrowDropDownIconGeometry}"/>
-										            <Path Classes="Up" VerticalAlignment="Center" HorizontalAlignment="Center" Data="{StaticResource ArrowDropUpIconGeometry}"/>
+										            <Path Classes="Down" Data="{StaticResource ArrowDropDownIconGeometry}"/>
+										            <Path Classes="Up" Data="{StaticResource ArrowDropUpIconGeometry}"/>
                                                 </Grid>
                                             </Button>
+											<!--<Border Grid.Row="0" Grid.RowSpan="2" Width="12" Height="24" CornerRadius="12 0 0 12" VerticalAlignment="Center" Margin="31 0 0 0" Background="#1AFFFFFF">-->
+											<Border Name="DeleteButton" Grid.Row="0" Grid.RowSpan="2">
+                                                <Button Click="OnVertexDeletePressed">
+                                                    <Path Data="{StaticResource DeleteIconGeometry}"/>
+                                                </Button>
+                                            </Border>
                                         </Grid>
                                     </Border>
                                     <Border Classes="VertexDetails">
@@ -44,7 +50,7 @@
                                                 <ItemsControl.ItemTemplate>
 										            <DataTemplate>
 											            <Border Classes="Neighbor"
-                                                                PointerPressed="OnNeighborPressed">
+                                                                PointerPressed="OnNeighborDeletePressed">
                                                             <Grid>
 												                <TextBlock Name="NeighborId" Text="{Binding Model.Id}"/>
 																<Path VerticalAlignment="Center" HorizontalAlignment="Center" Data="{StaticResource CrossIconGeometry}"/>
@@ -69,7 +75,8 @@
 		    <Setter Property="Background" Value="#1AFFFFFF"/>
             <Setter Property="CornerRadius" Value="8"/>
             <Setter Property="Padding" Value="12 0 12 0"/>
-            <Setter Property="Margin" Value="0 0 8 8"/>
+            <Setter Property="Margin" Value="24 0 8 8"/>
+            <Setter Property="ClipToBounds" Value="False"/>
         </Style>
         
         <Style Selector="ScrollBar /template/ RepeatButton">
@@ -99,17 +106,19 @@
 
         <!--VERTEX HEADER START-->
         <Style Selector="Border.VertexHeader">
-		    <Setter Property="Padding" Value="0 6"/>
+		    <Setter Property="Padding" Value="8 6 0 6"/>
         </Style>
 
         <Style Selector="Border.VertexHeader TextBlock#VertexId">
 			<Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
         <Style Selector="Border.VertexHeader TextBlock#EdgeCount">
 			<Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="#99FFFFFF"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
         <Style Selector="Border.VertexHeader Button#ExpandButton">
@@ -139,6 +148,33 @@
 
         <Style Selector="Border.expanded Button#ExpandButton Path.Down">
             <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Border#DeleteButton">
+            <Setter Property="Width" Value="14"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="CornerRadius" Value="20 0 0 20"/>
+            <Setter Property="Margin" Value="-34.5 0 0 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Border#DeleteButton Button">
+			<Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>        
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Border#DeleteButton Button Path">
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
         <!--VERTEX HEADER END-->
         

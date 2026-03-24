@@ -9,6 +9,7 @@ using Avalonia.VisualTree;
 using GraphOptimizer.ViewModels;
 using GraphOptimizer.ViewModels.GraphCore;
 using Metsys.Bson;
+using System.Diagnostics;
 
 namespace GraphOptimizer.Views;
 
@@ -34,7 +35,7 @@ public partial class GraphTableView : UserControl
         }
     }
 
-    private void OnNeighborPressed(object? sender, PointerPressedEventArgs e)
+    public void OnNeighborDeletePressed(object? sender, PointerPressedEventArgs e)
     {
         if (ViewModel == null)
         {
@@ -52,8 +53,24 @@ public partial class GraphTableView : UserControl
 
             if (parentEntry != null && parentEntry.DataContext is VertexViewModel vertexVM)
             {
-                ViewModel.HandleNeighborPressed(vertexVM, neighborVM);
+                ViewModel.HandleNeighborDeletePressed(vertexVM, neighborVM);
             }
+        }
+    }
+
+    public void OnVertexDeletePressed(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+
+        Debug.WriteLine("dwdw");
+
+        if (sender is Button deleteButton && deleteButton.DataContext is VertexViewModel vertexVM)
+        {
+            Debug.WriteLine(vertexVM);
+            ViewModel.HandleVertexDeletePressed(vertexVM);
         }
     }
 }

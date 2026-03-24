@@ -21,9 +21,14 @@ namespace GraphOptimizer.ViewModels
             vertexVM.ToggleExpansion();
         }
 
-        public void HandleNeighborPressed(VertexViewModel vertexVM, VertexViewModel neighborVM)
+        public void HandleNeighborDeletePressed(VertexViewModel vertexVM, VertexViewModel neighborVM)
         {
             GraphVM.RemoveEdge(vertexVM, neighborVM);
+        }
+
+        public void HandleVertexDeletePressed(VertexViewModel vertexVM)
+        {
+            GraphVM.RemoveVertex(vertexVM);
         }
     }
 }
