@@ -1,5 +1,6 @@
 ﻿using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.Models;
+using GraphOptimizer.ViewModels.Helpers;
 
 namespace GraphOptimizer.ViewModels
 {
@@ -8,13 +9,15 @@ namespace GraphOptimizer.ViewModels
 
         public GraphViewModel SharedGraphVM { get; } = new GraphViewModel(new Graph());
 
+        public EditorContext EditorContext { get; } = new EditorContext();
+
         public GraphEditorViewModel Editor { get; }
         public GraphTableViewModel Table { get; }
 
         public MainWindowViewModel()
         {
-            Editor = new GraphEditorViewModel(SharedGraphVM);
-            Table = new GraphTableViewModel(SharedGraphVM);
+            Editor = new GraphEditorViewModel(SharedGraphVM, EditorContext);
+            Table = new GraphTableViewModel(SharedGraphVM, EditorContext);
         }
     }
 }

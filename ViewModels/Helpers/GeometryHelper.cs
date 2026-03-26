@@ -97,5 +97,62 @@ namespace GraphOptimizer.ViewModels.Helpers
 
             return objectsVM;
         }
+
+        public static Point FindFreePosition(GraphViewModel graphVM, Rect canvasBounds)
+        {
+            double vertexRadius = 12;
+            double minDistance = vertexRadius * 3;
+
+            double radius = 0;
+            //double theta = 0;
+            double stepRadius = 10;
+            //double stepTheta = Math.PI / 6;
+
+            double centerX = canvasBounds.Width / 2;
+            double centerY = canvasBounds.Height / 2;
+
+            double x;
+            double y;
+
+            while (radius < Math.Min(canvasBounds.Width, canvasBounds.Height) / 2)
+            {
+                double circumference = 2 * Math.PI * radius;
+                int pointsInLayer = (radius == 0) ? 1 : (int)(circumference / minDistance);
+
+                double stepTheta = (pointsInLayer > 0) ? (2 * Math.PI / pointsInLayer) : 2 * Math.PI;
+
+                double theta = 0;
+                while (theta < 2 * Math.PI)
+                {
+                    x = centerX + radius * Math.Cos(theta);
+                    y = centerY + radius * Math.Sin(theta);
+
+                    if (IsPositionFree(graphVM, new Point(x, y), minDistance))
+                    {
+                        return new Point(x, y);
+                    }
+
+                    theta += stepTheta;
+                }
+
+                radius += stepRadius;
+            }
+
+            return new Point(centerX, centerY);
+        }
+
+        public static bool IsPositionFree(GraphViewModel graphVM, Point position, double radius)
+        {
+            foreach (var vertexVM in graphVM.Vertices)
+            {
+                double dx = vertexVM.X - position.X;
+                double dy = vertexVM.Y - position.Y;
+                if ((dx * dx) + (dy * dy) <= radius * radius)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

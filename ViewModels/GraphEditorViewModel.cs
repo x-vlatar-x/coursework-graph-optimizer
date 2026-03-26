@@ -9,82 +9,68 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace GraphOptimizer.ViewModels
 {
-    public enum EditorLayoutMode { Freeform, Circular } 
+    public enum EditorLayoutMode { Freeform, Circular }
     public enum EditorTool { Move, Vertex, Edge }
     public partial class GraphEditorViewModel: ViewModelBase
     {
         public GraphViewModel GraphVM { get; init; }
 
-        public EditorContext EditorContext { get; init; } = new EditorContext();
+        public EditorContext EditorContext { get; init; }
 
-        public GraphEditorViewModel(GraphViewModel graphVM)
+        public GraphEditorViewModel(GraphViewModel graphVM, EditorContext editorContext)
         {
             GraphVM = graphVM;
+            EditorContext = editorContext;
 
-            var vertex1 = GraphVM.AddNewVertex(100, 50);
-            var vertex2 = GraphVM.AddNewVertex(50, 100);
-            var edge1 = GraphVM.AddNewEdge(vertex1, vertex2);
-            var vertex3 = GraphVM.AddNewVertex(140, 90);
-            var vertex4 = GraphVM.AddNewVertex(100, 200);
+            //var vertex1 = GraphVM.AddNewVertex(100, 50);
+            //var vertex2 = GraphVM.AddNewVertex(50, 100);
+            //var edge1 = GraphVM.AddNewEdge(vertex1, vertex2);
+            //var vertex3 = GraphVM.AddNewVertex(140, 90);
+            //var vertex4 = GraphVM.AddNewVertex(100, 200);
 
-            var edge2 = GraphVM.AddNewEdge(vertex2, vertex3);
-            var edge3 = GraphVM.AddNewEdge(vertex3, vertex4);
+            //var edge2 = GraphVM.AddNewEdge(vertex2, vertex3);
+            //var edge3 = GraphVM.AddNewEdge(vertex3, vertex4);
 
+            //var vertex5 = GraphVM.AddNewVertex(140, 90);
+            //var vertex6 = GraphVM.AddNewVertex(100, 200);
+            //var vertex7 = GraphVM.AddNewVertex(100, 200);
+            //var vertex8 = GraphVM.AddNewVertex(100, 200);
+            //var vertex9 = GraphVM.AddNewVertex(100, 200);
+            //var vertex10 = GraphVM.AddNewVertex(100, 200);
+            //var vertex11 = GraphVM.AddNewVertex(100, 200);
+            //var vertex12 = GraphVM.AddNewVertex(100, 200);
+            //var vertex13 = GraphVM.AddNewVertex(100, 200);
+            //var vertex14 = GraphVM.AddNewVertex(100, 200);
+            //var vertex15 = GraphVM.AddNewVertex(100, 200);
+            //var vertex16 = GraphVM.AddNewVertex(100, 200);
+            //var vertex17 = GraphVM.AddNewVertex(100, 200);
+            //var vertex18 = GraphVM.AddNewVertex(100, 200);
+            //var vertex19 = GraphVM.AddNewVertex(100, 200);
+            //var vertex20 = GraphVM.AddNewVertex(100, 200);
+            //var vertex21 = GraphVM.AddNewVertex(100, 200);
 
-            var vertex5 = GraphVM.AddNewVertex(140, 90);
-            var vertex6 = GraphVM.AddNewVertex(100, 200);
-            var vertex7 = GraphVM.AddNewVertex(100, 200);
-            var vertex8 = GraphVM.AddNewVertex(100, 200);
-            var vertex9 = GraphVM.AddNewVertex(100, 200);
-            var vertex10 = GraphVM.AddNewVertex(100, 200);
-            var vertex11 = GraphVM.AddNewVertex(100, 200);
-            var vertex12 = GraphVM.AddNewVertex(100, 200);
-            var vertex13 = GraphVM.AddNewVertex(100, 200);
-            var vertex14 = GraphVM.AddNewVertex(100, 200);
-            var vertex15 = GraphVM.AddNewVertex(100, 200);
-            var vertex16 = GraphVM.AddNewVertex(100, 200);
-            var vertex17 = GraphVM.AddNewVertex(100, 200);
-            var vertex18 = GraphVM.AddNewVertex(100, 200);
-            var vertex19 = GraphVM.AddNewVertex(100, 200);
-            var vertex20 = GraphVM.AddNewVertex(100, 200);
-            var vertex21 = GraphVM.AddNewVertex(100, 200);
-
-            GraphVM.AddNewEdge(vertex3, vertex5);
-            GraphVM.AddNewEdge(vertex3, vertex6);
-            GraphVM.AddNewEdge(vertex3, vertex7);
-            GraphVM.AddNewEdge(vertex3, vertex8);
-            GraphVM.AddNewEdge(vertex3, vertex9);
-            GraphVM.AddNewEdge(vertex3, vertex10);
-            GraphVM.AddNewEdge(vertex3, vertex11);
-            GraphVM.AddNewEdge(vertex3, vertex12);
-            GraphVM.AddNewEdge(vertex3, vertex13);
-            GraphVM.AddNewEdge(vertex3, vertex14);
-            GraphVM.AddNewEdge(vertex3, vertex15);
-            GraphVM.AddNewEdge(vertex3, vertex16);
-            GraphVM.AddNewEdge(vertex3, vertex17);
-            GraphVM.AddNewEdge(vertex3, vertex18);
-            GraphVM.AddNewEdge(vertex3, vertex19);
-            GraphVM.AddNewEdge(vertex3, vertex20);
-            GraphVM.AddNewEdge(vertex3, vertex21);
-        }
-
-        private EditorTool _selectedTool = EditorTool.Move;
-        public EditorTool SelectedTool
-        {
-            get => _selectedTool;
-            set => SetProperty(ref _selectedTool, value);
-        }
-
-        private EditorLayoutMode _currentLayoutMode = EditorLayoutMode.Freeform;
-        public EditorLayoutMode CurrentLayoutMode
-        {
-            get => _currentLayoutMode;
-            set => SetProperty(ref _currentLayoutMode, value);
+            //GraphVM.AddNewEdge(vertex3, vertex5);
+            //GraphVM.AddNewEdge(vertex3, vertex6);
+            //GraphVM.AddNewEdge(vertex3, vertex7);
+            //GraphVM.AddNewEdge(vertex3, vertex8);
+            //GraphVM.AddNewEdge(vertex3, vertex9);
+            //GraphVM.AddNewEdge(vertex3, vertex10);
+            //GraphVM.AddNewEdge(vertex3, vertex11);
+            //GraphVM.AddNewEdge(vertex3, vertex12);
+            //GraphVM.AddNewEdge(vertex3, vertex13);
+            //GraphVM.AddNewEdge(vertex3, vertex14);
+            //GraphVM.AddNewEdge(vertex3, vertex15);
+            //GraphVM.AddNewEdge(vertex3, vertex16);
+            //GraphVM.AddNewEdge(vertex3, vertex17);
+            //GraphVM.AddNewEdge(vertex3, vertex18);
+            //GraphVM.AddNewEdge(vertex3, vertex19);
+            //GraphVM.AddNewEdge(vertex3, vertex20);
+            //GraphVM.AddNewEdge(vertex3, vertex21);
         }
 
         public void SetSelectedTool(EditorTool tool)
         {
-            SelectedTool = tool;
+            EditorContext.SelectedTool = tool;
             EditorContext.StopSelecting();
             EditorContext.StopHovering();
             EditorContext.ClearSelection();
@@ -92,7 +78,7 @@ namespace GraphOptimizer.ViewModels
 
         public void SetLayoutMode(EditorLayoutMode mode)
         {
-            CurrentLayoutMode = mode;
+            EditorContext.CurrentLayoutMode = mode;
         }
 
         public void HandlePointerEntered()
@@ -109,7 +95,7 @@ namespace GraphOptimizer.ViewModels
         {
             EditorContext.MousePosition = position;
 
-            switch (SelectedTool)
+            switch (EditorContext.SelectedTool)
             {
                 case EditorTool.Move:
                     if (!EditorContext.IsSelecting)
@@ -147,7 +133,7 @@ namespace GraphOptimizer.ViewModels
 
         public void HandleLeftClick(Point position)
         {
-            switch (SelectedTool)
+            switch (EditorContext.SelectedTool)
             {
                 case EditorTool.Move:
                     {
@@ -196,7 +182,7 @@ namespace GraphOptimizer.ViewModels
 
         public void HandlePointerReleased(Point position)
         {
-            switch (SelectedTool)
+            switch (EditorContext.SelectedTool)
             {
                 case EditorTool.Move:
                     {

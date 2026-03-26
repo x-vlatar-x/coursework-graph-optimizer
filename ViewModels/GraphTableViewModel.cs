@@ -1,19 +1,20 @@
-﻿using GraphOptimizer.ViewModels.GraphCore;
+﻿using Avalonia;
+using GraphOptimizer.ViewModels.GraphCore;
+using GraphOptimizer.ViewModels.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace GraphOptimizer.ViewModels
 {
     public class GraphTableViewModel: ViewModelBase
     {
         public GraphViewModel GraphVM { get; init; }
+        public EditorContext EditorContext { get; init; }
 
-        public GraphTableViewModel(GraphViewModel graphVM) 
+        public GraphTableViewModel(GraphViewModel graphVM, EditorContext editorContext) 
         {
             GraphVM = graphVM;
+            EditorContext = editorContext;
         }
 
         public void HandleExpandButtonClick(VertexViewModel vertexVM)
@@ -21,14 +22,24 @@ namespace GraphOptimizer.ViewModels
             vertexVM.ToggleExpansion();
         }
 
-        public void HandleNeighborDeletePressed(VertexViewModel vertexVM, VertexViewModel neighborVM)
+        public void HandleVertexAddPressed()
         {
-            GraphVM.RemoveEdge(vertexVM, neighborVM);
+            if (EditorContext.CurrentLayoutMode == EditorLayoutMode.Freeform)
+            {
+                var vertexPosition = GeometryHelper.FindFreePosition(GraphVM, EditorContext.CanvasBounds);
+                
+                GraphVM.AddNewVertex(vertexPosition);
+            }
         }
 
         public void HandleVertexDeletePressed(VertexViewModel vertexVM)
         {
             GraphVM.RemoveVertex(vertexVM);
+        }
+
+        public void HandleNeighborDeletePressed(VertexViewModel vertexVM, VertexViewModel neighborVM)
+        {
+            GraphVM.RemoveEdge(vertexVM, neighborVM);
         }
     }
 }

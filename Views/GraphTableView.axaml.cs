@@ -58,6 +58,18 @@ public partial class GraphTableView : UserControl
         }
     }
 
+    public void OnVertexAddPressed(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+        if (sender is Button addButton)
+        {
+            ViewModel.HandleVertexAddPressed();
+        }
+    }
+
     public void OnVertexDeletePressed(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)
@@ -65,11 +77,8 @@ public partial class GraphTableView : UserControl
             return;
         }
 
-        Debug.WriteLine("dwdw");
-
         if (sender is Button deleteButton && deleteButton.DataContext is VertexViewModel vertexVM)
         {
-            Debug.WriteLine(vertexVM);
             ViewModel.HandleVertexDeletePressed(vertexVM);
         }
     }

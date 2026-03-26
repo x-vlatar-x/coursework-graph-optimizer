@@ -21,15 +21,15 @@
                         PointerExited="OnPointerExitedCanvas"
                         PointerPressed="OnPointerPressedCanvas"
                         PointerReleased="OnPointerReleasedCanvas"
-                        Classes.move_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
-                        Classes.vertex_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
-                        Classes.edge_tool="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
+                        Classes.move_tool="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
+                        Classes.vertex_tool="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
+                        Classes.edge_tool="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
                         Classes.mouse_inside="{Binding EditorContext.IsMouseOverCanvas}">
                     <Grid>
                         <ItemsControl ItemsSource="{Binding GraphVM.Edges}" IsHitTestVisible="False">
 					        <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <Canvas Background="Transparent" />
+                                    <Canvas Bounds="{Binding EditorContext.CanvasBounds, Mode=OneWayToSource}" Background="Transparent" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
 
@@ -99,7 +99,7 @@
 			    <Border Classes="ToolBar">
                     <StackPanel Orientation="Horizontal">
                         <Button Classes="Tool"
-                                Classes.selected="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
+                                Classes.selected="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
                                 Command="{Binding SetSelectedTool}"
                                 CommandParameter="{x:Static vm:EditorTool.Move}">
                             <Grid>
@@ -107,7 +107,7 @@
                             </Grid>
                         </Button>
                         <Button Classes="Tool"
-                                Classes.selected="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
+                                Classes.selected="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
                                 Command="{Binding SetSelectedTool}"
                                 CommandParameter="{x:Static vm:EditorTool.Vertex}">
                             <Grid>
@@ -115,7 +115,7 @@
                             </Grid>
                         </Button>
                         <Button Classes="Tool"
-                                Classes.selected="{Binding SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
+                                Classes.selected="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
                                 Command="{Binding SetSelectedTool}"
                                 CommandParameter="{x:Static vm:EditorTool.Edge}">
                             <Grid>
@@ -124,7 +124,7 @@
                         </Button>
 
                         <Button Classes="LayoutMode"  
-                                Classes.selected="{Binding CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Freeform}"
+                                Classes.selected="{Binding EditorContext.CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Freeform}"
                                 Command="{Binding SetLayoutMode}"
                                 CommandParameter="{x:Static vm:EditorLayoutMode.Freeform}"
                                 Margin="30 0 0 0">
@@ -133,7 +133,7 @@
                             </Grid>
                         </Button>
                         <Button Classes="LayoutMode"
-                                Classes.selected="{Binding CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Circular}"
+                                Classes.selected="{Binding EditorContext.CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Circular}"
                                 Command="{Binding SetLayoutMode}"
                                 CommandParameter="{x:Static vm:EditorLayoutMode.Circular}">
                             <Grid>

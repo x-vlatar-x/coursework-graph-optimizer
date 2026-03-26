@@ -8,6 +8,28 @@ namespace GraphOptimizer.ViewModels.Helpers
 {
     public class EditorContext: ViewModelBase
     {
+        // Editor state
+        private EditorTool _selectedTool = EditorTool.Move;
+        public EditorTool SelectedTool
+        {
+            get => _selectedTool;
+            set => SetProperty(ref _selectedTool, value);
+        }
+
+        private EditorLayoutMode _currentLayoutMode = EditorLayoutMode.Freeform;
+        public EditorLayoutMode CurrentLayoutMode
+        {
+            get => _currentLayoutMode;
+            set => SetProperty(ref _currentLayoutMode, value);
+        }
+
+        private Rect _canvasBounds;
+        public Rect CanvasBounds
+        {
+            get => _canvasBounds;
+            set => _canvasBounds = value;
+        }
+
         // Mouse state
         private Point _mousePosition;
         public Point MousePosition

@@ -10,7 +10,7 @@
              x:Class="GraphOptimizer.Views.GraphTableView">
 
     <Border Classes="PanelCard">
-        <Grid RowDefinitions="Auto, *" Margin="0 0 8 16">
+        <Grid RowDefinitions="Auto, *, Auto" Margin="0 0 8 16">
             <Border Grid.Row="0" Classes="PanelTitle">
                 <TextBlock>Список суміжності</TextBlock>
             </Border>
@@ -67,6 +67,11 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+            <Button Grid.Row="2" HorizontalAlignment="Stretch" Cursor="Hand" Background="#1AFFFFFF" CornerRadius="8" Padding="12 12" Margin="12 0 4 -4" Click="OnVertexAddPressed">
+				<StackPanel>
+					<TextBlock FontSize="14">Додати вершину</TextBlock>
+                </StackPanel>
+            </Button>
         </Grid>
     </Border>
 
@@ -75,7 +80,7 @@
 		    <Setter Property="Background" Value="#1AFFFFFF"/>
             <Setter Property="CornerRadius" Value="8"/>
             <Setter Property="Padding" Value="12 0 12 0"/>
-            <Setter Property="Margin" Value="24 0 8 8"/>
+            <Setter Property="Margin" Value="32 0 8 8"/>
             <Setter Property="ClipToBounds" Value="False"/>
         </Style>
         
@@ -87,7 +92,7 @@
             <Setter Property="AllowAutoHide" Value="False"/>
 			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="Padding" Value="0 0 0 8"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
         </Style>
 
         <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical">
@@ -182,7 +187,7 @@
         <Style Selector="Border.VertexDetails">
 			<Setter Property="MaxHeight" Value="0"/>
             <Setter Property="Opacity" Value="0"/>
-            <Setter Property="Padding" Value="0 0 0 12"/>
+            <Setter Property="Padding" Value="0 4 0 12"/>
             <Setter Property="Transitions">
 				<Transitions>
 					<DoubleTransition Property="MaxHeight" Duration="0:0:0.2"/>
