@@ -14,8 +14,8 @@
             <Border Grid.Row="0" Classes="PanelTitle">
                 <TextBlock>Список суміжності</TextBlock>
             </Border>
-            <ScrollViewer Grid.Row="1" Classes="VerticesList">
-			    <ItemsControl ItemsSource="{Binding GraphVM.Vertices}">
+            <ScrollViewer Grid.Row="1" Classes="VerticesList" Classes.empty="{Binding GraphVM.Vertices, Converter={StaticResource CollectionEmptyConverter}}">
+                <ItemsControl ItemsSource="{Binding GraphVM.Vertices}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Classes="VertexEntry" 
@@ -31,7 +31,6 @@
 										            <Path Classes="Up" Data="{StaticResource ArrowDropUpIconGeometry}"/>
                                                 </Grid>
                                             </Button>
-											<!--<Border Grid.Row="0" Grid.RowSpan="2" Width="12" Height="24" CornerRadius="12 0 0 12" VerticalAlignment="Center" Margin="31 0 0 0" Background="#1AFFFFFF">-->
 											<Border Name="DeleteButton" Grid.Row="0" Grid.RowSpan="2">
                                                 <Button Click="OnVertexDeletePressed">
                                                     <Path Data="{StaticResource DeleteIconGeometry}"/>
@@ -40,26 +39,53 @@
                                         </Grid>
                                     </Border>
                                     <Border Classes="VertexDetails">
-                                        <ScrollViewer Classes="NeighborsList">
-                                            <ItemsControl ItemsSource="{Binding Neighbors}">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <WrapPanel Margin="0 0 -8 -8"/>
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                                <ItemsControl.ItemTemplate>
-										            <DataTemplate>
-											            <Border Classes="Neighbor"
-                                                                PointerPressed="OnNeighborDeletePressed">
-                                                            <Grid>
-												                <TextBlock Name="NeighborId" Text="{Binding Model.Id}"/>
-																<Path VerticalAlignment="Center" HorizontalAlignment="Center" Data="{StaticResource CrossIconGeometry}"/>
-                                                            </Grid>
-                                                        </Border>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>										
-                                        </ScrollViewer>
+                                        <Grid RowDefinitions="Auto, Auto">
+                                            <ScrollViewer Grid.Row="0" 
+                                                          Classes="NeighborsList"
+                                                          Classes.empty="{Binding Neighbors, Converter={StaticResource CollectionEmptyConverter}}">
+                                                <ItemsControl ItemsSource="{Binding Neighbors}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <WrapPanel Margin="0 0 -8 -8"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+										                <DataTemplate>
+											                <Border Classes="Neighbor"
+                                                                    PointerPressed="OnNeighborDeletePressed">
+                                                                <Grid>
+												                    <TextBlock Name="NeighborId" Text="{Binding Model.Id}"/>
+																    <Path Data="{StaticResource CrossIconGeometry}"/>
+                                                                </Grid>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>										
+                                            </ScrollViewer>
+                                            <Border Grid.Row="1" Classes="NeighborCreator">
+												<!--<Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *">
+                                                    <TextBlock Name="Label" Grid.Row="0" Grid.Column="0">Додати зв'язок:</TextBlock>
+                                                    <TextBlock Name="Clue" Grid.Row="1" Grid.Column="0">(введіть id вершини)</TextBlock>
+                                                    <TextBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" 
+                                                             Watermark="Id"
+                                                             MaxLength="10"
+                                                             TextChanged="OnIdTextChanged"/>
+                                                    <Button></Button>
+                                                </Grid>-->
+                                                <Grid ColumnDefinitions="Auto, *, 24">
+                                                    <TextBlock Name="Label" Grid.Column="0">Додати зв'язок:</TextBlock>
+                                                    <StackPanel Grid.Column="1" Margin="12 0">
+                                                        <TextBox Watermark="id вершини"
+                                                                 MaxLength="10"
+                                                                 Text="{Binding InputNeighborId}"
+                                                                 TextChanged="OnIdTextChanged"/>
+                                                    </StackPanel> 
+                                                    <Button IsEnabled="{Binding IsIdValid}" Click="OnNeighborAddPressed" Grid.Column="2" Width="24" Height="24">
+                                                        <Path Width="24" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center" Stroke="#FFFFFF" StrokeThickness="1.5" Data="{StaticResource ValidIconGeometry}"/>
+                                                    </Button>
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
                                     </Border>
                                 </StackPanel>
                             </Border>
@@ -107,6 +133,52 @@
 			<Setter Property="Width" Value="4"/>
             <Setter Property="CornerRadius" Value="2"/>
             <Setter Property="Background" Value="#40FFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator">
+			<Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="Padding" Value="12 8 12 8"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBlock#Label">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <!--<Setter Property="Height" Value="18"/>-->
+            <!--<Setter Property="LineHeight" Value="18"/>-->
+        </Style>
+
+        <!--<Style Selector="Border.NeighborCreator TextBlock#Clue">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 2 0 0"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Height" Value="12"/>
+            <Setter Property="LineHeight" Value="12"/>
+            <Setter Property="Foreground" Value="#99FFFFFF"/>
+        </Style>-->
+
+        <Style Selector="Border.NeighborCreator TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            
+			<Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBox:pointerover /template/ Border#PART_BorderElement">
+			<Setter Property="Background" Value="#1AFFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
 
         <!--VERTEX HEADER START-->
@@ -197,7 +269,7 @@
         </Style>
 
         <Style Selector="Border.expanded Border.VertexDetails">
-			<Setter Property="MaxHeight" Value="116"/>
+			<Setter Property="MaxHeight" Value="170"/>
             <Setter Property="Opacity" Value="1"/>
         </Style>
 
@@ -206,6 +278,11 @@
 			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="MaxHeight" Value="95"/>
+            <Setter Property="Margin" Value="0 0 0 8"/>
+        </Style>
+
+        <Style Selector="ScrollViewer.NeighborsList.empty">
+			<Setter Property="Margin" Value="0"/>
         </Style>
 
          <Style Selector="ScrollViewer.NeighborsList ScrollBar:vertical /template/ Rectangle#TrackRect">

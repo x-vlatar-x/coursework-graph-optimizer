@@ -32,7 +32,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
 
         public EdgeViewModel? AddNewEdge(VertexViewModel vertexVM1, VertexViewModel vertexVM2)
         {
-            if (HasEdge(vertexVM1, vertexVM2))
+            if (EdgeExists(vertexVM1, vertexVM2))
             {
                 return null;
             }
@@ -50,6 +50,14 @@ namespace GraphOptimizer.ViewModels.GraphCore
             vertexVM2.NotifyNeighborsChanged();
 
             return edgeViewModel;
+        }
+
+        public EdgeViewModel? AddNewEdge(uint vertexId1, uint vertexId2)
+        {
+            var vertexVM1 = Vertices.First(vertexVM => vertexVM.Model.Id == vertexId1);
+            var vertexVM2 = Vertices.First(vertexVM => vertexVM.Model.Id == vertexId2);
+
+            return AddNewEdge(vertexVM1, vertexVM2);
         }
 
         public void RemoveVertex(VertexViewModel vertexVM)
@@ -93,7 +101,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
             RemoveEdge(edgeVM);
         }
 
-        public bool HasEdge(VertexViewModel vertex1, VertexViewModel vertex2)
+        public bool EdgeExists(VertexViewModel vertex1, VertexViewModel vertex2)
         {
             if (vertex1 == null || vertex2 == null)
             {
@@ -104,6 +112,28 @@ namespace GraphOptimizer.ViewModels.GraphCore
                 (edgeVM.VertexVM1 == vertex1 && edgeVM.VertexVM2 == vertex2) ||
                 (edgeVM.VertexVM1 == vertex2 && edgeVM.VertexVM2 == vertex1)
             );
+        }
+
+        public bool EdgeExists(uint vertexId1, uint vertexId2)
+        {
+            return Edges.Any(edgeVM =>
+                (edgeVM.VertexVM1.Model.Id == vertexId1 && edgeVM.VertexVM2.Model.Id == vertexId2) ||
+                (edgeVM.VertexVM1.Model.Id == vertexId2 && edgeVM.VertexVM2.Model.Id == vertexId1)
+            );
+        }
+
+        public bool VertexExists(VertexViewModel vertexVM)
+        {
+            if (vertexVM == null)
+            {
+                return false;
+            }
+            return Vertices.Any(v => v == vertexVM);
+        }
+
+        public bool VertexExists(uint vertexId)
+        {
+            return Vertices.Any(v => v.Model.Id == vertexId);
         }
 
         public IEnumerable<EdgeViewModel> GetEdgesForVertex(VertexViewModel vertexVM)

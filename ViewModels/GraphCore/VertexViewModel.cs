@@ -67,5 +67,20 @@ namespace GraphOptimizer.ViewModels.GraphCore
                 OnPropertyChanged(nameof(Neighbors));
             }
         }
+
+        private string _inputNeighborId = "";
+        public string InputNeighborId
+        {
+            get => _inputNeighborId;
+            set
+            {
+                SetProperty(ref _inputNeighborId, value);
+                OnPropertyChanged(nameof(IsIdValid));
+            }
+        }
+
+        public bool IsIdValid => !string.IsNullOrEmpty(InputNeighborId) 
+                            && uint.TryParse(InputNeighborId, out uint id) 
+                            && _adjacencyContext.VertexExists(id);
     }
 }

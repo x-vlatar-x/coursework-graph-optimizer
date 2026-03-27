@@ -2,8 +2,8 @@
 
 namespace GraphOptimizer.Models
 {
-    public class Vertex(int id)
+    public class Vertex(uint id)
     {
-        public int Id { get; init; } = id;
+        public uint Id { get; init; } = id;
     }
 }

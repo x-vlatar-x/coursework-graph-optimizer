@@ -31,6 +31,10 @@
         <StreamGeometry x:Key="CrossIconGeometry">M6.5 6.5L12 12M17.5 17.5L12 12M12 12L17.5 6.5M12 12L6.5 17.5</StreamGeometry>
         <StreamGeometry x:Key="DeleteIconGeometry">M7.00003 7.99998L7.92898 20.0767C7.96905 20.5977 8.4035 21 8.92603 21L15.074 21C15.5965 21 16.0309 20.5977 16.071 20.0767L17 7.99998M7.00003 7.99998L6 7.99998M7.00003 7.99998L10 7.99998M17 7.99998L18 7.99998M17 7.99998L14 7.99998M14 7.99998L10 7.99998M14 7.99998L14 7.00001C14 6.44772 13.5523 6 13 6.00001L11 6.00002C10.4477 6.00002 10 6.44774 10 7.00002L10 7.99998M9.5 11L10 18M12 11L12 18M14 18L14.5 11</StreamGeometry>
 
+        <StreamGeometry x:Key="ValidIconGeometry">M4 11.8995L8.94975 16.8493C9.34027 17.2398 9.97344 17.2398 10.364 16.8493L19.5563 7.6569</StreamGeometry>
+        <StreamGeometry x:Key="InvalidIconGeometry">M5.5 5.5L12 12M18.5 18.5L12 12M12 12L18.5 5.5M12 12L5.5 18.5</StreamGeometry>
+
+        <converters:CollectionEmptyConverter x:Key="CollectionEmptyConverter"/>
         <converters:EqualityConverter x:Key="EqualityConverter"/>
         <converters:OffsetConverter x:Key="OffsetConverter"/>
         <converters:VertexToPointConverter x:Key="VertexToPointConverter"/>

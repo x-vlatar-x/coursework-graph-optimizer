@@ -7,7 +7,7 @@ using GraphOptimizer.ViewModels.GraphCore;
 
 namespace GraphOptimizer.Converters
 {
-    internal class VertexToPointConverter : IValueConverter
+    public class VertexToPointConverter : IValueConverter
     {
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {

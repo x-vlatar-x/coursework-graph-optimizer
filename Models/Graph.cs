@@ -6,7 +6,7 @@ namespace GraphOptimizer.Models
 {
     public class Graph
     {
-        private int _nextVertexId = 1;
+        private uint _nextVertexId = 1;
 
         public List<Vertex> Vertices { get; } = [];
         public List<Edge> Edges { get; } = [];

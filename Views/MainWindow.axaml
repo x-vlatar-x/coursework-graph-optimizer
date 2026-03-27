@@ -31,7 +31,7 @@
                 <GradientStop Color="#002061" Offset="1"/>
             </RadialGradientBrush>
         </Border.Background>
-        <Grid RowDefinitions="48, *"  ColumnDefinitions="3*, 7*">
+        <Grid RowDefinitions="48, *"  ColumnDefinitions="35*, 65*">
             <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Classes="PanelCardShadow">
 		        <Border Classes="PanelCard" Padding="0">
                     <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">

@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace GraphOptimizer.Converters
 {
-    internal class OffsetConverter: IValueConverter
+    public class OffsetConverter : IValueConverter
     {
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {

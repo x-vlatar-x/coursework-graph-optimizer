@@ -104,9 +104,7 @@ namespace GraphOptimizer.ViewModels.Helpers
             double minDistance = vertexRadius * 3;
 
             double radius = 0;
-            //double theta = 0;
             double stepRadius = 10;
-            //double stepTheta = Math.PI / 6;
 
             double centerX = canvasBounds.Width / 2;
             double centerY = canvasBounds.Height / 2;

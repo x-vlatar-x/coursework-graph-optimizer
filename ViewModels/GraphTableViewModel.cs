@@ -31,6 +31,13 @@ namespace GraphOptimizer.ViewModels
                 GraphVM.AddNewVertex(vertexPosition);
             }
         }
+        public void HandleNeighborAddPressed(VertexViewModel vertexVM)
+        {
+            if (vertexVM.IsIdValid && uint.TryParse(vertexVM.InputNeighborId, out uint id))
+            {
+                GraphVM.AddNewEdge(vertexVM.Model.Id, id);
+            }
+        }
 
         public void HandleVertexDeletePressed(VertexViewModel vertexVM)
         {
