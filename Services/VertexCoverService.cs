@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphOptimizer.Services
 {
@@ -36,13 +34,17 @@ namespace GraphOptimizer.Services
                 uint maxDegreeVertexId = vertexDegree.OrderByDescending(v => v.Value).First().Key;
                 cover.Add(maxDegreeVertexId);
 
+                var filteredEdges = new List<Edge>();
+
                 foreach (var edge in edges)
                 {
-                    if (edge.Vertex1.Id == maxDegreeVertexId || edge.Vertex2.Id == maxDegreeVertexId)
+                    if (edge.Vertex1.Id != maxDegreeVertexId && edge.Vertex2.Id != maxDegreeVertexId)
                     {
-                        edges.Remove(edge);
+                        filteredEdges.Add(edge);
                     }
                 }
+
+                edges = filteredEdges;
             }
 
             return cover;
@@ -66,24 +68,27 @@ namespace GraphOptimizer.Services
                 cover.Add(vertexId1);
                 cover.Add(vertexId2);
 
+                var filteredEdges = new List<Edge>();
+
                 foreach (var edge in edges)
                 {
-                    if (edge.Vertex1.Id == vertexId1 || edge.Vertex2.Id == vertexId1 ||
-                        edge.Vertex1.Id == vertexId2 || edge.Vertex2.Id == vertexId2)
+                    if (edge.Vertex1.Id != vertexId1 && edge.Vertex2.Id != vertexId1
+                        && edge.Vertex1.Id != vertexId2 && edge.Vertex2.Id != vertexId2)
                     {
-                        edges.Remove(edge);
+                        filteredEdges.Add(edge);
                     }
                 }
+
+                edges = filteredEdges;
             }
 
-            return cover;
+            return cover.Distinct().ToList();
         }
 
         public List<uint> SolveBacktracking(Graph graph)
         {
-            List<uint> cover = new List<uint>();
             var edges = graph.Edges.ToList();
-            Backtrack(edges);
+            List<uint> cover = Backtrack(edges);
             return cover;
         }
 
