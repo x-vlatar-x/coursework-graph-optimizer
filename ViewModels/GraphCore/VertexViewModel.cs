@@ -85,6 +85,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
         public bool IsIdValid => !string.IsNullOrEmpty(InputNeighborId)
                             && uint.TryParse(InputNeighborId, out uint id) 
                             && _adjacencyContext.VertexExists(id)
-                            && !(_adjacencyContext.EdgeExists(Model.Id, id));
+                            && !(_adjacencyContext.EdgeExists(Model.Id, id))
+                            && id != Model.Id;
     }
 }
