@@ -27,8 +27,8 @@
 								            <TextBlock Name="EdgeCount" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="{Binding EdgeCount, StringFormat='Суміжні вершини: \{0\}'}"/>
                                             <Button Name="ExpandButton" Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" Click="OnExpandButtonClick">
 									            <Grid>
-										            <Path Classes="Down" Data="{StaticResource ArrowDropDownIconGeometry}"/>
-										            <Path Classes="Up" Data="{StaticResource ArrowDropUpIconGeometry}"/>
+										            <Path Name="Down" Data="{StaticResource ArrowDropDownIconGeometry}"/>
+										            <Path Name="Up" Data="{StaticResource ArrowDropUpIconGeometry}"/>
                                                 </Grid>
                                             </Button>
 											<Border Name="DeleteButton" Grid.Row="0" Grid.RowSpan="2">
@@ -62,26 +62,21 @@
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>										
                                             </ScrollViewer>
-                                            <Border Grid.Row="1" Classes="NeighborCreator">
-												<!--<Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *">
-                                                    <TextBlock Name="Label" Grid.Row="0" Grid.Column="0">Додати зв'язок:</TextBlock>
-                                                    <TextBlock Name="Clue" Grid.Row="1" Grid.Column="0">(введіть id вершини)</TextBlock>
-                                                    <TextBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" 
-                                                             Watermark="Id"
-                                                             MaxLength="10"
-                                                             TextChanged="OnIdTextChanged"/>
-                                                    <Button></Button>
-                                                </Grid>-->
+                                            <Border Grid.Row="1" Classes="NeighborCreator"
+                                                    Classes.invalid="{Binding !IsIdValid}"
+                                                    Classes.empty="{Binding IsIdEmpty}">
                                                 <Grid ColumnDefinitions="Auto, *, 24">
-                                                    <TextBlock Name="Label" Grid.Column="0">Додати зв'язок:</TextBlock>
-                                                    <StackPanel Grid.Column="1" Margin="12 0">
-                                                        <TextBox Watermark="id вершини"
-                                                                 MaxLength="10"
-                                                                 Text="{Binding InputNeighborId}"
-                                                                 TextChanged="OnIdTextChanged"/>
-                                                    </StackPanel> 
-                                                    <Button IsEnabled="{Binding IsIdValid}" Click="OnNeighborAddPressed" Grid.Column="2" Width="24" Height="24">
-                                                        <Path Width="24" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center" Stroke="#FFFFFF" StrokeThickness="1.5" Data="{StaticResource ValidIconGeometry}"/>
+                                                    <TextBlock Grid.Column="0" Name="Label">Додати зв'язок:</TextBlock>
+                                                    <TextBox Grid.Column="1" Name="Input"
+                                                             Watermark="id вершини"
+                                                             MaxLength="10"
+                                                             Text="{Binding InputNeighborId}"
+                                                             TextChanged="OnIdTextChanged"/>
+                                                    <Button Grid.Column="2" Name="AddButton" IsEnabled="{Binding IsIdValid}" Click="OnNeighborAddPressed">
+                                                        <Grid>
+														    <Path Name="Valid" Data="{StaticResource ValidIconGeometry}"/>
+                                                            <Path Name="Invalid" Data="{StaticResource InvalidIconGeometry}"/>
+                                                        </Grid>
                                                     </Button>
                                                 </Grid>
                                             </Border>
@@ -145,20 +140,10 @@
 			<Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0 0 0 2"/>
             <Setter Property="FontSize" Value="14"/>
-            <!--<Setter Property="Height" Value="18"/>-->
-            <!--<Setter Property="LineHeight" Value="18"/>-->
+            <Setter Property="Foreground" Value="#FFC8FF"/>
         </Style>
 
-        <!--<Style Selector="Border.NeighborCreator TextBlock#Clue">
-			<Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0 2 0 0"/>
-            <Setter Property="FontSize" Value="10"/>
-            <Setter Property="Height" Value="12"/>
-            <Setter Property="LineHeight" Value="12"/>
-            <Setter Property="Foreground" Value="#99FFFFFF"/>
-        </Style>-->
-
-        <Style Selector="Border.NeighborCreator TextBox">
+        <Style Selector="Border.NeighborCreator TextBox#Input">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
 
@@ -166,19 +151,82 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             
 			<Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="Padding" Value="0 4"/>
             <Setter Property="BorderThickness" Value="0"/>
+
+            <Style.Resources>
+                <SolidColorBrush x:Key="TextControlPlaceholderForeground">#66FFC8FF</SolidColorBrush>
+                <SolidColorBrush x:Key="TextControlPlaceholderForegroundPointerOver">#66FFC8FF</SolidColorBrush>
+                <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused">#66FFC8FF</SolidColorBrush>
+            </Style.Resources>
         </Style>
 
-        <Style Selector="Border.NeighborCreator TextBox:pointerover /template/ Border#PART_BorderElement">
-			<Setter Property="Background" Value="#1AFFFFFF"/>
+        <Style Selector="Border.NeighborCreator.empty TextBox#Input">
+            <Setter Property="Foreground" Value="#66FFC8FF"/>
         </Style>
 
-        <Style Selector="Border.NeighborCreator TextBox:focus /template/ Border#PART_BorderElement">
+        <Style Selector="Border.NeighborCreator TextBox#Input:pointerover /template/ Border#PART_BorderElement">
+			<Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBox#Input:focus /template/ Border#PART_BorderElement">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator Button#AddButton">
+			<Setter Property="Width" Value="24"/>
+			<Setter Property="Height" Value="24"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector="Border.NeighborCreator Button#AddButton:disabled">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator Button#AddButton Path">
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator Button#AddButton Path#Valid">
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+
+<!--        <Style Selector="Border.NeighborCreator.invalid TextBox#Input">
+			<Setter Property="Foreground" Value="#FF7676"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.empty TextBox#Input">
+			<Setter Property="Foreground" Value="#FFC8FF"/>
+        </Style>-->
+
+        <Style Selector="Border.NeighborCreator.invalid Button#AddButton Path#Valid">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.invalid Button#AddButton Path#Invalid">
+            <Setter Property="Stroke" Value="#FF7676"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.empty Button#AddButton Path#Valid">
+            <Setter Property="Opacity" Value="1"/>
+			<Setter Property="Stroke" Value="#66FFC8FF"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.empty Button#AddButton Path#Invalid">
+            <Setter Property="Opacity" Value="0"/>
         </Style>
 
         <!--VERTEX HEADER START-->
@@ -211,19 +259,19 @@
             <Setter Property="StrokeThickness" Value="2"/>
         </Style>
 
-        <Style Selector="Border.VertexHeader Button#ExpandButton Path.Up">
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path#Up">
             <Setter Property="Opacity" Value="0"/>
         </Style>
 
-        <Style Selector="Border.VertexHeader Button#ExpandButton Path.Down">
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path#Down">
             <Setter Property="Opacity" Value="1"/>
         </Style>
 
-        <Style Selector="Border.expanded Button#ExpandButton Path.Up">
+        <Style Selector="Border.expanded Button#ExpandButton Path#Up">
             <Setter Property="Opacity" Value="1"/>
         </Style>
 
-        <Style Selector="Border.expanded Button#ExpandButton Path.Down">
+        <Style Selector="Border.expanded Button#ExpandButton Path#Down">
             <Setter Property="Opacity" Value="0"/>
         </Style>
 

@@ -75,12 +75,16 @@ namespace GraphOptimizer.ViewModels.GraphCore
             set
             {
                 SetProperty(ref _inputNeighborId, value);
+                OnPropertyChanged(nameof(IsIdEmpty));
                 OnPropertyChanged(nameof(IsIdValid));
             }
         }
 
-        public bool IsIdValid => !string.IsNullOrEmpty(InputNeighborId) 
+        public bool IsIdEmpty => string.IsNullOrEmpty(InputNeighborId);
+
+        public bool IsIdValid => !string.IsNullOrEmpty(InputNeighborId)
                             && uint.TryParse(InputNeighborId, out uint id) 
-                            && _adjacencyContext.VertexExists(id);
+                            && _adjacencyContext.VertexExists(id)
+                            && !(_adjacencyContext.EdgeExists(Model.Id, id));
     }
 }

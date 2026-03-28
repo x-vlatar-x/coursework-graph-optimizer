@@ -12,6 +12,7 @@
   
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="/Styles/GlobalStyles.axaml" />
         <StyleInclude Source="/Styles/LayoutStyles.axaml" />
         <StyleInclude Source="/Styles/GraphEditorStyles.axaml" />
         <StyleInclude Source="/Styles/GraphMatrixStyles.axaml" />
