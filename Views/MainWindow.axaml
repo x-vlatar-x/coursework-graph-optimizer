@@ -32,30 +32,75 @@
             </RadialGradientBrush>
         </Border.Background>
         <Grid RowDefinitions="48, *"  ColumnDefinitions="35*, 65*">
-            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Classes="PanelCardShadow">
-		        <Border Classes="PanelCard" Padding="0">
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Classes="PanelCardShadow" Height="54">
+		        <Border Classes="PanelCard" Padding="20 0" Height="54">
                     <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
-                            <Button Content="Зберегти" Background="Transparent" Foreground="#FFFFFF" Margin="16 0 0 0" FontSize="12" FontWeight="Medium"></Button>
-                            <Button Content="Відкрити" Background="Transparent" Foreground="#FFFFFF" FontSize="12"  FontWeight="Medium"></Button>
+                            <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                                <Grid ColumnDefinitions="24, Auto">
+                                    <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource SaveIconGeometry}"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Зберегти</TextBlock>
+                                </Grid>
+                            </Button>
+                            <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                                <Grid ColumnDefinitions="24, Auto">
+                                    <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource LoadIconGeometry}"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Загрузити</TextBlock>
+                                </Grid>
+                            </Button>
+                            <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                                <Grid ColumnDefinitions="24, Auto">
+                                    <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource RandomIconGeometry}"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Згенерувати</TextBlock>
+                                </Grid>
+                            </Button>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
-                            <Button Content="Зберегти" Background="Transparent" FontFamily="{StaticResource InterFont}" Foreground="#FFFFFF" Margin="0 0 16 0" FontSize="12"></Button>
+                            <Border Name="AlgorithmsList" Background="#1AFFFFFF" Padding="16 0" Height="32" CornerRadius="6">
+                                <FlyoutBase.AttachedFlyout>
+									<Flyout Placement="BottomEdgeAlignedLeft">
+								        <Grid Width="{Binding #AlgorithmsList.Bounds.Width}">
+				                            <Border Padding="0" Background="#633DAD"/>
+                                            <Border Padding="0" Background="#1AFFFFFF">
+                                                <StackPanel>
+													<Button Background="Transparent" HorizontalAlignment="Stretch">Жадібний метод</Button>
+													<Button Background="Transparent" HorizontalAlignment="Stretch">Метод Approx-Vertex-Cover</Button>
+													<Button Background="Transparent" HorizontalAlignment="Stretch">Пошук з поверненням</Button>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </Flyout>
+                                </FlyoutBase.AttachedFlyout>
+                                <Grid ColumnDefinitions="Auto, 24">
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 2" FontWeight="Medium" Foreground="#FFC8FF" FontSize="14">Оберіть метод розв'язання</TextBlock>
+                                    <Button Grid.Column="1" Margin="12 0 -4 0" Width="24" Height="24" Background="Transparent" Click="OnAlgoritmsListExpandButtonClick">
+                                        <Path Width="24" Height="24" Stroke="#FFC8FF" StrokeThickness="1.5" Data="{StaticResource ArrowDropDownIconGeometry}"/>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <Button Background="Transparent" Width="32" Height="32" Margin="12 0 0 0" CornerRadius="6">
+                                <Path VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 2 0 0" Width="28" Height="28" Fill="#FFC8FF" Data="{StaticResource RunIconGeometry}"/>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </Border>	
             </Border>
 
-            <Border Grid.Row="1" Grid.Column="0" Margin="0 16 0 0" Classes="PanelCardShadow">
+            <Border ZIndex="1" Grid.Row="1" Grid.Column="0" Margin="0 16 0 0" Classes="PanelCardShadow">
                 <views:GraphTableView DataContext="{Binding Table}"/>
             </Border>
-            <Border Grid.Row="1" Grid.Column="1" Margin="16 16 0 0" Classes="PanelCardShadow">
+            <Border ZIndex="1" Grid.Row="1" Grid.Column="1" Margin="16 16 0 0" Classes="PanelCardShadow">
                 <views:GraphEditorView DataContext="{Binding Editor}"/>
             </Border>
         </Grid>
     </Border>
 
     <Window.Styles>
-
+        <Style Selector="FlyoutPresenter">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="MinWidth" Value="0" />
+        </Style>
     </Window.Styles>
 </Window>

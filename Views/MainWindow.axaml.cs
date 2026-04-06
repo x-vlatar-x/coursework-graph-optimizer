@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 
@@ -31,6 +32,11 @@ namespace GraphOptimizer.Views
                     TopLevel.GetTopLevel(this)?.FocusManager?.ClearFocus();
                 }
             }, RoutingStrategies.Tunnel);
+        }
+    
+        public void OnAlgoritmsListExpandButtonClick(object? sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout(AlgorithmsList);
         }
     }
 }
