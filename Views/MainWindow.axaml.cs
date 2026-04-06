@@ -33,10 +33,5 @@ namespace GraphOptimizer.Views
                 }
             }, RoutingStrategies.Tunnel);
         }
-    
-        public void OnAlgoritmsListExpandButtonClick(object? sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout(AlgorithmsList);
-        }
     }
 }

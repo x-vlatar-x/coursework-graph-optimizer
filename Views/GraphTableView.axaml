@@ -236,13 +236,13 @@
 
         <Style Selector="Border.VertexHeader TextBlock#VertexId">
 			<Setter Property="FontSize" Value="14"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
         <Style Selector="Border.VertexHeader TextBlock#EdgeCount">
 			<Setter Property="FontSize" Value="12"/>
-            <Setter Property="Foreground" Value="#99FFFFFF"/>
+            <Setter Property="Foreground" Value="#80FFFFFF"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
@@ -255,7 +255,7 @@
         <Style Selector="Border.VertexHeader Button#ExpandButton Path">
             <Setter Property="Width" Value="24"/>
             <Setter Property="Height" Value="24"/>
-            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
             <Setter Property="StrokeThickness" Value="2"/>
         </Style>
 
@@ -296,7 +296,7 @@
         <Style Selector="Border.VertexHeader Border#DeleteButton Button Path">
 			<Setter Property="Width" Value="24"/>
             <Setter Property="Height" Value="24"/>
-            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
             <Setter Property="StrokeThickness" Value="1"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -368,7 +368,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Width" Value="24"/>
             <Setter Property="Height" Value="24"/>
-            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
             <Setter Property="StrokeThickness" Value="1.5"/>
             <Setter Property="Opacity" Value="0"/>
             <Setter Property="Margin" Value="-12 0"/>

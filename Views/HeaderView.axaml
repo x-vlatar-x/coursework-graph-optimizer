@@ -1,0 +1,154 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:GraphOptimizer.Models"
+             xmlns:graphcore="using:GraphOptimizer.ViewModels.GraphCore"
+             xmlns:vm="using:GraphOptimizer.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="48"
+             x:DataType="vm:HeaderViewModel"
+             x:Class="GraphOptimizer.Views.HeaderView">
+
+    <Border Classes="PanelCard" Padding="20 0" Height="54">
+        <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                    <Grid ColumnDefinitions="24, Auto">
+                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource SaveIconGeometry}"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Зберегти</TextBlock>
+                    </Grid>
+                </Button>
+                <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                    <Grid ColumnDefinitions="24, Auto">
+                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource LoadIconGeometry}"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Загрузити</TextBlock>
+                    </Grid>
+                </Button>
+                <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                    <Grid ColumnDefinitions="24, Auto">
+                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource RandomIconGeometry}"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Згенерувати</TextBlock>
+                    </Grid>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Border Name="AlgorithmList" 
+                        Classes.expanded="{Binding IsAlgorithmListExpanded}">
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="BottomEdgeAlignedLeft" IsOpen="{Binding IsAlgorithmListExpanded, Mode=TwoWay}">
+                            <Grid Width="{Binding #AlgorithmList.Bounds.Width}">
+                                <Border Classes="Liner"/>
+                                <Border Classes="List">
+                                    <StackPanel>
+                                        <Button Classes="Item">
+                                            <TextBlock>Жадібний метод</TextBlock></Button>
+                                        <Button Classes="Item">Метод Approx-Vertex-Cover</Button>
+                                        <Button Classes="Item">Пошук з поверненням</Button>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                    <Grid ColumnDefinitions="Auto, 24">
+                        <TextBlock Name="SelectedAlgorithm" Grid.Column="0">Оберіть метод розв'язання</TextBlock>
+                        <Button Name="ExpandButton" Grid.Column="1" Click="OnAlgorithmListExpandButtonClick">
+                            <Grid>
+                                <Path Name="Down" Data="{StaticResource ArrowDropDownIconGeometry}"/>
+                                <Path Name="Up" Data="{StaticResource ArrowDropUpIconGeometry}"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Button Background="Transparent" Width="32" Height="32" Margin="12 0 0 0" CornerRadius="6">
+                    <Path VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 2 0 0" Width="28" Height="28" Fill="#FFC8FF" Data="{StaticResource RunIconGeometry}"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+    <UserControl.Styles>
+        <Style Selector="FlyoutPresenter">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="MinWidth" Value="0" />
+        </Style>
+
+        <Style Selector="Border#AlgorithmList">
+			<Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList.expanded">
+            <Setter Property="CornerRadius" Value="6 6 0 0"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList Border.Liner">
+			<Setter Property="Padding" Value="0 0 0 6"/>
+            <Setter Property="Background" Value="#633DAD"/>
+            <Setter Property="CornerRadius" Value="0 0 6 6"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList Border.List">
+			<Setter Property="Padding" Value="0 0 0 6"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="CornerRadius" Value="0 0 6 6"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList Button.Item">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Padding" Value="16 0"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList TextBlock#SelectedAlgorithm">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList Button#ExpandButton">
+			<Setter Property="Margin" Value="12 0 -4 0"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList Button#ExpandButton Path">
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList Button#ExpandButton Path#Down">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList Button#ExpandButton Path#Up">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList.expanded Button#ExpandButton Path#Down">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border#AlgorithmList.expanded Button#ExpandButton Path#Up">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

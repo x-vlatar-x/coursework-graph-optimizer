@@ -13,11 +13,13 @@ namespace GraphOptimizer.ViewModels
 
         public GraphEditorViewModel Editor { get; }
         public GraphTableViewModel Table { get; }
+        public HeaderViewModel Header { get; }
 
         public MainWindowViewModel()
         {
             Editor = new GraphEditorViewModel(SharedGraphVM, EditorContext);
             Table = new GraphTableViewModel(SharedGraphVM, EditorContext);
+            Header = new HeaderViewModel(SharedGraphVM);
         }
     }
 }
