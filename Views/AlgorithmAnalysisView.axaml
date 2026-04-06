@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:GraphOptimizer.Models"
+             xmlns:vm="using:GraphOptimizer.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:AlgorithmAnalysisViewModel"
+             x:Class="GraphOptimizer.Views.AlgorithmAnalysisView">
+    <Canvas Name="OverlayCanvas" Background="{x:Null}">
+		<Border Name="Window"
+                Classes.visible="{Binding AppState.IsAnalysisActive}"
+                Width="300" Height="200"
+                Background="#2F5BB3"
+                Canvas.Top="{Binding Y}"
+                Canvas.Left="{Binding X}">
+            <Border>
+				<Border Name="DragBar" VerticalAlignment="Top" Height="6" Background="#1AFFFFFF" Margin="6 6 6 0" CornerRadius="6"
+                        PointerMoved="OnDragBarPointerMoved"
+                        PointerPressed="OnDragBarPointerPressed"
+                        PointerReleased="OnDragBarPointerReleased"/>
+            </Border>
+        </Border>
+    </Canvas>
+
+    <UserControl.Styles>
+		<Style Selector="Border#Window">
+			<Setter Property="Background" Value="rgb(53, 86, 178)"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="200"/>
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Border#Window">
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

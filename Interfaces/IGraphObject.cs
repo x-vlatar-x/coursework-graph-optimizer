@@ -1,4 +1,4 @@
-﻿namespace GraphOptimizer.ViewModels.GraphCore
+﻿namespace GraphOptimizer.Interfaces
 {
     public interface IGraphObject
     {

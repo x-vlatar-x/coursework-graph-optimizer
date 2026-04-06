@@ -1,4 +1,5 @@
-﻿using GraphOptimizer.Models;
+﻿using GraphOptimizer.Interfaces;
+using GraphOptimizer.Models;
 using System.Collections.Generic;
 using System.Linq;
 

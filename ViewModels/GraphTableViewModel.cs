@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using GraphOptimizer.Interfaces;
 using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.ViewModels.Helpers;
 using System;
@@ -9,11 +10,15 @@ namespace GraphOptimizer.ViewModels
     public class GraphTableViewModel: ViewModelBase
     {
         public GraphViewModel GraphVM { get; init; }
+
+        public IAppState AppState { get; init; }
+
         public EditorContext EditorContext { get; init; }
 
-        public GraphTableViewModel(GraphViewModel graphVM, EditorContext editorContext) 
+        public GraphTableViewModel(GraphViewModel graphVM, IAppState appState, EditorContext editorContext) 
         {
             GraphVM = graphVM;
+            AppState = appState;
             EditorContext = editorContext;
         }
 

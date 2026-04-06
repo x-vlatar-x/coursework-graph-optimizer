@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using GraphOptimizer.Interfaces;
 using GraphOptimizer.Models;
 
 namespace GraphOptimizer.ViewModels.GraphCore

@@ -30,4 +30,17 @@ public partial class HeaderView : UserControl
             FlyoutBase.ShowAttachedFlyout(AlgorithmList);
         }
     }
+
+
+    public void OnActionButtonClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+        if (sender is Button button && button.Name == "ActionButton")
+        {
+            ViewModel.HandleActionButtonClick();
+        }
+    }
 }

@@ -10,9 +10,12 @@
              x:Class="GraphOptimizer.Views.GraphEditorView">
     
     <Border Classes="PanelCard">
-	    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*">
-            <TextBlock Classes="PanelTitle">Графічне подання</TextBlock>
-            <Grid Grid.Row="1" Grid.Column="0" Margin="0 16 0 0">
+	    <Grid RowDefinitions="Auto, *">
+            <!--<TextBlock Classes="PanelTitle">Графічне подання</TextBlock>-->
+            <Border Grid.Row="0" Classes="PanelTitle">
+                <TextBlock>Графічне подання</TextBlock>
+            </Border>
+            <Grid Grid.Row="1" Grid.Column="0">
                 <Border CornerRadius="6"
                         Background="#00000000"
                         ClipToBounds="True"

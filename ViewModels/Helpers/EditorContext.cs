@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using GraphOptimizer.Interfaces;
 using GraphOptimizer.Models;
 using GraphOptimizer.ViewModels.GraphCore;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Diagnostics;
 
 namespace GraphOptimizer.ViewModels.Helpers
 {
-    public class EditorContext: ViewModelBase
+    public class EditorContext : ViewModelBase
     {
         // Editor state
         private EditorTool _selectedTool = EditorTool.Move;
@@ -43,7 +44,7 @@ namespace GraphOptimizer.ViewModels.Helpers
                 }
                 SetProperty(ref _mousePosition, value);
                 if (IsSelecting)
-                {                    
+                {
                     SelectionRect = new Rect(StartPoint, value).Normalize();
                 }
             }

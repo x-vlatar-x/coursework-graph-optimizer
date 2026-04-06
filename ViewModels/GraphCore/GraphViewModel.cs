@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using GraphOptimizer.Interfaces;
 using GraphOptimizer.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

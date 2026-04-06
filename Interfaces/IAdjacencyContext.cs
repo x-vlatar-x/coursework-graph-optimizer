@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using GraphOptimizer.ViewModels.GraphCore;
+using System.Collections.Generic;
 
-namespace GraphOptimizer.ViewModels.GraphCore
+namespace GraphOptimizer.Interfaces
 {
     public interface IAdjacencyContext
     {

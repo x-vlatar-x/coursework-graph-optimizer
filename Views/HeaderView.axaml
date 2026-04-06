@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:GraphOptimizer.Models"
-             xmlns:graphcore="using:GraphOptimizer.ViewModels.GraphCore"
              xmlns:vm="using:GraphOptimizer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="48"
              x:DataType="vm:HeaderViewModel"
@@ -59,9 +58,13 @@
                         </Button>
                     </Grid>
                 </Border>
-                <Button Background="Transparent" Width="32" Height="32" Margin="12 0 0 0" CornerRadius="6">
-                    <Path VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 2 0 0" Width="28" Height="28" Fill="#FFC8FF" Data="{StaticResource RunIconGeometry}"/>
+                <Button Name="ActionButton" Click="OnActionButtonClick">
+                    <Grid>
+                        <Path Name="Start" Data="{StaticResource StartIconGeometry}"/>
+                        <Path Name="Stop" Data="{StaticResource StopIconGeometry}"/>
+                    </Grid>
                 </Button>
+                
             </StackPanel>
         </Grid>
     </Border>
@@ -148,6 +151,40 @@
         </Style>
 
         <Style Selector="Border#AlgorithmList.expanded Button#ExpandButton Path#Up">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Button#ActionButton">
+			<Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Margin" Value="12 0 0 0"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <Style Selector="Button#ActionButton Path">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 2 0 0"/>
+			<Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+        </Style>
+
+        <Style Selector="Button#ActionButton Path#Start">
+            <Setter Property="Fill" Value="#FFC8FF"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Button#ActionButton Path#Stop">
+            <Setter Property="Fill" Value="#FF7676"/>
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Button#ActionButton Path#Start">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Button#ActionButton Path#Stop">
             <Setter Property="Opacity" Value="1"/>
         </Style>
     </UserControl.Styles>

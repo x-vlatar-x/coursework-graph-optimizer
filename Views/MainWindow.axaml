@@ -10,7 +10,8 @@
         x:DataType="vm:MainWindowViewModel"
         FontFamily="Inter"
         Icon="/Assets/avalonia-logo.ico"
-        Title="GraphOptimizer">
+        Title="GraphOptimizer"
+        Classes.analysis_mode="{Binding IsAnalysisActive}">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -30,14 +31,17 @@
         </Border.Background>
         <Grid RowDefinitions="48, *"  ColumnDefinitions="35*, 65*">
             <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Classes="PanelCardShadow" Height="54">
-                <views:HeaderView DataContext="{Binding Header}"/>
+                <views:HeaderView DataContext="{Binding HeaderVM}"/>
             </Border>
 
-            <Border ZIndex="1" Grid.Row="1" Grid.Column="0" Margin="0 16 0 0" Classes="PanelCardShadow">
-                <views:GraphTableView DataContext="{Binding Table}"/>
+            <Border Grid.Row="1" Grid.Column="0" Margin="0 16 0 0" Classes="PanelCardShadow">
+                <views:GraphTableView DataContext="{Binding TableVM}"/>
             </Border>
-            <Border ZIndex="1" Grid.Row="1" Grid.Column="1" Margin="16 16 0 0" Classes="PanelCardShadow">
-                <views:GraphEditorView DataContext="{Binding Editor}"/>
+            <Border Grid.Row="1" Grid.Column="1" Margin="16 16 0 0" Classes="PanelCardShadow">
+                <views:GraphEditorView DataContext="{Binding EditorVM}"/>
+            </Border>
+            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{x:Null}" Margin="-16">
+				<views:AlgorithmAnalysisView DataContext="{Binding AnalysisVM}"/>
             </Border>
         </Grid>
     </Border>
