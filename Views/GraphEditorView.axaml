@@ -126,7 +126,7 @@
                             </Grid>
                         </Button>
 
-                        <Button Classes="LayoutMode"  
+                        <!--<Button Classes="LayoutMode"  
                                 Classes.selected="{Binding EditorContext.CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Freeform}"
                                 Command="{Binding SetLayoutMode}"
                                 CommandParameter="{x:Static vm:EditorLayoutMode.Freeform}"
@@ -142,7 +142,7 @@
                             <Grid>
                                 <Path Data="{StaticResource CircularIconGeometry}"/>
                             </Grid>
-                        </Button>
+                        </Button>-->
                     </StackPanel>
                 </Border>
             </Grid>

@@ -17,7 +17,7 @@ public partial class HeaderView : UserControl
         InitializeComponent();
     }
 
-    public void OnAlgorithmListExpandButtonClick(object? sender, RoutedEventArgs e)
+    public void OnAnalysisModeListExpandButtonClick(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)
         {
@@ -26,11 +26,10 @@ public partial class HeaderView : UserControl
         
         if (sender is Button)
         {
-            ViewModel.HandleAlgorithmListExpandButtonClick();
-            FlyoutBase.ShowAttachedFlyout(AlgorithmList);
+            ViewModel.HandleAnalysisModeListExpandButtonClick();
+            FlyoutBase.ShowAttachedFlyout(AnalysisModeList);
         }
     }
-
 
     public void OnActionButtonClick(object? sender, RoutedEventArgs e)
     {
@@ -41,6 +40,27 @@ public partial class HeaderView : UserControl
         if (sender is Button button && button.Name == "ActionButton")
         {
             ViewModel.HandleActionButtonClick();
+        }
+    }
+
+    public void OnAnalysisModeItemClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+        if (sender is Button button && button.Tag is AnalysisMode mode)
+        {
+            var flyout = FlyoutBase.GetAttachedFlyout(AnalysisModeList);
+
+            if (flyout == null)
+            {
+                return;
+            }
+
+            flyout.Hide();
+            ViewModel.HandleAnalysisModeItemClick(mode);
+            SelectedAnalysisMode.Text = button.Content?.ToString();
         }
     }
 }

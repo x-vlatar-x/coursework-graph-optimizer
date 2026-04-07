@@ -31,26 +31,34 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Border Name="AlgorithmList" 
-                        Classes.expanded="{Binding IsAlgorithmListExpanded}">
+                <Border Name="AnalysisModeList" 
+                        Classes.expanded="{Binding IsAnalysisModeListExpanded}">
                     <FlyoutBase.AttachedFlyout>
-                        <Flyout Placement="BottomEdgeAlignedLeft" IsOpen="{Binding IsAlgorithmListExpanded, Mode=TwoWay}">
-                            <Grid Width="{Binding #AlgorithmList.Bounds.Width}">
+                        <Flyout Placement="BottomEdgeAlignedLeft" IsOpen="{Binding IsAnalysisModeListExpanded, Mode=TwoWay}">
+                            <Grid Width="{Binding #AnalysisModeList.Bounds.Width}">
                                 <Border Classes="Liner"/>
                                 <Border Classes="List">
                                     <StackPanel>
-                                        <Button Classes="Item">
-                                            <TextBlock>Жадібний метод</TextBlock></Button>
-                                        <Button Classes="Item">Метод Approx-Vertex-Cover</Button>
-                                        <Button Classes="Item">Пошук з поверненням</Button>
+                                        <Button Classes="Item"
+                                                Classes.selected="{Binding SelectedAnalysisMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Greedy}"
+                                                Tag="{x:Static vm:AnalysisMode.Greedy}"
+                                                Click="OnAnalysisModeItemClick">Жадібний метод</Button>
+                                        <Button Classes="Item"
+                                                Classes.selected="{Binding SelectedAnalysisMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Approx}"
+                                                Tag="{x:Static vm:AnalysisMode.Approx}"
+                                                Click="OnAnalysisModeItemClick">Метод Approx-Vertex-Cover</Button>
+                                        <Button Classes="Item"
+                                                Classes.selected="{Binding SelectedAnalysisMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Backtracking}"
+                                                Tag="{x:Static vm:AnalysisMode.Backtracking}"
+                                                Click="OnAnalysisModeItemClick">Пошук з поверненням</Button>
                                     </StackPanel>
                                 </Border>
                             </Grid>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                     <Grid ColumnDefinitions="Auto, 24">
-                        <TextBlock Name="SelectedAlgorithm" Grid.Column="0">Оберіть метод розв'язання</TextBlock>
-                        <Button Name="ExpandButton" Grid.Column="1" Click="OnAlgorithmListExpandButtonClick">
+                        <TextBlock Name="SelectedAnalysisMode" Grid.Column="0">Оберіть метод розв'язання</TextBlock>
+                        <Button Name="ExpandButton" Grid.Column="1" Click="OnAnalysisModeListExpandButtonClick">
                             <Grid>
                                 <Path Name="Down" Data="{StaticResource ArrowDropDownIconGeometry}"/>
                                 <Path Name="Up" Data="{StaticResource ArrowDropUpIconGeometry}"/>
@@ -77,30 +85,30 @@
             <Setter Property="MinWidth" Value="0" />
         </Style>
 
-        <Style Selector="Border#AlgorithmList">
+        <Style Selector="Border#AnalysisModeList">
 			<Setter Property="Background" Value="#1AFFFFFF"/>
             <Setter Property="Padding" Value="16 0"/>
             <Setter Property="Height" Value="32"/>
             <Setter Property="CornerRadius" Value="6"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList.expanded">
+        <Style Selector="Border#AnalysisModeList.expanded">
             <Setter Property="CornerRadius" Value="6 6 0 0"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList Border.Liner">
+        <Style Selector="Border#AnalysisModeList Border.Liner">
 			<Setter Property="Padding" Value="0 0 0 6"/>
             <Setter Property="Background" Value="#633DAD"/>
             <Setter Property="CornerRadius" Value="0 0 6 6"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList Border.List">
+        <Style Selector="Border#AnalysisModeList Border.List">
 			<Setter Property="Padding" Value="0 0 0 6"/>
             <Setter Property="Background" Value="#1AFFFFFF"/>
             <Setter Property="CornerRadius" Value="0 0 6 6"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList Button.Item">
+        <Style Selector="Border#AnalysisModeList Button.Item">
 			<Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -114,16 +122,22 @@
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList TextBlock#SelectedAlgorithm">
+        <Style Selector="Border#AnalysisModeList Button.Item.selected">
+            <Setter Property="Height" Value="0"/>
+			<Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border#AnalysisModeList TextBlock#SelectedAnalysisMode">
 			<Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0 0 0 2"/>
+            <Setter Property="Width" Value="180"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Foreground" Value="#FFC8FF"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList Button#ExpandButton">
+        <Style Selector="Border#AnalysisModeList Button#ExpandButton">
 			<Setter Property="Margin" Value="12 0 -4 0"/>
             <Setter Property="Width" Value="24"/>
             <Setter Property="Height" Value="24"/>
@@ -131,26 +145,26 @@
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList Button#ExpandButton Path">
+        <Style Selector="Border#AnalysisModeList Button#ExpandButton Path">
 			<Setter Property="Width" Value="24"/>
             <Setter Property="Height" Value="24"/>
             <Setter Property="Stroke" Value="#FFC8FF"/>
             <Setter Property="StrokeThickness" Value="1.5"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList Button#ExpandButton Path#Down">
+        <Style Selector="Border#AnalysisModeList Button#ExpandButton Path#Down">
             <Setter Property="Opacity" Value="1"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList Button#ExpandButton Path#Up">
+        <Style Selector="Border#AnalysisModeList Button#ExpandButton Path#Up">
             <Setter Property="Opacity" Value="0"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList.expanded Button#ExpandButton Path#Down">
+        <Style Selector="Border#AnalysisModeList.expanded Button#ExpandButton Path#Down">
             <Setter Property="Opacity" Value="0"/>
         </Style>
 
-        <Style Selector="Border#AlgorithmList.expanded Button#ExpandButton Path#Up">
+        <Style Selector="Border#AnalysisModeList.expanded Button#ExpandButton Path#Up">
             <Setter Property="Opacity" Value="1"/>
         </Style>
 

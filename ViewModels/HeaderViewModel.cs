@@ -1,25 +1,28 @@
 ﻿using GraphOptimizer.Interfaces;
 using GraphOptimizer.ViewModels.GraphCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphOptimizer.ViewModels
 {
+    public enum AnalysisMode { Greedy, Approx, Backtracking, ComparisonAll }
     public class HeaderViewModel: ViewModelBase
     {
         public GraphViewModel GraphVM { get; init; }
 
         public IAppState AppState { get; init; }
 
-        private bool _isAlgorithmListExpanded = false;
-        public bool IsAlgorithmListExpanded 
+        private bool _isAnalysisModeListExpanded = false;
+        public bool IsAnalysisModeListExpanded
         {
-            get => _isAlgorithmListExpanded;
-            set => SetProperty(ref _isAlgorithmListExpanded, value);
+            get => _isAnalysisModeListExpanded;
+            set => SetProperty(ref _isAnalysisModeListExpanded, value);
+        }
+
+        private AnalysisMode _selectedAnalysisMode; 
+        public AnalysisMode SelectedAnalysisMode
+        {
+            get => _selectedAnalysisMode;
+            set => SetProperty(ref _selectedAnalysisMode, value);
         }
 
         //public enum AnalysisMode { Greedy, Approx, Backtracking, ComparisonAll }
@@ -36,9 +39,9 @@ namespace GraphOptimizer.ViewModels
             AppState = appState;
         }
 
-        public void HandleAlgorithmListExpandButtonClick()
+        public void HandleAnalysisModeListExpandButtonClick()
         {
-            IsAlgorithmListExpanded = !IsAlgorithmListExpanded;
+            IsAnalysisModeListExpanded = !IsAnalysisModeListExpanded;
         }
 
         public void HandleActionButtonClick()
@@ -52,14 +55,10 @@ namespace GraphOptimizer.ViewModels
             }
         }
 
-        //public void HandleStartButtonClick()
-        //{
-        //    StartAnalysisRequested?.Invoke();
-        //}
-
-        //public void HandleStopButtonClick()
-        //{
-        //    StopAnalysisRequested?.Invoke();
-        //}
+        public void HandleAnalysisModeItemClick(AnalysisMode mode)
+        {
+            IsAnalysisModeListExpanded = false;
+            SelectedAnalysisMode = mode;
+        }
     }
 }
