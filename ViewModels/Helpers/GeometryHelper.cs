@@ -24,7 +24,7 @@ namespace GraphOptimizer.ViewModels.Helpers
 
         public static EdgeViewModel? FindEdgeAtPoint(GraphViewModel graphVM, Point mousePosition)
         {
-            double tolerance = 4.0;
+            double tolerance = 6.0;
             double toleranceSq = tolerance * tolerance;
 
             return graphVM.Edges.LastOrDefault(edge =>
@@ -101,7 +101,7 @@ namespace GraphOptimizer.ViewModels.Helpers
 
         public static Point FindFreePosition(GraphViewModel graphVM, Rect canvasBounds)
         {
-            double vertexRadius = 12;
+            double vertexRadius = 14;
             double minDistance = vertexRadius * 3;
 
             double radius = 0;

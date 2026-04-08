@@ -28,7 +28,7 @@
                         Classes.vertex_tool="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
                         Classes.edge_tool="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
                         Classes.mouse_inside="{Binding EditorContext.IsMouseOverCanvas}">
-                    <Grid>
+                    <Grid Opacity="0.9">
                         <ItemsControl ItemsSource="{Binding GraphVM.Edges}" IsHitTestVisible="False">
 					        <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -60,10 +60,11 @@
                                           Classes.selected="{Binding IsSelected}"
                                           Classes.hovered="{Binding IsHovered}">
                                         <Grid.RenderTransform>
-										    <TranslateTransform X="{Binding X, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}" 
-                                                                Y="{Binding Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}"/>
+										    <TranslateTransform X="{Binding X, Converter={StaticResource OffsetConverter}, ConverterParameter=-12}" 
+                                                                Y="{Binding Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-12}"/>
                                         </Grid.RenderTransform>
 										
+                                        <TextBlock Classes="Id" Text="{Binding Model.Id}"/>
                                         <Border Classes="Aura"/>
                                         <Border Classes="Base"/>
                                         <Border Classes="Core"/>
@@ -78,8 +79,8 @@
                                   EndPoint="{Binding EditorContext.MousePosition}" />
                             <Grid Classes="PhantomVertex" Canvas.Left="0" Canvas.Top="0">
                                 <Grid.RenderTransform>
-						            <TranslateTransform X="{Binding EditorContext.MousePosition.X, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}" 
-                                                        Y="{Binding EditorContext.MousePosition.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-8}"/>
+						            <TranslateTransform X="{Binding EditorContext.MousePosition.X, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}" 
+                                                        Y="{Binding EditorContext.MousePosition.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-10}"/>
                                 </Grid.RenderTransform>
 
                                 <Border Classes="Aura"/>
@@ -156,130 +157,124 @@
 
         <!--EDGE START-->
         <Style Selector="Line.Edge">
-		    <Setter Property="Stroke" Value="#CCCCCC"/>
+		    <Setter Property="Stroke" Value="#CCFF82FF"/>
             <Setter Property="StrokeThickness" Value="4"/>
+            <Setter Property="Opacity" Value="1"/>
         </Style>
 
         <Style Selector="Border.move_tool Line.Edge.hovered">
-			<Setter Property="Stroke" Value="#D22D2D"/>
+			<Setter Property="Stroke" Value="#FF64B4"/>
         </Style>
 
         <Style Selector="Border.move_tool Line.Edge.selected">
-			<Setter Property="Stroke" Value="#D22D2D"/>
+			<Setter Property="Stroke" Value="#FF7676"/>
         </Style>
 
         <!--EDGE END-->
 
         <!--VERTEX START-->
         <Style Selector="Grid.Vertex">
-			<Setter Property="Width" Value="20"/>
-            <Setter Property="Height" Value="20"/>
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+        </Style>
+
+        <Style Selector="Grid.Vertex TextBlock.Id">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0 -24 0 0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
         </Style>
 
         <Style Selector="Grid.Vertex Border.Aura">
-            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="#FF82FF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="20"/>
 			<Setter Property="BoxShadow">
-                <BoxShadows>0 0 4 2 #FFA000</BoxShadows>
-                <!--<BoxShadows>0 0 4 2 #FFDCA0</BoxShadows>-->
+                <BoxShadows>0 0 8 2 #FF82FF</BoxShadows>
             </Setter>
         </Style>
 
         <Style Selector="Grid.Vertex Border.Base">
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Background" Value="#FFA000"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Background" Value="#FF82FF"/>
             <Setter Property="Opacity" Value="0.5"/>
         </Style>
 
         <Style Selector="Grid.Vertex Border.Core">
-            <Setter Property="Width" Value="4"/>
-            <Setter Property="Height" Value="4"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Background" Value="#FFA000"/>
-            <!--<Setter Property="Background" Value="#FFDCA0"/>-->
-			<Setter Property="BoxShadow">
-                <BoxShadows>0 0 4 2 #FFA000</BoxShadows>
-                <!--<BoxShadows>0 0 2 2 #FFDCA0</BoxShadows>-->
-            </Setter>
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Height" Value="8"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Background" Value="#FF82FF"/>
         </Style>
 
         <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Aura, 
                          Border.edge_tool Grid.Vertex.hovered Border.Aura">
+            <Setter Property="BorderBrush" Value="#FF64B4"/>
 			<Setter Property="BoxShadow">
-                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
-                <BoxShadows>0 0 4 2 #FF6831</BoxShadows>
+                <BoxShadows>0 0 8 2 #FF64B4</BoxShadows>
             </Setter>
         </Style>
 
         <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Base, 
                          Border.edge_tool Grid.Vertex.hovered Border.Base">
-            <!--<Setter Property="Background" Value="#FF0000"/>-->
-            <Setter Property="Background" Value="#FF6831"/>
+            <Setter Property="Background" Value="#FF64B4"/>
         </Style>
 
         <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Core, 
                          Border.edge_tool Grid.Vertex.hovered Border.Core">
-            <Setter Property="Background" Value="#FF6831"/>
-			<Setter Property="BoxShadow">
-                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
-                <BoxShadows>0 0 4 2 #FF6831</BoxShadows>
-            </Setter>
+            <Setter Property="Background" Value="#FF64B4"/>
         </Style>
 
         
         <Style Selector="Border.move_tool Grid.Vertex.selected Border.Aura, 
                          Border.edge_tool Grid.Vertex.selected Border.Aura">
+            <Setter Property="BorderBrush" Value="#FF7676"/>
             <Setter Property="BoxShadow">
-                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
-                <BoxShadows>0 0 4 2 #FF0000</BoxShadows>
+                <BoxShadows>0 0 8 2 #FF7676</BoxShadows>
             </Setter>
         </Style>
 
         <Style Selector="Border.move_tool Grid.Vertex.selected Border.Base, 
                          Border.edge_tool Grid.Vertex.selected Border.Base">
-            <!--<Setter Property="Background" Value="#FF0000"/>-->
-            <Setter Property="Background" Value="#FF0000"/>
+            <Setter Property="Background" Value="#FF7676"/>
         </Style>
 
         <Style Selector="Border.move_tool Grid.Vertex.selected Border.Core, 
                          Border.edge_tool Grid.Vertex.selected Border.Core">
-            <!--<Setter Property="Background" Value="#FF3232"/>-->
-            <Setter Property="Background" Value="#FF0000"/>
-			<Setter Property="BoxShadow">
-                <!--<BoxShadows>0 0 4 2 #FF3232</BoxShadows>-->
-                <BoxShadows>0 0 4 2 #FF0000</BoxShadows>
-            </Setter>
+            <Setter Property="Background" Value="#FF7676"/>
         </Style>
         <!--VERTEX END-->
 
         <!--PHANTOM VERTEX START-->
         <Style Selector="Grid.PhantomVertex">
-			<Setter Property="Width" Value="16"/>
-            <Setter Property="Height" Value="16"/>
+			<Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
             <Setter Property="Opacity" Value="0"/>
             <Setter Property="IsHitTestVisible" Value="False"/>
         </Style>
 
         <Style Selector="Grid.PhantomVertex Border.Aura">
-            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="#FF64B4"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="20"/>
 			<Setter Property="BoxShadow">
-                <BoxShadows>0 0 4 2 #FF6831</BoxShadows>
+                <BoxShadows>0 0 8 2 #FF64B4</BoxShadows>
             </Setter>
         </Style>
 
         <Style Selector="Grid.PhantomVertex Border.Base">
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Background" Value="#FF6831"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Background" Value="#FF64B4"/>
             <Setter Property="Opacity" Value="0.5"/>
         </Style>
 
         <Style Selector="Grid.PhantomVertex Border.Core">
-            <Setter Property="Width" Value="2"/>
-            <Setter Property="Height" Value="2"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Background" Value="#FF6831"/>
-			<Setter Property="BoxShadow">
-                <BoxShadows>0 0 2 2 #FF6831</BoxShadows>
-            </Setter>
+            <Setter Property="Width" Value="6"/>
+            <Setter Property="Height" Value="6"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Background" Value="#FF64B4"/>
         </Style>
 
         <Style Selector="Border.vertex_tool.mouse_inside Grid.PhantomVertex">
