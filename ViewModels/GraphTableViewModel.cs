@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using GraphOptimizer.Enums;
 using GraphOptimizer.Interfaces;
 using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.ViewModels.Helpers;

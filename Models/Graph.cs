@@ -45,7 +45,22 @@ namespace GraphOptimizer.Models
             Edges.Remove(edge);
         }
 
-        //public ObservableCollection<Vertex> Vertices { get; } = [];
-        //public ObservableCollection<Edge> Edges { get; } = [];
+        //public void ApplyVertexCover(List<uint> vertexIds)
+        //{
+        //    var idSet = new HashSet<uint>(vertexIds);
+
+        //    foreach (var vertex in Vertices)
+        //    {
+        //        vertex.IsInVertexCover = idSet.Contains(vertex.Id);
+        //    }
+        //}
+
+        //public void ClearVertexCover()
+        //{
+        //    foreach (var vertex in Vertices)
+        //    {
+        //        vertex.IsInVertexCover = false;
+        //    }
+        //}
     }
 }

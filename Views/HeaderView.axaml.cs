@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using GraphOptimizer.Enums;
 using GraphOptimizer.ViewModels;
 
 namespace GraphOptimizer.Views;

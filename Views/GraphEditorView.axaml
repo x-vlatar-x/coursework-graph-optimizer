@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:GraphOptimizer.Models"
+             xmlns:enums="using:GraphOptimizer.Enums"
              xmlns:graphcore="using:GraphOptimizer.ViewModels.GraphCore"
              xmlns:vm="using:GraphOptimizer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -57,6 +58,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Classes="Vertex"
+                                          Classes.covered="{Binding IsInVertexCover}"
                                           Classes.selected="{Binding IsSelected}"
                                           Classes.hovered="{Binding IsHovered}">
                                         <Grid.RenderTransform>
@@ -105,7 +107,7 @@
                         <Button Classes="Tool"
                                 Classes.selected="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Move}"
                                 Command="{Binding SetSelectedTool}"
-                                CommandParameter="{x:Static vm:EditorTool.Move}">
+                                CommandParameter="{x:Static enums:EditorTool.Move}">
                             <Grid>
                                 <Path Data="{StaticResource CursorIconGeometry}"/>
                             </Grid>
@@ -113,7 +115,7 @@
                         <Button Classes="Tool"
                                 Classes.selected="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
                                 Command="{Binding SetSelectedTool}"
-                                CommandParameter="{x:Static vm:EditorTool.Vertex}">
+                                CommandParameter="{x:Static enums:EditorTool.Vertex}">
                             <Grid>
                                 <Path Data="{StaticResource VertexIconGeometry}"/>
                             </Grid>
@@ -121,7 +123,7 @@
                         <Button Classes="Tool"
                                 Classes.selected="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
                                 Command="{Binding SetSelectedTool}"
-                                CommandParameter="{x:Static vm:EditorTool.Edge}">
+                                CommandParameter="{x:Static enums:EditorTool.Edge}">
                             <Grid>
                                 <Path Data="{StaticResource EdgeIconGeometry}"/>
                             </Grid>
@@ -130,7 +132,7 @@
                         <!--<Button Classes="LayoutMode"  
                                 Classes.selected="{Binding EditorContext.CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Freeform}"
                                 Command="{Binding SetLayoutMode}"
-                                CommandParameter="{x:Static vm:EditorLayoutMode.Freeform}"
+                                CommandParameter="{x:Static enums:EditorLayoutMode.Freeform}"
                                 Margin="30 0 0 0">
 						    <Grid>
                                 <Path Data="{StaticResource FreeformIconGeometry}"/>
@@ -139,7 +141,7 @@
                         <Button Classes="LayoutMode"
                                 Classes.selected="{Binding EditorContext.CurrentLayoutMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Circular}"
                                 Command="{Binding SetLayoutMode}"
-                                CommandParameter="{x:Static vm:EditorLayoutMode.Circular}">
+                                CommandParameter="{x:Static enums:EditorLayoutMode.Circular}">
                             <Grid>
                                 <Path Data="{StaticResource CircularIconGeometry}"/>
                             </Grid>
@@ -160,6 +162,7 @@
 		    <Setter Property="Stroke" Value="#CCFF82FF"/>
             <Setter Property="StrokeThickness" Value="4"/>
             <Setter Property="Opacity" Value="1"/>
+            <Setter Property="StrokeLineCap" Value="Round"/>
         </Style>
 
         <Style Selector="Border.move_tool Line.Edge.hovered">
@@ -207,6 +210,14 @@
             <Setter Property="Height" Value="8"/>
             <Setter Property="CornerRadius" Value="20"/>
             <Setter Property="Background" Value="#FF82FF"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Grid.Vertex">
+			<Setter Property="Opacity" Value="0.1"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Grid.Vertex.covered">
+			<Setter Property="Opacity" Value="1"/>
         </Style>
 
         <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Aura, 

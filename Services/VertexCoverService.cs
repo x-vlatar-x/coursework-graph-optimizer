@@ -1,4 +1,5 @@
-﻿using GraphOptimizer.Models;
+﻿using GraphOptimizer.Enums;
+using GraphOptimizer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,17 @@ namespace GraphOptimizer.Services
 {
     public class VertexCoverService: IVertexCoverService
     {
+        public List<uint> Solve(Graph graph, AnalysisMode analysisMode)
+        {
+            return analysisMode switch
+            {
+                AnalysisMode.Greedy => this.SolveGreedy(graph),
+                AnalysisMode.Approx => this.SolveApprox(graph),
+                AnalysisMode.Backtracking => this.SolveBacktracking(graph),
+                _ => new List<uint>()
+            }; 
+        }
+
         public List<uint> SolveGreedy(Graph graph)
         {
             List<uint> cover = new List<uint>();

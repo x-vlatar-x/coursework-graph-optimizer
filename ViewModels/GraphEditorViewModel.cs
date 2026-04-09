@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using GraphOptimizer.Enums;
 using GraphOptimizer.Interfaces;
 using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.ViewModels.Helpers;
@@ -10,8 +11,8 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace GraphOptimizer.ViewModels
 {
-    public enum EditorLayoutMode { Freeform, Circular }
-    public enum EditorTool { Move, Vertex, Edge }
+    //public enum EditorLayoutMode { Freeform, Circular }
+    //public enum EditorTool { Move, Vertex, Edge }
     public partial class GraphEditorViewModel: ViewModelBase
     {
         public GraphViewModel GraphVM { get; init; }

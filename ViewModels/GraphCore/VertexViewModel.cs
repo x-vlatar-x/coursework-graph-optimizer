@@ -10,6 +10,12 @@ namespace GraphOptimizer.ViewModels.GraphCore
         private readonly IAdjacencyContext _adjacencyContext = adjacencyContext;
         public Vertex Model { get; init; } = model;
 
+        private bool _isInVertexCover = false;
+        public bool IsInVertexCover { 
+            get => _isInVertexCover; 
+            set => SetProperty(ref _isInVertexCover, value); 
+        }
+
         // Editor state
         private double _x = x;
         public double X

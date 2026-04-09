@@ -21,12 +21,22 @@
 
     <Border Padding="16">
         <Border.Background>
-			<RadialGradientBrush Center="50%,50%"
+			<!--<RadialGradientBrush Center="50%,50%"
                                  GradientOrigin="60%,-10%"
                                  Radius="1">
+                --><!--<GradientStop Color="#880097" Offset="0"/>
+                <GradientStop Color="#1C4DB0" Offset="0.5"/>
+                <GradientStop Color="#002061" Offset="1"/>--><!--
                 <GradientStop Color="#880097" Offset="0"/>
                 <GradientStop Color="#1C4DB0" Offset="0.5"/>
                 <GradientStop Color="#002061" Offset="1"/>
+            </RadialGradientBrush>-->
+			<RadialGradientBrush Center="50%,50%"
+                                 GradientOrigin="70%,-10%"
+                                 Radius="1">
+                <GradientStop Color="#AA0096" Offset="0"/>
+                <GradientStop Color="#1E3C96" Offset="0.5"/>
+                <GradientStop Color="#001E50" Offset="1"/>
             </RadialGradientBrush>
         </Border.Background>
         <Grid RowDefinitions="48, *"  ColumnDefinitions="35*, 65*">

@@ -1,7 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using GraphOptimizer.Enums;
 using GraphOptimizer.Interfaces;
+using GraphOptimizer.Services;
 using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.ViewModels.Helpers;
 using System;
@@ -19,7 +21,7 @@ namespace GraphOptimizer.ViewModels
 
         public IAppState AppState { get; init; }
 
-        //public AnalysisContext AnalysisContext { get; init; } = new AnalysisContext();
+        public IVertexCoverService VertexCoverService { get; init; }
 
         private double _x;
         public double X
@@ -38,26 +40,23 @@ namespace GraphOptimizer.ViewModels
         private bool _isDragging = false;
         private Point _dragOffset;
 
-        //private bool _isVisible = true;
-        //public bool IsVisible
-        //{
-        //    get => _isVisible;
-        //    set => SetProperty(ref _isVisible, value);
-        //}
-
-        public AlgorithmAnalysisViewModel(GraphViewModel graphVM, IAppState appState)
+        public AlgorithmAnalysisViewModel(GraphViewModel graphVM, IAppState appState, IVertexCoverService vertexCoverService)
         {
             GraphVM = graphVM;
             AppState = appState;
+            VertexCoverService = vertexCoverService;
         }
 
-        public void Start()
+        public void Start(AnalysisMode analysisMode)
         {
-            //IsVisible = true;
+            //List<uint> VertexCoverIds = VertexCoverService.SolveApprox(GraphVM.Model);
+            List<uint> vertexCoverIds = VertexCoverService.Solve(GraphVM.Model, analysisMode);
+            GraphVM.ApplyVertexCover(vertexCoverIds);
         }
 
         public void Stop()
         {
+            GraphVM.ClearVertexCover();
             //IsVisible = false;
         }
 

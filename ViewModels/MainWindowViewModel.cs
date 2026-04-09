@@ -1,7 +1,9 @@
-﻿using GraphOptimizer.ViewModels.GraphCore;
-using GraphOptimizer.Models;
-using GraphOptimizer.ViewModels.Helpers;
+﻿using GraphOptimizer.Enums;
 using GraphOptimizer.Interfaces;
+using GraphOptimizer.Models;
+using GraphOptimizer.Services;
+using GraphOptimizer.ViewModels.GraphCore;
+using GraphOptimizer.ViewModels.Helpers;
 
 namespace GraphOptimizer.ViewModels
 {
@@ -9,6 +11,7 @@ namespace GraphOptimizer.ViewModels
     {
 
         public GraphViewModel SharedGraphVM { get; } = new GraphViewModel(new Graph());
+        public IVertexCoverService VertexCoverService { get; init; }
 
         public EditorContext EditorContext { get; } = new EditorContext();
 
@@ -26,15 +29,17 @@ namespace GraphOptimizer.ViewModels
 
         public MainWindowViewModel()
         {
+            VertexCoverService = new VertexCoverService();
+
             EditorVM = new GraphEditorViewModel(SharedGraphVM, this, EditorContext);
             TableVM = new GraphTableViewModel(SharedGraphVM, this, EditorContext);
             HeaderVM = new HeaderViewModel(SharedGraphVM, this);
-            AnalysisVM = new AlgorithmAnalysisViewModel(SharedGraphVM, this);
+            AnalysisVM = new AlgorithmAnalysisViewModel(SharedGraphVM, this, VertexCoverService);
 
-            HeaderVM.StartAnalysisRequested += () =>
+            HeaderVM.StartAnalysisRequested += (AnalysisMode analysisMode) =>
             {
                 IsAnalysisActive = true;
-                AnalysisVM.Start();
+                AnalysisVM.Start(analysisMode);
             };
 
             HeaderVM.StopAnalysisRequested += () =>

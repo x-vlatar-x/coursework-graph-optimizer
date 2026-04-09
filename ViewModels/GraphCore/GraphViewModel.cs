@@ -102,6 +102,26 @@ namespace GraphOptimizer.ViewModels.GraphCore
             RemoveEdge(edgeVM);
         }
 
+        public void ApplyVertexCover(List<uint> vertexIds)
+        {
+            var idSet = new HashSet<uint>(vertexIds);
+
+            foreach (var vertex in Vertices)
+            {
+                vertex.IsInVertexCover = idSet.Contains(vertex.Model.Id);
+                //vertex.Model.IsInVertexCover = vertex.IsInVertexCover;
+            }
+        }
+
+        public void ClearVertexCover()
+        {
+            foreach (var vertex in Vertices)
+            {
+                vertex.IsInVertexCover = false;
+                //vertex.Model.IsInVertexCover = false;
+            }
+        }
+
         public bool EdgeExists(VertexViewModel vertex1, VertexViewModel vertex2)
         {
             if (vertex1 == null || vertex2 == null)

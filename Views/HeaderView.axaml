@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:GraphOptimizer.Models"
+             xmlns:enums="using:GraphOptimizer.Enums"
              xmlns:vm="using:GraphOptimizer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="48"
              x:DataType="vm:HeaderViewModel"
@@ -41,15 +42,15 @@
                                     <StackPanel>
                                         <Button Classes="Item"
                                                 Classes.selected="{Binding SelectedAnalysisMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Greedy}"
-                                                Tag="{x:Static vm:AnalysisMode.Greedy}"
+                                                Tag="{x:Static enums:AnalysisMode.Greedy}"
                                                 Click="OnAnalysisModeItemClick">Жадібний метод</Button>
                                         <Button Classes="Item"
                                                 Classes.selected="{Binding SelectedAnalysisMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Approx}"
-                                                Tag="{x:Static vm:AnalysisMode.Approx}"
+                                                Tag="{x:Static enums:AnalysisMode.Approx}"
                                                 Click="OnAnalysisModeItemClick">Метод Approx-Vertex-Cover</Button>
                                         <Button Classes="Item"
                                                 Classes.selected="{Binding SelectedAnalysisMode, Converter={StaticResource EqualityConverter}, ConverterParameter=Backtracking}"
-                                                Tag="{x:Static vm:AnalysisMode.Backtracking}"
+                                                Tag="{x:Static enums:AnalysisMode.Backtracking}"
                                                 Click="OnAnalysisModeItemClick">Пошук з поверненням</Button>
                                     </StackPanel>
                                 </Border>
@@ -98,7 +99,8 @@
 
         <Style Selector="Border#AnalysisModeList Border.Liner">
 			<Setter Property="Padding" Value="0 0 0 6"/>
-            <Setter Property="Background" Value="#633DAD"/>
+            <!--<Setter Property="Background" Value="#633DAD"/>-->
+            <Setter Property="Background" Value="#882DA1"/>
             <Setter Property="CornerRadius" Value="0 0 6 6"/>
         </Style>
 
