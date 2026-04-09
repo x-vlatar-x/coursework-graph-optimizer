@@ -43,6 +43,14 @@
             <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{x:Null}" Margin="-16">
 				<views:AlgorithmAnalysisView DataContext="{Binding AnalysisVM}"/>
             </Border>
+            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{x:Null}" Margin="-16">
+				<Border Background="{x:Null}">
+                    <Grid>
+						<Image Name="CatImage" Classes="CatImage" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="200" Source="avares://GraphOptimizer/Assets/cat.png"/>
+					    <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0" Width=" 16" Height="16" Click="OnCatButtonClick"></Button>
+                    </Grid>
+                </Border>
+            </Border>
         </Grid>
     </Border>
 
@@ -52,6 +60,19 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="MinWidth" Value="0" />
+        </Style>
+
+        <Style Selector="Image.CatImage">
+            <Setter Property="RenderTransform" Value="translate(250px, 250px)"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.5"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Image.CatImage.active">
+            <Setter Property="RenderTransform" Value="translate(0px, 0px)"/>
         </Style>
     </Window.Styles>
 </Window>

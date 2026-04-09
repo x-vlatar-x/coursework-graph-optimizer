@@ -18,8 +18,8 @@ namespace GraphOptimizer.ViewModels
             set => SetProperty(ref _isAnalysisModeListExpanded, value);
         }
 
-        private AnalysisMode _selectedAnalysisMode; 
-        public AnalysisMode SelectedAnalysisMode
+        private AnalysisMode? _selectedAnalysisMode = null; 
+        public AnalysisMode? SelectedAnalysisMode
         {
             get => _selectedAnalysisMode;
             set => SetProperty(ref _selectedAnalysisMode, value);

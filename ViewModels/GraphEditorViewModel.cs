@@ -26,50 +26,102 @@ namespace GraphOptimizer.ViewModels
             AppState = appState;
             EditorContext = editorContext;
 
-            var vertex1 = GraphVM.AddNewVertex(100, 50);
-            var vertex2 = GraphVM.AddNewVertex(50, 100);
-            var edge1 = GraphVM.AddNewEdge(vertex1, vertex2);
-            var vertex3 = GraphVM.AddNewVertex(140, 90);
-            var vertex4 = GraphVM.AddNewVertex(100, 200);
+            //var vertex1 = GraphVM.AddNewVertex(100, 50);
+            //var vertex2 = GraphVM.AddNewVertex(50, 100);
+            //var edge1 = GraphVM.AddNewEdge(vertex1, vertex2);
+            //var vertex3 = GraphVM.AddNewVertex(140, 90);
+            //var vertex4 = GraphVM.AddNewVertex(100, 200);
 
-            var edge2 = GraphVM.AddNewEdge(vertex2, vertex3);
-            var edge3 = GraphVM.AddNewEdge(vertex3, vertex4);
+            //var edge2 = GraphVM.AddNewEdge(vertex2, vertex3);
+            //var edge3 = GraphVM.AddNewEdge(vertex3, vertex4);
 
-            var vertex5 = GraphVM.AddNewVertex(140, 90);
-            var vertex6 = GraphVM.AddNewVertex(100, 200);
-            var vertex7 = GraphVM.AddNewVertex(100, 200);
-            var vertex8 = GraphVM.AddNewVertex(100, 200);
-            var vertex9 = GraphVM.AddNewVertex(100, 200);
-            var vertex10 = GraphVM.AddNewVertex(100, 200);
-            var vertex11 = GraphVM.AddNewVertex(100, 200);
-            var vertex12 = GraphVM.AddNewVertex(100, 200);
-            var vertex13 = GraphVM.AddNewVertex(100, 200);
-            var vertex14 = GraphVM.AddNewVertex(100, 200);
-            var vertex15 = GraphVM.AddNewVertex(100, 200);
-            var vertex16 = GraphVM.AddNewVertex(100, 200);
-            var vertex17 = GraphVM.AddNewVertex(100, 200);
-            var vertex18 = GraphVM.AddNewVertex(100, 200);
-            var vertex19 = GraphVM.AddNewVertex(100, 200);
-            var vertex20 = GraphVM.AddNewVertex(100, 200);
-            var vertex21 = GraphVM.AddNewVertex(100, 200);
+            //var vertex5 = GraphVM.AddNewVertex(250, 50);
+            //var vertex6 = GraphVM.AddNewVertex(350, 50);
+            //var vertex7 = GraphVM.AddNewVertex(450, 50);
 
+            //var vertex8 = GraphVM.AddNewVertex(250, 150);
+            //var vertex9 = GraphVM.AddNewVertex(350, 150);
+            //var vertex10 = GraphVM.AddNewVertex(450, 150);
+
+            //var vertex11 = GraphVM.AddNewVertex(250, 250);
+            //var vertex12 = GraphVM.AddNewVertex(350, 250);
+            //var vertex13 = GraphVM.AddNewVertex(450, 250);
+
+            //var vertex14 = GraphVM.AddNewVertex(50, 350);
+            //var vertex15 = GraphVM.AddNewVertex(150, 350);
+            //var vertex16 = GraphVM.AddNewVertex(250, 350);
+
+            //var vertex17 = GraphVM.AddNewVertex(350, 350);
+            //var vertex18 = GraphVM.AddNewVertex(450, 350);
+
+            //var vertex19 = GraphVM.AddNewVertex(100, 450);
+            //var vertex20 = GraphVM.AddNewVertex(250, 450);
+            //var vertex21 = GraphVM.AddNewVertex(400, 450);
+
+            //GraphVM.AddNewEdge(vertex3, vertex5);
+            //GraphVM.AddNewEdge(vertex3, vertex6);
+            //GraphVM.AddNewEdge(vertex3, vertex7);
+            //GraphVM.AddNewEdge(vertex3, vertex8);
+            //GraphVM.AddNewEdge(vertex3, vertex9);
+            //GraphVM.AddNewEdge(vertex3, vertex10);
+            //GraphVM.AddNewEdge(vertex3, vertex11);
+            //GraphVM.AddNewEdge(vertex3, vertex12);
+            //GraphVM.AddNewEdge(vertex3, vertex13);
+            //GraphVM.AddNewEdge(vertex3, vertex14);
+            //GraphVM.AddNewEdge(vertex3, vertex15);
+            //GraphVM.AddNewEdge(vertex3, vertex16);
+            //GraphVM.AddNewEdge(vertex3, vertex17);
+            //GraphVM.AddNewEdge(vertex3, vertex18);
+            //GraphVM.AddNewEdge(vertex3, vertex19);
+            //GraphVM.AddNewEdge(vertex3, vertex20);
+            //GraphVM.AddNewEdge(vertex3, vertex21);
+
+            var vertex1 = GraphVM.AddNewVertex(80, 60);
+            var vertex2 = GraphVM.AddNewVertex(45, 110);
+            var vertex3 = GraphVM.AddNewVertex(130, 95);
+            var vertex4 = GraphVM.AddNewVertex(90, 160);
+            var vertex5 = GraphVM.AddNewVertex(210, 75);
+            var vertex6 = GraphVM.AddNewVertex(280, 55);
+            var vertex7 = GraphVM.AddNewVertex(360, 85);
+            var vertex8 = GraphVM.AddNewVertex(190, 155);
+            var vertex9 = GraphVM.AddNewVertex(275, 140);
+            var vertex10 = GraphVM.AddNewVertex(380, 165);
+            var vertex11 = GraphVM.AddNewVertex(160, 240);
+            var vertex12 = GraphVM.AddNewVertex(250, 260);
+            var vertex13 = GraphVM.AddNewVertex(340, 230);
+            var vertex14 = GraphVM.AddNewVertex(70, 280);
+            var vertex15 = GraphVM.AddNewVertex(145, 330);
+            var vertex16 = GraphVM.AddNewVertex(225, 310);
+            var vertex17 = GraphVM.AddNewVertex(310, 345);
+            var vertex18 = GraphVM.AddNewVertex(390, 300);
+            var vertex19 = GraphVM.AddNewVertex(120, 410);
+            var vertex20 = GraphVM.AddNewVertex(240, 400);
+            var vertex21 = GraphVM.AddNewVertex(350, 420);
+
+            GraphVM.AddNewEdge(vertex1, vertex2);
+            GraphVM.AddNewEdge(vertex2, vertex3);
+            GraphVM.AddNewEdge(vertex3, vertex4);
+            GraphVM.AddNewEdge(vertex4, vertex1);
             GraphVM.AddNewEdge(vertex3, vertex5);
-            GraphVM.AddNewEdge(vertex3, vertex6);
-            GraphVM.AddNewEdge(vertex3, vertex7);
-            GraphVM.AddNewEdge(vertex3, vertex8);
-            GraphVM.AddNewEdge(vertex3, vertex9);
-            GraphVM.AddNewEdge(vertex3, vertex10);
-            GraphVM.AddNewEdge(vertex3, vertex11);
-            GraphVM.AddNewEdge(vertex3, vertex12);
-            GraphVM.AddNewEdge(vertex3, vertex13);
-            GraphVM.AddNewEdge(vertex3, vertex14);
-            GraphVM.AddNewEdge(vertex3, vertex15);
-            GraphVM.AddNewEdge(vertex3, vertex16);
-            GraphVM.AddNewEdge(vertex3, vertex17);
-            GraphVM.AddNewEdge(vertex3, vertex18);
-            GraphVM.AddNewEdge(vertex3, vertex19);
-            GraphVM.AddNewEdge(vertex3, vertex20);
-            GraphVM.AddNewEdge(vertex3, vertex21);
+            GraphVM.AddNewEdge(vertex5, vertex6);
+            GraphVM.AddNewEdge(vertex6, vertex9);
+            GraphVM.AddNewEdge(vertex9, vertex8);
+            GraphVM.AddNewEdge(vertex8, vertex3);
+            GraphVM.AddNewEdge(vertex7, vertex10);
+            GraphVM.AddNewEdge(vertex10, vertex13);
+            GraphVM.AddNewEdge(vertex13, vertex18);
+            GraphVM.AddNewEdge(vertex18, vertex17);
+            GraphVM.AddNewEdge(vertex4, vertex14);
+            GraphVM.AddNewEdge(vertex14, vertex15);
+            GraphVM.AddNewEdge(vertex15, vertex19);
+            GraphVM.AddNewEdge(vertex19, vertex20);
+            GraphVM.AddNewEdge(vertex20, vertex16);
+            GraphVM.AddNewEdge(vertex16, vertex12);
+            GraphVM.AddNewEdge(vertex12, vertex11);
+            GraphVM.AddNewEdge(vertex9, vertex12);
+            GraphVM.AddNewEdge(vertex10, vertex21);
+            GraphVM.AddNewEdge(vertex21, vertex17);
+            GraphVM.AddNewEdge(vertex5, vertex8);
         }
 
         public void SetSelectedTool(EditorTool tool)

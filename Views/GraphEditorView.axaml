@@ -28,7 +28,7 @@
                         Classes.vertex_tool="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Vertex}"
                         Classes.edge_tool="{Binding EditorContext.SelectedTool, Converter={StaticResource EqualityConverter}, ConverterParameter=Edge}"
                         Classes.mouse_inside="{Binding EditorContext.IsMouseOverCanvas}">
-                    <Grid Opacity="0.9">
+                    <Grid Opacity="0.8">
                         <ItemsControl ItemsSource="{Binding GraphVM.Edges}" IsHitTestVisible="False">
 					        <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
