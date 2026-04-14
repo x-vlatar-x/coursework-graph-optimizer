@@ -10,6 +10,18 @@
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Background" Value="#1AFFFFFF"/>
             <Setter Property="BoxShadow" Value="0 0 5 0 #4D000000"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+					<DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Border.ToolBar">
+            <Setter Property="Margin" Value="-48"/>
+            <Setter Property="Opacity" Value="0"/>
         </Style>
 
         <Style Selector="Border.ToolBar Button">
@@ -41,13 +53,25 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
 			<Setter Property="Width" Value="31"/>
 			<Setter Property="Height" Value="30"/>
-            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
             <Setter Property="StrokeThickness" Value="2"/>
             <Setter Property="Stretch" Value="None"/>
         </Style>
 
         <Style Selector="Button.Tool.selected Path">
-			<Setter Property="Stroke" Value="Orange"/>
+			<Setter Property="Stroke" Value="#FF50FF"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Button.Tool">
+            <Setter Property="IsEnabled" Value="False"/>			
+        </Style>
+
+        <Style Selector="Window.analysis_mode Button.Tool Path">
+			<Setter Property="Stroke" Value="#99FFC8FF"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Button.Tool.selected Path">
+			<Setter Property="Stroke" Value="#99FF50FF"/>
         </Style>
 
         <!--Layout Mode button Icon-->

@@ -106,6 +106,11 @@ public partial class GraphTableView : UserControl
             return;
         }
 
+        if (ViewModel.AppState.IsAnalysisActive)
+        {
+            return;
+        }
+
         if (sender is TextBox textBox && textBox != null && textBox.DataContext is VertexViewModel vertexVM)
         {
             string cleanText = new string(textBox.Text.Where(char.IsDigit).ToArray());

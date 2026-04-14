@@ -9,8 +9,8 @@
              x:DataType="vm:GraphTableViewModel"
              x:Class="GraphOptimizer.Views.GraphTableView">
 
-    <Border Classes="PanelCard">
-        <Grid RowDefinitions="Auto, *, Auto" Margin="0 0 8 16">
+    <Border Classes="PanelCard" ClipToBounds="True">
+        <Grid RowDefinitions="Auto, *, Auto" Margin="0 0 8 0">
             <Border Grid.Row="0" Classes="PanelTitle">
                 <TextBlock>Список суміжності</TextBlock>
             </Border>
@@ -88,7 +88,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <Button Grid.Row="2" HorizontalAlignment="Stretch" Cursor="Hand" Background="#1AFFFFFF" CornerRadius="8" Padding="12 12" Margin="12 0 4 -4" Click="OnVertexAddPressed">
+            <Button Name="VertexAddButton" Grid.Row="2" Click="OnVertexAddPressed">
 				<StackPanel>
 					<TextBlock FontSize="14">Додати вершину</TextBlock>
                 </StackPanel>
@@ -114,6 +114,16 @@
 			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="Padding" Value="0 0 0 0"/>
+			<Setter Property="Margin" Value="0"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Window.analysis_mode ScrollViewer.VerticesList">
+			<!--<Setter Property="Margin" Value="0 0 0 -45"/>-->
         </Style>
 
         <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical">
@@ -128,6 +138,29 @@
 			<Setter Property="Width" Value="4"/>
             <Setter Property="CornerRadius" Value="2"/>
             <Setter Property="Background" Value="#40FFFFFF"/>
+        </Style>
+
+        <Style Selector="Button#VertexAddButton">
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12 12"/>
+            <Setter Property="Margin" Value="12 0 4 12"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="Button#VertexAddButton TextBlock">
+			<Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Button#VertexAddButton">
+			<Setter Property="Margin" Value="12 0 4 -45"/>
+            <Setter Property="Opacity" Value="1"/>
         </Style>
 
         <Style Selector="Border.NeighborCreator">
@@ -183,7 +216,7 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
-        
+                
         <Style Selector="Border.NeighborCreator Button#AddButton:disabled">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Cursor" Value="Hand"/>

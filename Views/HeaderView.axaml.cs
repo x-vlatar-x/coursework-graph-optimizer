@@ -25,6 +25,11 @@ public partial class HeaderView : UserControl
             return;
         }
         
+        if (ViewModel.AppState.IsAnalysisActive)
+        {
+            return;
+        }
+
         if (sender is Button)
         {
             ViewModel.HandleAnalysisModeListExpandButtonClick();

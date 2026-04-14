@@ -165,7 +165,7 @@ namespace GraphOptimizer.ViewModels
                         {
                             EditorContext.StopHovering();
                         }
-                    } 
+                    }
                     if (EditorContext.SelectedObjects.Count > 0 && EditorContext.IsDragging)
                     {
                         EditorContext.Drag(position);
@@ -174,6 +174,11 @@ namespace GraphOptimizer.ViewModels
                 case EditorTool.Vertex:
                     break;
                 case EditorTool.Edge:
+                    if (AppState.IsAnalysisActive)
+                    {
+                        break;
+                    }
+
                     var hoveredVertexVM = GeometryHelper.FindVertexAtPoint(GraphVM, position);
                     if (hoveredVertexVM != null)
                     {
@@ -190,6 +195,11 @@ namespace GraphOptimizer.ViewModels
 
         public void HandleLeftClick(Point position)
         {
+            if (AppState.IsAnalysisActive)
+            {
+                return;
+            }
+
             switch (EditorContext.SelectedTool)
             {
                 case EditorTool.Move:
@@ -239,6 +249,11 @@ namespace GraphOptimizer.ViewModels
 
         public void HandlePointerReleased(Point position)
         {
+            if (AppState.IsAnalysisActive)
+            {
+                return;
+            }
+
             switch (EditorContext.SelectedTool)
             {
                 case EditorTool.Move:

@@ -30,6 +30,11 @@ namespace GraphOptimizer.ViewModels
 
         public void HandleVertexAddPressed()
         {
+            if (AppState.IsAnalysisActive)
+            {
+                return;
+            }
+
             if (EditorContext.CurrentLayoutMode == EditorLayoutMode.Freeform)
             {
                 var vertexPosition = GeometryHelper.FindFreePosition(GraphVM, EditorContext.CanvasBounds);
@@ -40,6 +45,11 @@ namespace GraphOptimizer.ViewModels
 
         public void HandleNeighborAddPressed(VertexViewModel vertexVM)
         {
+            if (AppState.IsAnalysisActive)
+            {
+                return;
+            }
+
             if (vertexVM.IsIdValid && uint.TryParse(vertexVM.InputNeighborId, out uint id))
             {
                 GraphVM.AddNewEdge(vertexVM.Model.Id, id);
@@ -49,11 +59,21 @@ namespace GraphOptimizer.ViewModels
 
         public void HandleVertexDeletePressed(VertexViewModel vertexVM)
         {
+            if (AppState.IsAnalysisActive)
+            {
+                return;
+            }
+
             GraphVM.RemoveVertex(vertexVM);
         }
 
         public void HandleNeighborDeletePressed(VertexViewModel vertexVM, VertexViewModel neighborVM)
         {
+            if (AppState.IsAnalysisActive)
+            {
+                return;
+            }
+
             GraphVM.RemoveEdge(vertexVM, neighborVM);
         }
     }

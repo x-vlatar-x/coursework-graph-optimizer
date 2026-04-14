@@ -64,6 +64,8 @@ namespace GraphOptimizer.ViewModels
             EditorContext.StopSelecting();
             EditorContext.StopConnecting();
             EditorContext.ClearSelection();
+
+            EditorContext.SelectedTool = EditorTool.Move;
             //List<uint> vertexCoverIds = VertexCoverService.Solve(GraphVM.Model, analysisMode);
             Result = VertexCoverService.Solve(GraphVM.Model, analysisMode);
             GraphVM.ApplyVertexCover(Result.VertexCoverIds);
