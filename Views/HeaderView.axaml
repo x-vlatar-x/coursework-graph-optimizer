@@ -58,7 +58,7 @@
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                     <Grid ColumnDefinitions="Auto, 24">
-                        <TextBlock Name="SelectedAnalysisMode" Grid.Column="0">Оберіть метод розв'язання</TextBlock>
+                        <TextBlock Name="SelectedAnalysisMode" Grid.Column="0" Text="{Binding SelectedAnalysisMode, Converter={StaticResource EnumToDescriptionConverter}, ConverterParameter='Оберіть метод розв\'язання'}"></TextBlock>
                         <Button Name="ExpandButton" Grid.Column="1" Click="OnAnalysisModeListExpandButtonClick">
                             <Grid>
                                 <Path Name="Down" Data="{StaticResource ArrowDropDownIconGeometry}"/>

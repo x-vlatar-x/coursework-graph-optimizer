@@ -34,7 +34,7 @@ namespace GraphOptimizer.ViewModels
             EditorVM = new GraphEditorViewModel(SharedGraphVM, this, EditorContext);
             TableVM = new GraphTableViewModel(SharedGraphVM, this, EditorContext);
             HeaderVM = new HeaderViewModel(SharedGraphVM, this);
-            AnalysisVM = new AlgorithmAnalysisViewModel(SharedGraphVM, this, VertexCoverService);
+            AnalysisVM = new AlgorithmAnalysisViewModel(SharedGraphVM, this, EditorContext, VertexCoverService);
 
             HeaderVM.StartAnalysisRequested += (AnalysisMode analysisMode) =>
             {

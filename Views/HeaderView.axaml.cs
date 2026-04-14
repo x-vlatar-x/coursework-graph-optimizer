@@ -61,7 +61,6 @@ public partial class HeaderView : UserControl
 
             flyout.Hide();
             ViewModel.HandleAnalysisModeItemClick(mode);
-            SelectedAnalysisMode.Text = button.Content?.ToString();
         }
     }
 }

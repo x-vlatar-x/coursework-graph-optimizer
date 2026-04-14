@@ -5,7 +5,6 @@ using System;
 
 namespace GraphOptimizer.ViewModels
 {
-    //public enum AnalysisMode { Greedy, Approx, Backtracking, ComparisonAll }
     public class HeaderViewModel: ViewModelBase
     {
         public GraphViewModel GraphVM { get; init; }
@@ -26,13 +25,6 @@ namespace GraphOptimizer.ViewModels
             set => SetProperty(ref _selectedAnalysisMode, value);
         }
 
-        //public enum AnalysisMode { Greedy, Approx, Backtracking, ComparisonAll }
-
-        // В HeaderViewModel
-        //public event Action<AnalysisMode>? AnalysisRequested;
-
-        //public event Action? StartAnalysisRequested;
-        //public event Action? StopAnalysisRequested;
         public event Action<AnalysisMode>? StartAnalysisRequested;
         public event Action StopAnalysisRequested;
 

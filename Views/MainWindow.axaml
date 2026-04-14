@@ -56,7 +56,7 @@
             <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{x:Null}" Margin="-16">
 				<Border Background="{x:Null}">
                     <Grid>
-						<Image Name="CatImage" Classes="CatImage" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="200" Source="avares://GraphOptimizer/Assets/cat.png"/>
+						<Image Name="CatImage" Classes="CatImage" Source="avares://GraphOptimizer/Assets/cat.png"/>
 					    <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0" Width=" 16" Height="16" Click="OnCatButtonClick"></Button>
                     </Grid>
                 </Border>
@@ -73,6 +73,12 @@
         </Style>
 
         <Style Selector="Image.CatImage">
+            <!--VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="200"--> 
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="250"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
             <Setter Property="RenderTransform" Value="translate(250px, 250px)"/>
             <Setter Property="Transitions">
                 <Transitions>

@@ -1,17 +1,11 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Input;
 using GraphOptimizer.Enums;
 using GraphOptimizer.Interfaces;
+using GraphOptimizer.Models;
 using GraphOptimizer.Services;
 using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.ViewModels.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphOptimizer.ViewModels
 {
@@ -21,7 +15,22 @@ namespace GraphOptimizer.ViewModels
 
         public IAppState AppState { get; init; }
 
+        public EditorContext EditorContext { get; init; }
+
         public IVertexCoverService VertexCoverService { get; init; }
+
+        private AnalysisResult _result = new AnalysisResult(null, [], 0, 0, 0);
+        public AnalysisResult Result { 
+            get => _result;
+            private set => SetProperty(ref _result, value); 
+        }
+
+        private bool _isExpanded = false;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetProperty(ref _isExpanded, value);
+        }
 
         private double _x;
         public double X
@@ -40,18 +49,24 @@ namespace GraphOptimizer.ViewModels
         private bool _isDragging = false;
         private Point _dragOffset;
 
-        public AlgorithmAnalysisViewModel(GraphViewModel graphVM, IAppState appState, IVertexCoverService vertexCoverService)
+        public AlgorithmAnalysisViewModel(GraphViewModel graphVM, IAppState appState, EditorContext editorContext, IVertexCoverService vertexCoverService)
         {
             GraphVM = graphVM;
             AppState = appState;
+            EditorContext = editorContext;
             VertexCoverService = vertexCoverService;
         }
 
         public void Start(AnalysisMode analysisMode)
         {
-            //List<uint> VertexCoverIds = VertexCoverService.SolveApprox(GraphVM.Model);
-            List<uint> vertexCoverIds = VertexCoverService.Solve(GraphVM.Model, analysisMode);
-            GraphVM.ApplyVertexCover(vertexCoverIds);
+            EditorContext.StopHovering();
+            EditorContext.StopDragging();
+            EditorContext.StopSelecting();
+            EditorContext.StopConnecting();
+            EditorContext.ClearSelection();
+            //List<uint> vertexCoverIds = VertexCoverService.Solve(GraphVM.Model, analysisMode);
+            Result = VertexCoverService.Solve(GraphVM.Model, analysisMode);
+            GraphVM.ApplyVertexCover(Result.VertexCoverIds);
         }
 
         public void Stop()
@@ -84,6 +99,11 @@ namespace GraphOptimizer.ViewModels
         {
             _isDragging = false;
             _dragOffset = new Point(0, 0);
+        }
+
+        public void HandleExpandButtonClick()
+        {
+            IsExpanded = !IsExpanded;
         }
     }
 }

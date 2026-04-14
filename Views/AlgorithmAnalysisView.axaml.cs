@@ -1,7 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using GraphOptimizer.ViewModels;
+using GraphOptimizer.ViewModels.GraphCore;
 
 namespace GraphOptimizer.Views;
 
@@ -21,7 +23,8 @@ public partial class AlgorithmAnalysisView : UserControl
             return;
         }
 
-        if (sender is Border border && border.Name == "DragBar")
+        if (sender is Border border)
+        //if (sender is Border border && border.Name == "DragBar")
         {
             Point position = e.GetPosition(OverlayCanvas);
             ViewModel.HandleDragBarPointerPressed(position);
@@ -35,7 +38,8 @@ public partial class AlgorithmAnalysisView : UserControl
             return;
         }
 
-        if (sender is Border border && border.Name == "DragBar")
+        if (sender is Border border)
+        //if (sender is Border border && border.Name == "DragBar")
         {
             e.Pointer.Capture(sender as Control);
 
@@ -53,9 +57,23 @@ public partial class AlgorithmAnalysisView : UserControl
             return;
         }
 
-        if (sender is Border border && border.Name == "DragBar")
+        if (sender is Border border)
+        //if (sender is Border border && border.Name == "DragBar")
         {
             ViewModel.HandleDragBarPointerReleased();
+        }
+    }
+
+    public void OnExpandButtonClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+
+        if (sender is Button)
+        {
+            ViewModel.HandleExpandButtonClick();
         }
     }
 }
