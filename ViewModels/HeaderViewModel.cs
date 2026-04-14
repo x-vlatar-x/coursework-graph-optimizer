@@ -1,7 +1,13 @@
-﻿using GraphOptimizer.Interfaces;
+﻿using Avalonia;
 using GraphOptimizer.Enums;
+using GraphOptimizer.Interfaces;
+using GraphOptimizer.Models;
+using GraphOptimizer.Models.Persistence;
+using GraphOptimizer.Services;
 using GraphOptimizer.ViewModels.GraphCore;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace GraphOptimizer.ViewModels
 {
@@ -10,6 +16,8 @@ namespace GraphOptimizer.ViewModels
         public GraphViewModel GraphVM { get; init; }
 
         public IAppState AppState { get; init; }
+
+        public IFileService FileService { get; init; }
 
         private bool _isAnalysisModeListExpanded = false;
         public bool IsAnalysisModeListExpanded
@@ -27,11 +35,44 @@ namespace GraphOptimizer.ViewModels
 
         public event Action<AnalysisMode>? StartAnalysisRequested;
         public event Action StopAnalysisRequested;
+        public event Action<AnalysisResult> AnalysisRestored;
 
-        public HeaderViewModel(GraphViewModel graphVM, IAppState appState)
+        public HeaderViewModel(GraphViewModel graphVM, IAppState appState, IFileService fileService)
         {
             GraphVM = graphVM;
             AppState = appState;
+            FileService = fileService;
+        }
+
+        public async Task HandleSaveProjectButtonClick(Visual visualRoot)
+        {
+            await FileService.SaveProjectAsync(visualRoot, GraphVM);
+        }
+
+        public async Task HandleLoadProjectButtonClick(Visual visualRoot)
+        {
+            var dto = await FileService.LoadProjectAsync(visualRoot);
+            if (dto == null) 
+            {
+                return;
+            }
+
+            GraphVM.Clear();
+
+            foreach (var vertexDto in dto.Vertices)
+            {
+                GraphVM.AddNewVertexWithId(vertexDto.Id, vertexDto.X, vertexDto.Y);
+            }
+
+            foreach (var edgeDto in dto.Edges)
+            {
+                GraphVM.AddNewEdge(edgeDto.VertexId1, edgeDto.VertexId2);
+            }
+
+            if (dto is ResultDto resultDto)
+            {
+                AnalysisRestored.Invoke(resultDto.Result);
+            }
         }
 
         public void HandleAnalysisModeListExpandButtonClick()

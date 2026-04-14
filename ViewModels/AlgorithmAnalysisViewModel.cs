@@ -6,6 +6,8 @@ using GraphOptimizer.Services;
 using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.ViewModels.Helpers;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace GraphOptimizer.ViewModels
 {
@@ -18,6 +20,7 @@ namespace GraphOptimizer.ViewModels
         public EditorContext EditorContext { get; init; }
 
         public IVertexCoverService VertexCoverService { get; init; }
+        public IFileService FileService { get; init; }
 
         private AnalysisResult _result = new AnalysisResult(null, [], 0, 0, 0);
         public AnalysisResult Result { 
@@ -49,12 +52,13 @@ namespace GraphOptimizer.ViewModels
         private bool _isDragging = false;
         private Point _dragOffset;
 
-        public AlgorithmAnalysisViewModel(GraphViewModel graphVM, IAppState appState, EditorContext editorContext, IVertexCoverService vertexCoverService)
+        public AlgorithmAnalysisViewModel(GraphViewModel graphVM, IAppState appState, EditorContext editorContext, IVertexCoverService vertexCoverService, IFileService fileService)
         {
             GraphVM = graphVM;
             AppState = appState;
             EditorContext = editorContext;
             VertexCoverService = vertexCoverService;
+            FileService = fileService;
         }
 
         public void Start(AnalysisMode analysisMode)
@@ -64,17 +68,35 @@ namespace GraphOptimizer.ViewModels
             EditorContext.StopSelecting();
             EditorContext.StopConnecting();
             EditorContext.ClearSelection();
-
             EditorContext.SelectedTool = EditorTool.Move;
+
             //List<uint> vertexCoverIds = VertexCoverService.Solve(GraphVM.Model, analysisMode);
             Result = VertexCoverService.Solve(GraphVM.Model, analysisMode);
             GraphVM.ApplyVertexCover(Result.VertexCoverIds);
+
+            IsExpanded = true;
         }
 
         public void Stop()
         {
+            IsExpanded = false;
             GraphVM.ClearVertexCover();
             //IsVisible = false;
+        }
+
+        public void Load(AnalysisResult analysisResult)
+        {
+            EditorContext.StopHovering();
+            EditorContext.StopDragging();
+            EditorContext.StopSelecting();
+            EditorContext.StopConnecting();
+            EditorContext.ClearSelection();
+            EditorContext.SelectedTool = EditorTool.Move;
+
+            Result = analysisResult;
+            GraphVM.ApplyVertexCover(Result.VertexCoverIds);
+
+            IsExpanded = true;
         }
 
         public void HandleDragBarPointerPressed(Point position)
@@ -106,6 +128,11 @@ namespace GraphOptimizer.ViewModels
         public void HandleExpandButtonClick()
         {
             IsExpanded = !IsExpanded;
+        }
+
+        public async Task HandleSaveResultButtonClick(Visual visualRoot)
+        {
+            await FileService.SaveResultAsync(visualRoot, GraphVM, Result);
         }
     }
 }

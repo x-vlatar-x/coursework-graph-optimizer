@@ -26,6 +26,17 @@ namespace GraphOptimizer.Models
             return edge;
         }
 
+        public Vertex AddNewVertexWithId(uint id)
+        {
+            var vertex = new Vertex(id);
+            Vertices.Add(vertex);
+            if (id + 1 > _nextVertexId)
+            {
+                _nextVertexId = id + 1;
+            }
+            return vertex;
+        }
+
         public void RemoveVertex(Vertex vertex)
         {
             Vertices.Remove(vertex);
@@ -43,6 +54,13 @@ namespace GraphOptimizer.Models
         public void RemoveEdge(Edge edge)
         {
             Edges.Remove(edge);
+        }
+
+        public void Clear()
+        {
+            Edges.Clear();
+            Vertices.Clear();
+            _nextVertexId = 1;
         }
 
         //public void ApplyVertexCover(List<uint> vertexIds)

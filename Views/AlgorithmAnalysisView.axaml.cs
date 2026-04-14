@@ -16,6 +16,19 @@ public partial class AlgorithmAnalysisView : UserControl
         InitializeComponent();
     }
 
+    public void OnSaveResultButtonClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+
+        if (sender is Button button && button.Name == "SaveButton")
+        {
+            ViewModel.HandleSaveResultButtonClick(this);
+        }
+    }
+
     public void OnDragBarPointerPressed(object sender, PointerPressedEventArgs e)
     {
         if (ViewModel == null)

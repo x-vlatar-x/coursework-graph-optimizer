@@ -12,24 +12,24 @@
     <Border Classes="PanelCard" Padding="20 0" Height="54">
         <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                <Button Name="SaveButton" Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0" Click="OnSaveProjectButtonClick">
                     <Grid ColumnDefinitions="24, Auto">
                         <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource SaveIconGeometry}"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Зберегти</TextBlock>
                     </Grid>
                 </Button>
-                <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                <Button Name="LoadButton" Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0" Click="OnLoadProjectButtonClick">
                     <Grid ColumnDefinitions="24, Auto">
                         <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource LoadIconGeometry}"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Загрузити</TextBlock>
                     </Grid>
                 </Button>
-                <Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                <!--<Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
                     <Grid ColumnDefinitions="24, Auto">
                         <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource RandomIconGeometry}"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Згенерувати</TextBlock>
                     </Grid>
-                </Button>
+                </Button>-->
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Border Name="AnalysisModeList" 

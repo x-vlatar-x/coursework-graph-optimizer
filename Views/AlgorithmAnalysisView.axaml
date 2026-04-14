@@ -33,7 +33,7 @@
                         </Grid>
                     </Border>
                     <Border Name="AnalysisDetails" Grid.Row="1">
-						<Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="50*, 50*">
+						<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="50*, 50*">
 							<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="14" Foreground="#FFC8FF" Text="{Binding Result.Mode, Converter={StaticResource EnumToDescriptionConverter}}"></TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Margin="0 4 0 0" Foreground="#CCFFC8FF" Text="Кількість вершин"></TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Margin="0 4 0 0" Foreground="#CCFFC8FF" Text="{Binding Result.VertexCount}"></TextBlock>
@@ -41,6 +41,9 @@
                             <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Margin="0 4 0 0" Foreground="#CCFFC8FF" Text="{Binding Result.OperationCount}"></TextBlock>
                             <TextBlock Grid.Row="3" Grid.Column="0" FontSize="14" Margin="0 4 0 0" Foreground="#CCFFC8FF" Text="Витрачено часу"></TextBlock>
                             <TextBlock Grid.Row="3" Grid.Column="1" FontSize="14" Margin="0 4 0 0" Foreground="#CCFFC8FF" Text="{Binding Result.FormattedTime}"></TextBlock>
+                            <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+								<Button Name="SaveButton" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="12 0" Margin="0 16 0 0" Height="28" CornerRadius="6" Background="#1AFFFFFF" Foreground="#FFC8FF" FontSize="14" Click="OnSaveResultButtonClick">Зберегти результати</Button>
+                            </Border>
                         </Grid>
                     </Border>
                 </Grid>
@@ -137,7 +140,7 @@
         </Style>
 
         <Style Selector="Border#WindowContent.expanded Border#AnalysisDetails">
-            <Setter Property="MaxHeight" Value="108"/>
+            <Setter Property="MaxHeight" Value="144"/>
             <Setter Property="Opacity" Value="1"/>
         </Style>
     </UserControl.Styles>

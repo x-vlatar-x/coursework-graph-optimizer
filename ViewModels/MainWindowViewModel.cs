@@ -4,6 +4,7 @@ using GraphOptimizer.Models;
 using GraphOptimizer.Services;
 using GraphOptimizer.ViewModels.GraphCore;
 using GraphOptimizer.ViewModels.Helpers;
+using System.Diagnostics;
 
 namespace GraphOptimizer.ViewModels
 {
@@ -12,6 +13,7 @@ namespace GraphOptimizer.ViewModels
 
         public GraphViewModel SharedGraphVM { get; } = new GraphViewModel(new Graph());
         public IVertexCoverService VertexCoverService { get; init; }
+        public IFileService FileService { get; init; }
 
         public EditorContext EditorContext { get; } = new EditorContext();
 
@@ -30,22 +32,29 @@ namespace GraphOptimizer.ViewModels
         public MainWindowViewModel()
         {
             VertexCoverService = new VertexCoverService();
+            FileService = new FileService();
 
             EditorVM = new GraphEditorViewModel(SharedGraphVM, this, EditorContext);
             TableVM = new GraphTableViewModel(SharedGraphVM, this, EditorContext);
-            HeaderVM = new HeaderViewModel(SharedGraphVM, this);
-            AnalysisVM = new AlgorithmAnalysisViewModel(SharedGraphVM, this, EditorContext, VertexCoverService);
+            HeaderVM = new HeaderViewModel(SharedGraphVM, this, FileService);
+            AnalysisVM = new AlgorithmAnalysisViewModel(SharedGraphVM, this, EditorContext, VertexCoverService, FileService);
 
             HeaderVM.StartAnalysisRequested += (AnalysisMode analysisMode) =>
             {
-                IsAnalysisActive = true;
                 AnalysisVM.Start(analysisMode);
+                IsAnalysisActive = true;
             };
 
             HeaderVM.StopAnalysisRequested += () =>
             {
-                AnalysisVM.Stop();
                 IsAnalysisActive = false;
+                AnalysisVM.Stop();
+            };
+
+            HeaderVM.AnalysisRestored += (AnalysisResult analysisResult) =>
+            {
+                AnalysisVM.Load(analysisResult);
+                IsAnalysisActive = true;
             };
         }
     }

@@ -6,7 +6,12 @@ namespace GraphOptimizer.Services
 {
     public interface ISerializationService
     {
-        string SerializeGraph(GraphViewModel graphVM);
-        GraphDto? DeserializeGraph(string json);
+        string SerializeProject(GraphViewModel graphVM);
+        string SerializeResult(GraphViewModel graphVM, AnalysisResult analysisResult);
+
+        //ProjectDto? DeserializeProject(string json);
+        //ResultDto? DeserializeResult(string json);
+
+        ProjectDto? DeserializeAny(string json);
     }
 }

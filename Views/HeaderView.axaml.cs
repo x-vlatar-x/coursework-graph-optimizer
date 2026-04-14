@@ -18,6 +18,32 @@ public partial class HeaderView : UserControl
         InitializeComponent();
     }
 
+    public void OnSaveProjectButtonClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+
+        if (sender is Button button && button.Name == "SaveButton")
+        {
+            ViewModel.HandleSaveProjectButtonClick(this);
+        }
+    }
+
+    public void OnLoadProjectButtonClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+
+        if (sender is Button button && button.Name == "LoadButton")
+        {
+            ViewModel.HandleLoadProjectButtonClick(this);
+        }
+    }
+
     public void OnAnalysisModeListExpandButtonClick(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)

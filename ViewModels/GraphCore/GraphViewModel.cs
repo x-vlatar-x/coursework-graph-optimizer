@@ -31,6 +31,22 @@ namespace GraphOptimizer.ViewModels.GraphCore
             return AddNewVertex(position.X, position.Y);
         }
 
+        public VertexViewModel AddNewVertexWithId(uint id, double x, double y)
+        {
+            var vertexModel = Model.AddNewVertexWithId(id);
+
+            var vertexViewModel = new VertexViewModel(this, vertexModel, x, y);
+
+            Vertices.Add(vertexViewModel);
+
+            return vertexViewModel;
+        }
+
+        public VertexViewModel AddNewVertexWithId(uint id, Point position)
+        {
+            return AddNewVertexWithId(id, position.X, position.Y);
+        }
+
         public EdgeViewModel? AddNewEdge(VertexViewModel vertexVM1, VertexViewModel vertexVM2)
         {
             if (EdgeExists(vertexVM1, vertexVM2))
@@ -100,6 +116,13 @@ namespace GraphOptimizer.ViewModels.GraphCore
             }
 
             RemoveEdge(edgeVM);
+        }
+
+        public void Clear()
+        {
+            Edges.Clear();
+            Vertices.Clear();
+            Model.Clear();
         }
 
         public void ApplyVertexCover(List<uint> vertexIds)
