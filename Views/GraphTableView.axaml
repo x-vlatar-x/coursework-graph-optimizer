@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:root="using:GraphOptimizer"
              xmlns:models="using:GraphOptimizer.Models"
              xmlns:graphcore="using:GraphOptimizer.ViewModels.GraphCore"
              xmlns:vm="using:GraphOptimizer.ViewModels"
@@ -23,7 +24,12 @@
                                 <StackPanel Orientation="Vertical">
                                     <Border Classes="VertexHeader">
                                         <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto">
-								            <TextBlock Name="VertexId" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Model.Id, StringFormat='\{0\} вершина'}"/>
+								            <!--<TextBlock Name="VertexId" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Model.Id, StringFormat='\{0\} вершина'}"/>-->
+                                            <StackPanel Orientation="Horizontal">
+                                                <!--<TextBlock Text="{Binding DisplayIndex, StringFormat='\{0\} вершина'}" />-->
+                                                <TextBlock Text="{Binding DisplayIndex, StringFormat='Вершина №\{0\}'}" />
+								                <TextBlock Name="VertexId" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Model.Id, StringFormat=' \(ID 0\)'}"/>
+                                            </StackPanel>
 								            <TextBlock Name="EdgeCount" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="{Binding EdgeCount, StringFormat='Суміжні вершини: \{0\}'}"/>
                                             <Button Name="ExpandButton" Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" Click="OnExpandButtonClick">
 									            <Grid>
@@ -89,9 +95,14 @@
                 </ItemsControl>
             </ScrollViewer>
             <Button Name="VertexAddButton" Grid.Row="2" Click="OnVertexAddPressed">
-				<StackPanel>
-					<TextBlock FontSize="14">Додати вершину</TextBlock>
-                </StackPanel>
+				<Grid ColumnDefinitions="24, *, Auto">
+                    <Path Grid.Column="0" Margin="0 0 10 -8" HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource AddVertexIconGeometry}"/>
+					<TextBlock Grid.Column="1" Foreground="#FFC8FF" FontSize="14">Додати вершину</TextBlock>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <TextBlock FontSize="14" Foreground="#FFC8FF" Text="{Binding GraphVM.Vertices.Count}"></TextBlock>
+                        <TextBlock FontSize="14" Foreground="#FFC8FF" Text=" / 50"></TextBlock>
+                    </StackPanel>
+                </Grid>
             </Button>
         </Grid>
     </Border>
@@ -142,9 +153,12 @@
 
         <Style Selector="Button#VertexAddButton">
 			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="#1AFFFFFF"/>
             <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="12 12"/>
+            <Setter Property="Height" Value="44" />
+            <!--<Setter Property="Padding" Value="12 12"/>-->
+            <Setter Property="Padding" Value="12 0"/>
             <Setter Property="Margin" Value="12 0 4 12"/>
             <Setter Property="Opacity" Value="1"/>
             <Setter Property="Transitions">

@@ -16,6 +16,13 @@ namespace GraphOptimizer.ViewModels.GraphCore
             set => SetProperty(ref _isInVertexCover, value); 
         }
 
+        private int _displayIndex;
+        public int DisplayIndex
+        {
+            get => _displayIndex;
+            set => SetProperty(ref _displayIndex, value);
+        }
+
         // Editor state
         private double _x = x;
         public double X

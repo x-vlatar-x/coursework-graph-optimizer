@@ -97,7 +97,7 @@ namespace GraphOptimizer.ViewModels
             var vertex18 = GraphVM.AddNewVertex(390, 300);
             var vertex19 = GraphVM.AddNewVertex(120, 410);
             var vertex20 = GraphVM.AddNewVertex(240, 400);
-            var vertex21 = GraphVM.AddNewVertex(350, 420);
+            var vertex21 = GraphVM.AddNewVertex(350, 370);
 
             GraphVM.AddNewEdge(vertex1, vertex2);
             GraphVM.AddNewEdge(vertex2, vertex3);

@@ -7,15 +7,33 @@ using System.Linq;
 
 namespace GraphOptimizer.ViewModels.GraphCore
 {
-    public class GraphViewModel(Graph model) : ViewModelBase, IAdjacencyContext
+    public class GraphViewModel : ViewModelBase, IAdjacencyContext
     {
-        public Graph Model { get; init; } = model;
+        public Graph Model { get; init; }
         //public ObservableCollection<IGraphObject> GraphObjects { get; } = [];
         public ObservableCollection<VertexViewModel> Vertices { get; } = [];
         public ObservableCollection<EdgeViewModel> Edges { get; } = [];
 
-        public VertexViewModel AddNewVertex(double x, double y)
+        public GraphViewModel(Graph model)
         {
+            Model = model;
+
+            Vertices.CollectionChanged += (s, e) =>
+            {
+                for (int i = 0; i < Vertices.Count; i++)
+                {
+                    Vertices[i].DisplayIndex = i + 1;
+                }
+            };
+        }
+
+        public VertexViewModel? AddNewVertex(double x, double y)
+        {
+            if (Vertices.Count >= AppConstants.MaxVertiecesCount)
+            {
+                return null;
+            }
+
             var vertexModel = Model.AddNewVertex();
 
             var vertexViewModel = new VertexViewModel(this, vertexModel, x, y);
@@ -26,13 +44,18 @@ namespace GraphOptimizer.ViewModels.GraphCore
             return vertexViewModel;
         }
 
-        public VertexViewModel AddNewVertex(Point position)
+        public VertexViewModel? AddNewVertex(Point position)
         {
             return AddNewVertex(position.X, position.Y);
         }
 
-        public VertexViewModel AddNewVertexWithId(uint id, double x, double y)
+        public VertexViewModel? AddNewVertexWithId(uint id, double x, double y)
         {
+            if (Vertices.Count >= AppConstants.MaxVertiecesCount)
+            {
+                return null;
+            }
+
             var vertexModel = Model.AddNewVertexWithId(id);
 
             var vertexViewModel = new VertexViewModel(this, vertexModel, x, y);
@@ -42,7 +65,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
             return vertexViewModel;
         }
 
-        public VertexViewModel AddNewVertexWithId(uint id, Point position)
+        public VertexViewModel? AddNewVertexWithId(uint id, Point position)
         {
             return AddNewVertexWithId(id, position.X, position.Y);
         }
