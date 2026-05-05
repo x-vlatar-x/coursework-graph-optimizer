@@ -52,7 +52,7 @@ namespace GraphOptimizer.ViewModels
         public async Task HandleLoadProjectButtonClick(Visual visualRoot)
         {
             var dto = await FileService.LoadProjectAsync(visualRoot);
-            if (dto == null) 
+            if (dto == null)
             {
                 return;
             }
@@ -75,6 +75,11 @@ namespace GraphOptimizer.ViewModels
             }
         }
 
+        public async void HandleClearButtonClick()
+        {
+            GraphVM.Clear();
+        }
+
         public void HandleAnalysisModeListExpandButtonClick()
         {
             IsAnalysisModeListExpanded = !IsAnalysisModeListExpanded;
@@ -82,7 +87,7 @@ namespace GraphOptimizer.ViewModels
 
         public void HandleActionButtonClick()
         {
-            if (SelectedAnalysisMode == null)
+            if (GraphVM.VerticesCount == 0 || SelectedAnalysisMode == null)
             {
                 return;
             }

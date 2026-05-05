@@ -44,6 +44,19 @@ public partial class HeaderView : UserControl
         }
     }
 
+    public void OnClearButtonClick(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel == null)
+        {
+            return;
+        }
+
+        if (sender is Button button && button.Name == "ClearButton")
+        {
+            ViewModel.HandleClearButtonClick();
+        }
+    }
+
     public void OnAnalysisModeListExpandButtonClick(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)

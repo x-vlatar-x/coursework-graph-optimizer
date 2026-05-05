@@ -4,19 +4,20 @@ using System;
 
 namespace GraphOptimizer.Converters
 {
-    public class CollectionEmptyConverter: IValueConverter
+    public class IntToBoolConverter : IValueConverter
     {
         public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is System.Collections.ICollection collection)
+            if (value is int count)
             {
-                return collection.Count == 0;
+                bool isEmpty = (count == 0);
+
+                if (parameter as string == "Invert")
+                    return isEmpty;
+
+                return !isEmpty;
             }
-            if (value is System.Collections.IEnumerable enumerable)
-            {
-                var enumerator = enumerable.GetEnumerator();
-                return !enumerator.MoveNext();
-            }
+
             return true;
         }
         public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)

@@ -1,4 +1,5 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -56,6 +57,7 @@
             <Setter Property="Width" Value="300"/>
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
             <Setter Property="BoxShadow" Value="0 0 10 0 #4D000000"/>
             <Setter Property="Background">
 				<RadialGradientBrush Center="50%,50%"
@@ -69,6 +71,7 @@
         </Style>
 
         <Style Selector="Window.analysis_mode Border#Window">
+            <Setter Property="IsHitTestVisible" Value="True"/>
 			<Setter Property="Opacity" Value="1"/>
         </Style>
 

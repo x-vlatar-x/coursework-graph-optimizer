@@ -1,6 +1,5 @@
 ﻿using Avalonia.Data;
 using Avalonia.Data.Converters;
-using GraphOptimizer.Enums;
 using System;
 using System.ComponentModel;
 using System.Globalization;

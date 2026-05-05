@@ -1,0 +1,326 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        
+        <!--VERTICES LIST START-->
+        <Style Selector="Border.VertexEntry">
+		    <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12 0 12 0"/>
+            <Setter Property="Margin" Value="32 0 8 8"/>
+            <Setter Property="ClipToBounds" Value="False"/>
+        </Style>
+        
+        <Style Selector="ScrollBar /template/ RepeatButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList">
+            <Setter Property="AllowAutoHide" Value="False"/>
+			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
+			<Setter Property="Margin" Value="0"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical">
+			<Setter Property="Margin" Value="-6 0 -5 0"/>
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical /template/ Rectangle#TrackRect">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="ScrollViewer.VerticesList ScrollBar:vertical /template/ Thumb">
+			<Setter Property="Width" Value="4"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Background" Value="#40FFFFFF"/>
+        </Style>
+
+        <Style Selector="Button#VertexAddButton">
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Height" Value="44" />
+            <Setter Property="Padding" Value="12 0"/>
+            <Setter Property="Margin" Value="12 0 4 12"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="Button#VertexAddButton TextBlock">
+			<Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Button#VertexAddButton">
+			<Setter Property="Margin" Value="12 0 4 -45"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+        <!--VERTICES LIST END-->
+
+        <!--VERTEX HEADER START-->  
+        <Style Selector="Border.VertexHeader">
+		    <Setter Property="Padding" Value="8 6 0 6"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader StackPanel#VertexNumber">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader StackPanel#VertexNumber TextBlock">
+			<Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader StackPanel#VertexNumber TextBlock#VertexIndex">
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader StackPanel#VertexNumber TextBlock#VertexId">
+            <Setter Property="Foreground" Value="#CDFFC8FF"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader TextBlock#EdgeCount">
+			<Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#80FFFFFF"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path#Up">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Button#ExpandButton Path#Down">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.expanded Button#ExpandButton Path#Up">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.expanded Button#ExpandButton Path#Down">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Border#DeleteButton">
+            <Setter Property="Width" Value="14"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="CornerRadius" Value="20 0 0 20"/>
+            <Setter Property="Margin" Value="-34.5 0 0 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Border#DeleteButton Button">
+			<Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>        
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Border.VertexHeader Border#DeleteButton Button Path">
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <!--VERTEX HEADER END-->
+
+        <!--VERTEX DETAILS START-->
+        <Style Selector="Border.VertexDetails">
+			<Setter Property="MaxHeight" Value="0"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Padding" Value="0 4 0 12"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="MaxHeight" Duration="0:0:0.2"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.expanded Border.VertexDetails">
+			<Setter Property="MaxHeight" Value="170"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="ScrollViewer.NeighborsList">
+            <Setter Property="AllowAutoHide" Value="False"/>
+			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="MaxHeight" Value="95"/>
+            <Setter Property="Margin" Value="0 0 0 8"/>
+        </Style>
+
+        <Style Selector="ScrollViewer.NeighborsList.empty">
+			<Setter Property="Margin" Value="0"/>
+        </Style>
+
+         <Style Selector="ScrollViewer.NeighborsList ScrollBar:vertical /template/ Rectangle#TrackRect">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="ScrollViewer.NeighborsList ScrollBar:vertical /template/ Thumb">
+			<Setter Property="Width" Value="4"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Background" Value="#40FFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Margin" Value="0 0 8 8"/>
+            <Setter Property="Padding" Value="12 0"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor:pointerover">
+			<Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#33FFFFFF"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor TextBlock#NeighborId">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor Path">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Margin" Value="-12 0"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor:pointerover TextBlock#NeighborId">
+			<Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.Neighbor:pointerover Path">
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator">
+			<Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="Padding" Value="12 8 12 8"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBlock#Label">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBox#Input">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            
+			<Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Padding" Value="0 4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <Style.Resources>
+                <SolidColorBrush x:Key="TextControlPlaceholderForeground">#66FFC8FF</SolidColorBrush>
+                <SolidColorBrush x:Key="TextControlPlaceholderForegroundPointerOver">#66FFC8FF</SolidColorBrush>
+                <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused">#66FFC8FF</SolidColorBrush>
+            </Style.Resources>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.empty TextBox#Input">
+            <Setter Property="Foreground" Value="#66FFC8FF"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBox#Input:pointerover /template/ Border#PART_BorderElement">
+			<Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator TextBox#Input:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator Button#AddButton">
+			<Setter Property="Width" Value="24"/>
+			<Setter Property="Height" Value="24"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+                
+        <Style Selector="Border.NeighborCreator Button#AddButton:disabled">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator Button#AddButton Path">
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Stroke" Value="#FFC8FF"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator Button#AddButton Path#Valid">
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.invalid Button#AddButton Path#Valid">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.invalid Button#AddButton Path#Invalid">
+            <Setter Property="Stroke" Value="#FF7676"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.empty Button#AddButton Path#Valid">
+            <Setter Property="Opacity" Value="1"/>
+			<Setter Property="Stroke" Value="#66FFC8FF"/>
+        </Style>
+
+        <Style Selector="Border.NeighborCreator.empty Button#AddButton Path#Invalid">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        <!--VERTEX DETAILS END-->
+</Styles>

@@ -4,14 +4,16 @@
         xmlns:vm="using:GraphOptimizer.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="500"
+        mc:Ignorable="d" d:DesignWidth="1020" d:DesignHeight="580"
         MinWidth="1020" MinHeight="580"
+        MaxWidth="1020" MaxHeight="580"
         x:Class="GraphOptimizer.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         FontFamily="Inter"
         Icon="/Assets/avalonia-logo.ico"
         Title="GraphOptimizer"
-        Classes.analysis_mode="{Binding IsAnalysisActive}">
+        Classes.analysis_mode="{Binding IsAnalysisActive}"
+        Classes.graph_not_empty="{Binding SharedGraphVM.VerticesCount, Converter={StaticResource IntToBoolConverter}}">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,

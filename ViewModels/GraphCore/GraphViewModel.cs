@@ -14,6 +14,9 @@ namespace GraphOptimizer.ViewModels.GraphCore
         public ObservableCollection<VertexViewModel> Vertices { get; } = [];
         public ObservableCollection<EdgeViewModel> Edges { get; } = [];
 
+        public int VerticesCount => Vertices.Count;
+        public int EdgesCount => Edges.Count;
+
         public GraphViewModel(Graph model)
         {
             Model = model;
@@ -41,6 +44,8 @@ namespace GraphOptimizer.ViewModels.GraphCore
             //GraphObjects.Add(vertexViewModel);
             Vertices.Add(vertexViewModel);
 
+            OnPropertyChanged(nameof(VerticesCount));
+
             return vertexViewModel;
         }
 
@@ -61,6 +66,8 @@ namespace GraphOptimizer.ViewModels.GraphCore
             var vertexViewModel = new VertexViewModel(this, vertexModel, x, y);
 
             Vertices.Add(vertexViewModel);
+
+            OnPropertyChanged(nameof(VerticesCount));
 
             return vertexViewModel;
         }
@@ -88,6 +95,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
             vertexVM2.NotifyEdgeCountChanged();
             vertexVM1.NotifyNeighborsChanged();
             vertexVM2.NotifyNeighborsChanged();
+            OnPropertyChanged(nameof(EdgesCount));
 
             return edgeViewModel;
         }
@@ -125,6 +133,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
             edgeVM.VertexVM2.NotifyEdgeCountChanged();
             edgeVM.VertexVM1.NotifyNeighborsChanged();
             edgeVM.VertexVM2.NotifyNeighborsChanged();
+            OnPropertyChanged(nameof(EdgesCount));
         }
 
         public void RemoveEdge(VertexViewModel vertexVM1, VertexViewModel vertexVM2)
@@ -139,6 +148,7 @@ namespace GraphOptimizer.ViewModels.GraphCore
             }
 
             RemoveEdge(edgeVM);
+            OnPropertyChanged(nameof(EdgesCount));
         }
 
         public void Clear()
@@ -146,6 +156,8 @@ namespace GraphOptimizer.ViewModels.GraphCore
             Edges.Clear();
             Vertices.Clear();
             Model.Clear();
+            OnPropertyChanged(nameof(VerticesCount));
+            OnPropertyChanged(nameof(EdgesCount));
         }
 
         public void ApplyVertexCover(List<uint> vertexIds)
@@ -168,16 +180,16 @@ namespace GraphOptimizer.ViewModels.GraphCore
             }
         }
 
-        public bool EdgeExists(VertexViewModel vertex1, VertexViewModel vertex2)
+        public bool EdgeExists(VertexViewModel vertexVM1, VertexViewModel vertexVM2)
         {
-            if (vertex1 == null || vertex2 == null)
+            if (vertexVM1 == null || vertexVM2 == null)
             {
                 return false;
             }
 
             return Edges.Any(edgeVM =>
-                (edgeVM.VertexVM1 == vertex1 && edgeVM.VertexVM2 == vertex2) ||
-                (edgeVM.VertexVM1 == vertex2 && edgeVM.VertexVM2 == vertex1)
+                (edgeVM.VertexVM1 == vertexVM1 && edgeVM.VertexVM2 == vertexVM2) ||
+                (edgeVM.VertexVM1 == vertexVM2 && edgeVM.VertexVM2 == vertexVM1)
             );
         }
 

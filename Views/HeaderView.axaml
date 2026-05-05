@@ -21,15 +21,15 @@
                 <Button Name="LoadButton" Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0" Click="OnLoadProjectButtonClick">
                     <Grid ColumnDefinitions="24, Auto">
                         <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource LoadIconGeometry}"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Загрузити</TextBlock>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Завантажити</TextBlock>
                     </Grid>
                 </Button>
-                <!--<Button Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0">
+                <Button Name="ClearButton" Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0" Click="OnClearButtonClick">
                     <Grid ColumnDefinitions="24, Auto">
-                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource RandomIconGeometry}"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Згенерувати</TextBlock>
+                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FF7676" Data="{StaticResource ClearIconGeometry}"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FF7676" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Очистити</TextBlock>
                     </Grid>
-                </Button>-->
+                </Button>
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Border Name="AnalysisModeList" 
@@ -84,6 +84,16 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="MinWidth" Value="0" />
+        </Style>
+
+        <Style Selector="Button#ClearButton">
+			<Setter Property="Opacity" Value="0"/>
+			<Setter Property="IsHitTestVisible" Value="False"/>
+        </Style>
+
+        <Style Selector="Window.graph_not_empty Button#ClearButton">
+			<Setter Property="Opacity" Value="1"/>
+			<Setter Property="IsHitTestVisible" Value="True"/>
         </Style>
 
         <Style Selector="Border#AnalysisModeList">
@@ -176,6 +186,11 @@
             <Setter Property="Height" Value="32"/>
             <Setter Property="Margin" Value="12 0 0 0"/>
             <Setter Property="CornerRadius" Value="6"/>
+			<Setter Property="IsEnabled" Value="False"/>
+        </Style>
+
+        <Style Selector="Window.graph_not_empty Button#ActionButton">
+			<Setter Property="IsEnabled" Value="True"/>
         </Style>
 
         <Style Selector="Button#ActionButton Path">
@@ -189,6 +204,10 @@
         <Style Selector="Button#ActionButton Path#Start">
             <Setter Property="Fill" Value="#FFC8FF"/>
             <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Button#ActionButton:disabled Path#Start">
+            <Setter Property="Fill" Value="#66FFC8FF"/>
         </Style>
 
         <Style Selector="Button#ActionButton Path#Stop">

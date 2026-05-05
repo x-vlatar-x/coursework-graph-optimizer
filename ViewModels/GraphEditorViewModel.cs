@@ -96,8 +96,8 @@ namespace GraphOptimizer.ViewModels
             var vertex17 = GraphVM.AddNewVertex(310, 345);
             var vertex18 = GraphVM.AddNewVertex(390, 300);
             var vertex19 = GraphVM.AddNewVertex(120, 410);
-            var vertex20 = GraphVM.AddNewVertex(240, 400);
-            var vertex21 = GraphVM.AddNewVertex(350, 370);
+            //var vertex20 = GraphVM.AddNewVertex(240, 400);
+            //var vertex21 = GraphVM.AddNewVertex(350, 370);
 
             GraphVM.AddNewEdge(vertex1, vertex2);
             GraphVM.AddNewEdge(vertex2, vertex3);
@@ -115,13 +115,13 @@ namespace GraphOptimizer.ViewModels
             GraphVM.AddNewEdge(vertex4, vertex14);
             GraphVM.AddNewEdge(vertex14, vertex15);
             GraphVM.AddNewEdge(vertex15, vertex19);
-            GraphVM.AddNewEdge(vertex19, vertex20);
-            GraphVM.AddNewEdge(vertex20, vertex16);
+            //GraphVM.AddNewEdge(vertex19, vertex20);
+            //GraphVM.AddNewEdge(vertex20, vertex16);
             GraphVM.AddNewEdge(vertex16, vertex12);
             GraphVM.AddNewEdge(vertex12, vertex11);
             GraphVM.AddNewEdge(vertex9, vertex12);
-            GraphVM.AddNewEdge(vertex10, vertex21);
-            GraphVM.AddNewEdge(vertex21, vertex17);
+            //GraphVM.AddNewEdge(vertex10, vertex21);
+            //GraphVM.AddNewEdge(vertex21, vertex17);
             GraphVM.AddNewEdge(vertex5, vertex8);
         }
 
