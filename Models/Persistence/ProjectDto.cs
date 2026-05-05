@@ -8,6 +8,7 @@ namespace GraphOptimizer.Models.Persistence
     [JsonDerivedType(typeof(ResultDto), typeDiscriminator: "Result")]
     public class ProjectDto
     {
+        [JsonIgnore]
         public virtual string Type { get; init; } = "Project";
         public List<VertexDto> Vertices { get; set; } = new List<VertexDto>();
         public List<EdgeDto> Edges { get; set; } = new List<EdgeDto>();

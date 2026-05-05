@@ -1,6 +1,7 @@
 ﻿using GraphOptimizer.Enums;
 using GraphOptimizer.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GraphOptimizer.Services
 {
@@ -12,9 +13,9 @@ namespace GraphOptimizer.Services
         //List<uint> SolveApprox(Graph graph, bool useRandom = false);
         //List<uint> SolveBacktracking(Graph graph);
 
-        AnalysisResult Solve(Graph graph, AnalysisMode analysisMode);
-        AnalysisResult SolveGreedy(Graph graph);
-        AnalysisResult SolveApprox(Graph graph, bool useRandom = false);
-        AnalysisResult SolveBacktracking(Graph graph);
+        Task<AnalysisResult> Solve(Graph graph, AnalysisMode analysisMode);
+        //AnalysisResult SolveGreedy(Graph graph);
+        //AnalysisResult SolveApprox(Graph graph, bool useRandom = false);
+        //AnalysisResult SolveBacktracking(Graph graph);
     }
 }

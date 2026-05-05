@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GraphOptimizer.Services
 {
@@ -15,15 +16,28 @@ namespace GraphOptimizer.Services
         private int _backtrackingOperationsCount = 0;
 
         //public List<uint> Solve(Graph graph, AnalysisMode analysisMode)
-        public AnalysisResult Solve(Graph graph, AnalysisMode analysisMode)
+        //public AnalysisResult Solve(Graph graph, AnalysisMode analysisMode)
+        //{
+        //    return analysisMode switch
+        //    {
+        //        AnalysisMode.Greedy => this.SolveGreedy(graph),
+        //        AnalysisMode.Approx => this.SolveApprox(graph, true),
+        //        AnalysisMode.Backtracking => this.SolveBacktracking(graph),
+        //        _ => new AnalysisResult(AnalysisMode.Greedy, [], 0, 0, 0)
+        //    };
+        //}
+        public async Task<AnalysisResult> Solve(Graph graph, AnalysisMode analysisMode)
         {
-            return analysisMode switch
+            return await Task.Run(() =>
             {
-                AnalysisMode.Greedy => this.SolveGreedy(graph),
-                AnalysisMode.Approx => this.SolveApprox(graph, true),
-                AnalysisMode.Backtracking => this.SolveBacktracking(graph),
-                _ => new AnalysisResult(AnalysisMode.Greedy, [], 0, 0, 0)
-            }; 
+                return analysisMode switch
+                {
+                    AnalysisMode.Greedy => this.SolveGreedy(graph),
+                    AnalysisMode.Approx => this.SolveApprox(graph, true),
+                    AnalysisMode.Backtracking => this.SolveBacktracking(graph),
+                    _ => new AnalysisResult(AnalysisMode.Greedy, [], 0, 0, 0)
+                };
+            });
         }
 
         //public List<uint> SolveGreedy(Graph graph)

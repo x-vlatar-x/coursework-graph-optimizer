@@ -8,6 +8,11 @@ namespace GraphOptimizer.Services
 {
     public class SerializationService: ISerializationService
     {
+        private static readonly JsonSerializerOptions _options = new()
+        {
+            WriteIndented = true
+        };
+
         public string SerializeProject(GraphViewModel graphVM)
         {
             var projectDto = new ProjectDto(
@@ -19,7 +24,7 @@ namespace GraphOptimizer.Services
                 ).ToList()
             );
 
-            string json = JsonSerializer.Serialize(projectDto, new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(projectDto, _options);
 
             return json;
         }
@@ -36,24 +41,11 @@ namespace GraphOptimizer.Services
                 analysisResult: analysisResult
             );
 
-            string json = JsonSerializer.Serialize(resultDto, new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(resultDto, _options);
 
             return json;
         }
 
-        //public ProjectDto? DeserializeProject(string json)
-        //{
-        //    var projectDto = JsonSerializer.Deserialize<ProjectDto>(json);
-
-        //    return projectDto;
-        //}
-
-        //public ResultDto? DeserializeResult(string json)
-        //{
-        //    var resultDto = JsonSerializer.Deserialize<ResultDto>(json);
-
-        //    return resultDto;
-        //}
         public ProjectDto? DeserializeAny(string json)
         {
             return JsonSerializer.Deserialize<ProjectDto>(json);

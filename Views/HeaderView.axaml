@@ -11,23 +11,23 @@
 
     <Border Classes="PanelCard" Padding="20 0" Height="54">
         <Grid RowDefinitions="*" ColumnDefinitions="Auto, *, Auto">
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Button Name="SaveButton" Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0" Click="OnSaveProjectButtonClick">
+            <StackPanel Classes="HeaderButtons" Grid.Column="0" Orientation="Horizontal">
+                <Button Name="SaveButton" Click="OnSaveProjectButtonClick">
                     <Grid ColumnDefinitions="24, Auto">
-                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource SaveIconGeometry}"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Зберегти</TextBlock>
+                        <Path Grid.Column="0" Data="{StaticResource SaveIconGeometry}"/>
+                        <TextBlock Grid.Column="1">Зберегти</TextBlock>
                     </Grid>
                 </Button>
-                <Button Name="LoadButton" Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0" Click="OnLoadProjectButtonClick">
+                <Button Name="LoadButton" Click="OnLoadProjectButtonClick">
                     <Grid ColumnDefinitions="24, Auto">
-                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FFC8FF" Data="{StaticResource LoadIconGeometry}"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FFC8FF" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Завантажити</TextBlock>
+                        <Path Grid.Column="0" Data="{StaticResource LoadIconGeometry}"/>
+                        <TextBlock Grid.Column="1">Завантажити</TextBlock>
                     </Grid>
                 </Button>
-                <Button Name="ClearButton" Background="Transparent" Foreground="#FFFFFF" Padding="0" Margin="0 0 12 0" Click="OnClearButtonClick">
+                <Button Name="ClearButton" Click="OnClearButtonClick">
                     <Grid ColumnDefinitions="24, Auto">
-                        <Path Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="24" Height="24" Fill="#FF7676" Data="{StaticResource ClearIconGeometry}"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="#FF7676" FontSize="14" FontWeight="Medium" Margin="5 0 0 0">Очистити</TextBlock>
+                        <Path Grid.Column="0" Data="{StaticResource ClearIconGeometry}"/>
+                        <TextBlock Grid.Column="1">Очистити</TextBlock>
                     </Grid>
                 </Button>
             </StackPanel>
@@ -86,9 +86,41 @@
             <Setter Property="MinWidth" Value="0" />
         </Style>
 
-        <Style Selector="Button#ClearButton">
+        <Style Selector="StackPanel.HeaderButtons Button">
+            <Setter Property="Padding" Value="4 4"/>
+            <Setter Property="Margin" Value="0 0 4 0"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+
+        <Style Selector="StackPanel.HeaderButtons Button Path">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Fill" Value="#FFC8FF"/>
+        </Style>
+
+        <Style Selector="StackPanel.HeaderButtons Button TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+
+        <Style Selector="StackPanel.HeaderButtons Button#ClearButton">
 			<Setter Property="Opacity" Value="0"/>
 			<Setter Property="IsHitTestVisible" Value="False"/>
+        </Style>
+
+        <Style Selector="StackPanel.HeaderButtons Button#ClearButton Path">
+            <Setter Property="Fill" Value="#FF7676"/>
+        </Style>
+
+        <Style Selector="StackPanel.HeaderButtons Button#ClearButton TextBlock">
+            <Setter Property="Foreground" Value="#FF7676"/>
         </Style>
 
         <Style Selector="Window.graph_not_empty Button#ClearButton">

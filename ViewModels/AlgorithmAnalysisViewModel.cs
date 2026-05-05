@@ -61,7 +61,7 @@ namespace GraphOptimizer.ViewModels
             FileService = fileService;
         }
 
-        public void Start(AnalysisMode analysisMode)
+        public async Task Start(AnalysisMode analysisMode)
         {
             EditorContext.StopHovering();
             EditorContext.StopDragging();
@@ -71,7 +71,7 @@ namespace GraphOptimizer.ViewModels
             EditorContext.SelectedTool = EditorTool.Move;
 
             //List<uint> vertexCoverIds = VertexCoverService.Solve(GraphVM.Model, analysisMode);
-            Result = VertexCoverService.Solve(GraphVM.Model, analysisMode);
+            Result = await VertexCoverService.Solve(GraphVM.Model, analysisMode);
             GraphVM.ApplyVertexCover(Result.VertexCoverIds);
 
             IsExpanded = true;
