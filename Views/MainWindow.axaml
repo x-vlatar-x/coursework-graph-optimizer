@@ -23,16 +23,6 @@
 
     <Border Padding="16">
         <Border.Background>
-			<!--<RadialGradientBrush Center="50%,50%"
-                                 GradientOrigin="60%,-10%"
-                                 Radius="1">
-                --><!--<GradientStop Color="#880097" Offset="0"/>
-                <GradientStop Color="#1C4DB0" Offset="0.5"/>
-                <GradientStop Color="#002061" Offset="1"/>--><!--
-                <GradientStop Color="#880097" Offset="0"/>
-                <GradientStop Color="#1C4DB0" Offset="0.5"/>
-                <GradientStop Color="#002061" Offset="1"/>
-            </RadialGradientBrush>-->
 			<RadialGradientBrush Center="50%,50%"
                                  GradientOrigin="70%,-10%"
                                  Radius="1">
@@ -75,7 +65,6 @@
         </Style>
 
         <Style Selector="Image.CatImage">
-            <!--VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="200"--> 
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Width" Value="250"/>

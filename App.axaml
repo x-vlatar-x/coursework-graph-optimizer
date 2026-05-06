@@ -14,8 +14,10 @@
         <FluentTheme />
         <StyleInclude Source="/Styles/GlobalStyles.axaml" />
         <StyleInclude Source="/Styles/LayoutStyles.axaml" />
+        <StyleInclude Source="/Styles/HeaderStyles.axaml" />
         <StyleInclude Source="/Styles/GraphEditorStyles.axaml" />
         <StyleInclude Source="/Styles/GraphTableStyles.axaml" />
+        <StyleInclude Source="/Styles/AlgorithmAnalysisStyles.axaml" />
     </Application.Styles>
 
 	<Application.Resources>
@@ -52,16 +54,4 @@
         <converters:OffsetConverter x:Key="OffsetConverter"/>
         <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
     </Application.Resources>
-
-    <!--<Application.Resources>
-        <FontFamily x:Key="InterFont">avares://GraphOptimizer/Assets/Fonts/InterFont#Inter</FontFamily>
-    </Application.Resources>-->
-
-        <!--<FontFamily x:Key="InterFont">
-            --><!--<FontFamily.FontAssets>
-                <FontAsset Path="avares://GraphOptimizer/Assets/Fonts/Inter-Regular.ttf"/>
-            </FontFamily.FontAssets>--><!--
-            --><!--<FontFamily.FontAssets--><!--
-        </FontFamily>-->
-        <!--<FontFamily x:Key="InterFont">avares://GraphOptimizer/Assets/Fonts/#Inter Thin</FontFamily>-->
 </Application>

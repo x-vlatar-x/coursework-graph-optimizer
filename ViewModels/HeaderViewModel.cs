@@ -6,7 +6,6 @@ using GraphOptimizer.Models.Persistence;
 using GraphOptimizer.Services;
 using GraphOptimizer.ViewModels.GraphCore;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace GraphOptimizer.ViewModels
@@ -71,6 +70,7 @@ namespace GraphOptimizer.ViewModels
 
             if (dto is ResultDto resultDto)
             {
+                SelectedAnalysisMode = resultDto.Result.Mode;
                 AnalysisRestored.Invoke(resultDto.Result);
             }
         }

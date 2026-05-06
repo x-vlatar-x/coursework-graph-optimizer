@@ -6,6 +6,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using GraphOptimizer.Enums;
 using GraphOptimizer.ViewModels;
+using System.Diagnostics;
 
 namespace GraphOptimizer.Views;
 
@@ -18,7 +19,7 @@ public partial class HeaderView : UserControl
         InitializeComponent();
     }
 
-    public void OnSaveProjectButtonClick(object? sender, RoutedEventArgs e)
+    public async void OnSaveProjectButtonClick(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)
         {
@@ -27,11 +28,11 @@ public partial class HeaderView : UserControl
 
         if (sender is Button button && button.Name == "SaveButton")
         {
-            ViewModel.HandleSaveProjectButtonClick(this);
+            await ViewModel.HandleSaveProjectButtonClick(this);
         }
     }
 
-    public void OnLoadProjectButtonClick(object? sender, RoutedEventArgs e)
+    public async void OnLoadProjectButtonClick(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)
         {
@@ -40,7 +41,7 @@ public partial class HeaderView : UserControl
 
         if (sender is Button button && button.Name == "LoadButton")
         {
-            ViewModel.HandleLoadProjectButtonClick(this);
+            await ViewModel.HandleLoadProjectButtonClick(this);
         }
     }
 

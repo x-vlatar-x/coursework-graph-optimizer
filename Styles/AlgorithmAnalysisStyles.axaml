@@ -1,0 +1,139 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <!--WINDOW START-->
+		<Style Selector="Border#Window">
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="BoxShadow" Value="0 0 10 0 #4D000000"/>
+            <Setter Property="Background">
+				<RadialGradientBrush Center="50%,50%"
+                                     GradientOrigin="100%,0%"
+                                     RadiusX="100%"
+                                     RadiusY="100%">
+                    <GradientStop Color="#0748CC" Offset="0"/>
+                    <GradientStop Color="#8200BE" Offset="1"/>
+                </RadialGradientBrush>
+            </Setter>
+        </Style>
+
+        <Style Selector="Window.analysis_mode Border#Window">
+            <Setter Property="IsHitTestVisible" Value="True"/>
+			<Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border#WindowContent">
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="BorderBrush" Value="#4DFFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="ClipToBounds" Value="True"/>
+        </Style>
+
+        <Style Selector="TextBlock#WindowTitle">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Border#DragBar">
+			<Setter Property="Margin" Value="-4 2 4 0"/>
+            <Setter Property="Width" Value="40"/>
+        </Style>
+
+        <Style Selector="Border#DragBar Path">
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Fill" Value="#99FFC8FF"/>
+        </Style>
+        <!--WINDOW END-->
+
+        <!--ANALYSIS HEADER START-->
+        <Style Selector="Border#AnalysisHeader">
+			<Setter Property="Height" Value="46"/>
+            <Setter Property="Padding" Value="16 0"/>
+        </Style>
+
+        <Style Selector="Border#AnalysisHeader">
+			<Setter Property="Height" Value="46"/>
+            <Setter Property="Padding" Value="16 0"/>
+        </Style>
+
+        <Style Selector="Button#ExpandButton">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Button#ExpandButton Path">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Stroke" Value="#FFC8FF"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+        </Style>
+
+        <Style Selector="Button#ExpandButton Path#Up">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+
+        <Style Selector="Button#ExpandButton Path#Down">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border#WindowContent.expanded Button#ExpandButton Path#Up">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Border#WindowContent.expanded Button#ExpandButton Path#Down">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        <!--ANALYSIS HEADER END-->
+        
+        <!--ANALYSIS DETAILS START-->
+        <Style Selector="Border#AnalysisDetails">
+			<Setter Property="Padding" Value="16 0 16 12"/>
+            <Setter Property="MaxHeight" Value="0"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="MaxHeight" Duration="0:0:0.2"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border#WindowContent.expanded Border#AnalysisDetails">
+            <Setter Property="MaxHeight" Value="144"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+         <Style Selector="Border#AnalysisDetails TextBlock.Title">
+			 <Setter Property="HorizontalAlignment" Value="Center"/>
+             <Setter Property="FontSize" Value="14"/>
+             <Setter Property="Foreground" Value="#FFC8FF"/>
+         </Style>
+
+         <Style Selector="Border#AnalysisDetails TextBlock.Param">
+             <Setter Property="FontSize" Value="14"/>
+             <Setter Property="Margin" Value="0 4 0 0" />
+             <Setter Property="Foreground" Value="#CCFFC8FF"/>
+         </Style>
+
+        <Style Selector="Border#AnalysisDetails Button#SaveButton">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="12 0"/>
+            <Setter Property="Margin" Value="0 16 0 0"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="Foreground" Value="#FFC8FF"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <!--ANALYSIS DETAILS END-->
+</Styles>

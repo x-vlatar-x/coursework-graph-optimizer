@@ -88,7 +88,6 @@ namespace GraphOptimizer.ViewModels.GraphCore
 
             var edgeViewModel = new EdgeViewModel(edgeModel, vertexVM1, vertexVM2);
 
-            //GraphObjects.Add(edgeViewModel);
             Edges.Add(edgeViewModel);
 
             vertexVM1.NotifyEdgeCountChanged();
@@ -116,6 +115,9 @@ namespace GraphOptimizer.ViewModels.GraphCore
             var edgesToRemove = Edges
                 .Where(edge => edge.VertexVM1 == vertexVM || edge.VertexVM2 == vertexVM)
                 .ToList();
+
+            OnPropertyChanged(nameof(VerticesCount));
+            OnPropertyChanged(nameof(EdgesCount));
 
             foreach (var edgeVM in edgesToRemove)
             {

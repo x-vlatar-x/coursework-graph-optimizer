@@ -12,7 +12,6 @@
     
     <Border Classes="PanelCard">
 	    <Grid RowDefinitions="Auto, *">
-            <!--<TextBlock Classes="PanelTitle">Графічне подання</TextBlock>-->
             <Border Grid.Row="0" Classes="PanelTitle">
                 <TextBlock>Графічне подання</TextBlock>
             </Border>
@@ -66,7 +65,6 @@
                                                                 Y="{Binding Y, Converter={StaticResource OffsetConverter}, ConverterParameter=-12}"/>
                                         </Grid.RenderTransform>
 										
-                                        <!--<TextBlock Classes="Id" Text="{Binding Model.Id}"/>-->
                                         <TextBlock Classes="Id" Text="{Binding DisplayIndex}"/>
                                         <Border Classes="Aura"/>
                                         <Border Classes="Base"/>
@@ -95,11 +93,7 @@
                                        Width="{Binding EditorContext.SelectionRect.Width}"
                                        Height="{Binding EditorContext.SelectionRect.Height}"
                                        IsVisible="{Binding EditorContext.IsSelecting}"
-                                       Fill="#22FFA500" 
-                                       Stroke="Orange"
-                                       StrokeThickness="1"
-                                       StrokeDashArray="4,2"
-                                       IsHitTestVisible="False"/>
+                                       Name="SelectionArea"/>
                         </Canvas>
                     </Grid>
                 </Border>
@@ -152,159 +146,4 @@
             </Grid>
         </Grid>
     </Border>
-
-    <UserControl.Styles>
-        <Style Selector="Border.vertex_tool">
-			<Setter Property="Cursor" Value="None"/>
-        </Style>
-
-        <!--EDGE START-->
-        <Style Selector="Line.Edge">
-		    <Setter Property="Stroke" Value="#CCFF82FF"/>
-            <Setter Property="StrokeThickness" Value="4"/>
-            <Setter Property="Opacity" Value="1"/>
-            <Setter Property="StrokeLineCap" Value="Round"/>
-        </Style>
-
-        <Style Selector="Border.move_tool Line.Edge.hovered">
-			<Setter Property="Stroke" Value="#FF64B4"/>
-        </Style>
-
-        <Style Selector="Border.move_tool Line.Edge.selected">
-			<Setter Property="Stroke" Value="#FF7676"/>
-        </Style>
-
-        <!--EDGE END-->
-
-        <!--VERTEX START-->
-        <Style Selector="Grid.Vertex">
-			<Setter Property="Width" Value="24"/>
-            <Setter Property="Height" Value="24"/>
-        </Style>
-
-        <Style Selector="Grid.Vertex TextBlock.Id">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Margin" Value="0 -24 0 0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="#FFC8FF"/>
-        </Style>
-
-        <Style Selector="Grid.Vertex Border.Aura">
-            <Setter Property="BorderBrush" Value="#FF82FF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="20"/>
-			<Setter Property="BoxShadow">
-                <BoxShadows>0 0 8 2 #FF82FF</BoxShadows>
-            </Setter>
-        </Style>
-
-        <Style Selector="Grid.Vertex Border.Base">
-            <Setter Property="CornerRadius" Value="20"/>
-            <Setter Property="Background" Value="#FF82FF"/>
-            <Setter Property="Opacity" Value="0.5"/>
-        </Style>
-
-        <Style Selector="Grid.Vertex Border.Core">
-            <Setter Property="Width" Value="8"/>
-            <Setter Property="Height" Value="8"/>
-            <Setter Property="CornerRadius" Value="20"/>
-            <Setter Property="Background" Value="#FF82FF"/>
-        </Style>
-
-        <Style Selector="Window.analysis_mode Grid.Vertex">
-			<Setter Property="Opacity" Value="0.1"/>
-        </Style>
-
-        <Style Selector="Window.analysis_mode Grid.Vertex.covered">
-			<Setter Property="Opacity" Value="1"/>
-        </Style>
-
-        <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Aura, 
-                         Border.edge_tool Grid.Vertex.hovered Border.Aura">
-            <Setter Property="BorderBrush" Value="#FF64B4"/>
-			<Setter Property="BoxShadow">
-                <BoxShadows>0 0 8 2 #FF64B4</BoxShadows>
-            </Setter>
-        </Style>
-
-        <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Base, 
-                         Border.edge_tool Grid.Vertex.hovered Border.Base">
-            <Setter Property="Background" Value="#FF64B4"/>
-        </Style>
-
-        <Style Selector="Border.move_tool Grid.Vertex.hovered Border.Core, 
-                         Border.edge_tool Grid.Vertex.hovered Border.Core">
-            <Setter Property="Background" Value="#FF64B4"/>
-        </Style>
-
-        
-        <Style Selector="Border.move_tool Grid.Vertex.selected Border.Aura, 
-                         Border.edge_tool Grid.Vertex.selected Border.Aura">
-            <Setter Property="BorderBrush" Value="#FF7676"/>
-            <Setter Property="BoxShadow">
-                <BoxShadows>0 0 8 2 #FF7676</BoxShadows>
-            </Setter>
-        </Style>
-
-        <Style Selector="Border.move_tool Grid.Vertex.selected Border.Base, 
-                         Border.edge_tool Grid.Vertex.selected Border.Base">
-            <Setter Property="Background" Value="#FF7676"/>
-        </Style>
-
-        <Style Selector="Border.move_tool Grid.Vertex.selected Border.Core, 
-                         Border.edge_tool Grid.Vertex.selected Border.Core">
-            <Setter Property="Background" Value="#FF7676"/>
-        </Style>
-        <!--VERTEX END-->
-
-        <!--PHANTOM VERTEX START-->
-        <Style Selector="Grid.PhantomVertex">
-			<Setter Property="Width" Value="20"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Opacity" Value="0"/>
-            <Setter Property="IsHitTestVisible" Value="False"/>
-        </Style>
-
-        <Style Selector="Grid.PhantomVertex Border.Aura">
-            <Setter Property="BorderBrush" Value="#FF64B4"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="20"/>
-			<Setter Property="BoxShadow">
-                <BoxShadows>0 0 8 2 #FF64B4</BoxShadows>
-            </Setter>
-        </Style>
-
-        <Style Selector="Grid.PhantomVertex Border.Base">
-            <Setter Property="CornerRadius" Value="20"/>
-            <Setter Property="Background" Value="#FF64B4"/>
-            <Setter Property="Opacity" Value="0.5"/>
-        </Style>
-
-        <Style Selector="Grid.PhantomVertex Border.Core">
-            <Setter Property="Width" Value="6"/>
-            <Setter Property="Height" Value="6"/>
-            <Setter Property="CornerRadius" Value="20"/>
-            <Setter Property="Background" Value="#FF64B4"/>
-        </Style>
-
-        <Style Selector="Border.vertex_tool.mouse_inside Grid.PhantomVertex">
-			<Setter Property="Opacity" Value="1"/>
-        </Style>
-        <!--PHANTOM VERTEX END-->
-
-        <!--PHANTOM EDGE START-->
-        <Style Selector="Line.PhantomEdge">
-		    <Setter Property="Stroke" Value="#D77777"/>
-            <Setter Property="StrokeThickness" Value="4"/>
-            <Setter Property="Opacity" Value="0"/>
-            <Setter Property="IsHitTestVisible" Value="False"/>
-        </Style>
-
-        <Style Selector="Border.edge_tool Line.PhantomEdge.connecting">
-			<Setter Property="Opacity" Value="1"/>
-        </Style>
-        <!--PHANTOM EDGE END-->
-    </UserControl.Styles>
 </UserControl>
